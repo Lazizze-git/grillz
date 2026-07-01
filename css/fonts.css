@@ -1,0 +1,12 @@
+/* ============================================================
+   POLICES — Switzer (variable, auto-hébergée)
+   © Indian Type Foundry · Fontshare
+   ============================================================ */
+@font-face {
+  font-family: "Switzer";
+  src: url("../assets/fonts/Switzer-Variable.woff2") format("woff2"),
+    url("../assets/fonts/Switzer-Variable.woff") format("woff");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}

@@ -1,0 +1,234 @@
+/* ============================================================
+   BASE — typographie, layout, helpers, boutons, labels
+   ============================================================ */
+body {
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+/* --- Titres --- */
+.display {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+h1.display {
+  font-size: var(--step-4);
+}
+h2.display {
+  font-size: var(--step-3);
+}
+
+p {
+  max-width: 62ch;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: 600;
+}
+
+/* --- Layout --- */
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.muted {
+  color: var(--ink-55);
+}
+
+/* --- Label / mono technique --- */
+.label,
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  color: var(--ink-70);
+}
+.label--muted {
+  color: var(--ink-35);
+}
+.label::before {
+  content: "";
+  width: 1.6em;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+.label--nodash::before {
+  display: none;
+}
+
+/* index numérique éditorial */
+.index-num {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+/* --- En-tête de page (pages intérieures) --- */
+.page-head {
+  padding-top: calc(clamp(8rem, 16vw, 12rem) + var(--top-gap));
+  padding-bottom: clamp(2.5rem, 6vw, 5rem);
+  border-bottom: 1px solid var(--line);
+}
+.page-head__label {
+  margin-bottom: 1.6rem;
+}
+.page-head h1 {
+  max-width: 15ch;
+  margin-bottom: 1.6rem;
+}
+.page-head h1 em {
+  font-style: normal;
+  color: var(--ink);
+}
+.page-head > p {
+  color: var(--ink-55);
+  max-width: 48ch;
+  font-size: var(--step-1);
+}
+
+/* --- Boutons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 0.95em 1.5em;
+  border: 1px solid var(--ink);
+  border-radius: 100px;
+  background: transparent;
+  transition: background var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out),
+    transform var(--dur-press) var(--ease-out);
+}
+.btn .arrow {
+  transition: transform var(--dur) var(--ease-out);
+}
+.btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+  transform: translateY(-2px);
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn:hover .arrow {
+  transform: translateX(4px);
+}
+.btn--solid {
+  background: var(--ink);
+  color: var(--bg);
+}
+.btn--solid:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg-ink);
+}
+
+/* --- Lien souligné animé --- */
+.link {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding-bottom: 2px;
+}
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: right;
+  transition: transform 0.3s var(--ease-out);
+}
+.link:hover::after {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* --- Reveal au scroll (progressive enhancement) --- */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal[data-delay="1"] {
+  transition-delay: 0.06s;
+}
+.reveal[data-delay="2"] {
+  transition-delay: 0.12s;
+}
+.reveal[data-delay="3"] {
+  transition-delay: 0.18s;
+}
+.reveal[data-delay="4"] {
+  transition-delay: 0.24s;
+}
+.reveal[data-delay="5"] {
+  transition-delay: 0.3s;
+}
+
+/* Révélateur masqué : le contenu monte depuis sous une ligne (façon Webflow) */
+.reveal-mask {
+  overflow: hidden;
+  padding-bottom: 0.1em;
+}
+.js .reveal-mask > span {
+  display: block;
+  opacity: 0;
+  transform: translateY(105%);
+  transition: transform 0.9s var(--ease-out), opacity 0.9s var(--ease-out);
+}
+.js .reveal-mask.is-visible > span {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Marqueur "en Suisse" --- */
+.swiss-flag {
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  background: var(--accent);
+  position: relative;
+  border-radius: 1px;
+}

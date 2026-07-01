@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galerie des créations — Swiss Grillz Atelier</title>
+    <meta
+      name="description"
+      content="Galerie de grillz sur mesure : or, diamants, pièces complètes, dents individuelles et créations custom façonnées à la main en Suisse."
+    />
+    <link rel="canonical" href="https://www.swissgrillzatelier.ch/galerie.html" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Galerie des créations — Swiss Grillz Atelier" />
+    <meta property="og:description" content="Or, diamants, grillz complets, dents individuelles, custom. Découvrez nos créations." />
+    <meta property="og:url" content="https://www.swissgrillzatelier.ch/galerie.html" />
+    <meta property="og:image" content="https://www.swissgrillzatelier.ch/assets/img/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="fr_CH" />
+    <meta property="og:site_name" content="Swiss Grillz Atelier" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Galerie des créations — Swiss Grillz Atelier" />
+    <meta name="twitter:image" content="https://www.swissgrillzatelier.ch/assets/img/og-image.jpg" />
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="cursor" aria-hidden="true">
+      <span class="cursor__dot"></span>
+      <span class="cursor__ring"></span>
+    </div>
+
+    <header class="nav">
+      <div class="wrap nav__inner">
+        <a href="index.html" class="nav__logo" aria-label="Swiss Grillz Atelier — accueil">
+          <b>Swiss Grillz</b>
+          <span>Atelier · CH</span>
+        </a>
+        <nav class="nav__links" aria-label="Navigation principale">
+          <a href="savoir-faire.html">Savoir-faire</a>
+          <a href="processus.html">Processus</a>
+          <a href="galerie.html" aria-current="page">Galerie</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <a href="contact.html" class="btn nav__cta">Rendez-vous <span class="arrow">→</span></a>
+        <button class="nav__burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="menu" id="menu">
+      <div class="menu__head">
+        <span>Index //</span>
+        <span>Swiss Grillz Atelier</span>
+      </div>
+      <nav class="menu__list" aria-label="Menu">
+        <ul>
+          <li><a href="index.html"><span class="menu__name">Accueil</span><span class="menu__desc">Entrée en matière</span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="savoir-faire.html"><span class="menu__name">Savoir-faire</span><span class="menu__desc">Origine &amp; profil</span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="processus.html"><span class="menu__name">Processus</span><span class="menu__desc">De l'empreinte à l'écrin</span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="galerie.html"><span class="menu__name">Galerie</span><span class="menu__desc">Les créations</span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="contact.html"><span class="menu__name">Contact</span><span class="menu__desc">Devis &amp; rendez-vous</span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+        </ul>
+      </nav>
+      <div class="menu__foot">
+        <a href="mailto:atelier@swissgrillz.ch" class="link">atelier@swissgrillz.ch</a>
+        <a href="https://instagram.com" class="link" target="_blank" rel="noopener">Instagram ↗</a>
+        <span class="label label--muted label--nodash">Genève · Suisse</span>
+      </div>
+    </div>
+
+    <main>
+      <section class="page-head wrap">
+        <p class="page-head__label label">04// Galerie</p>
+        <h1 class="display">Nos <em>créations</em>.</h1>
+        <p>Chaque pièce est une commande unique. Cliquez pour découvrir matériaux, détails et histoire.</p>
+      </section>
+
+      <section class="section wrap" aria-label="Galerie filtrable">
+        <div class="gallery-bar reveal">
+          <div class="filters" role="group" aria-label="Filtrer par style">
+            <span class="filters__label">Filtrer //</span>
+            <button class="filter is-active" data-filter="all">Tout</button>
+            <button class="filter" data-filter="or">Or</button>
+            <button class="filter" data-filter="diamants">Diamants</button>
+            <button class="filter" data-filter="complet">Complet</button>
+            <button class="filter" data-filter="individuelles">Individuelles</button>
+            <button class="filter" data-filter="custom">Custom</button>
+          </div>
+          <span class="gallery-count" data-count>12 pièces</span>
+        </div>
+
+        <div class="grid-gallery reveal">
+          <article class="tile" data-cat="complet or" data-ref="SGA-01" data-name="Aurum" data-material="Argent 925 &amp; Or 18K" data-teeth="Pleine bouche · 16 dents" data-duree="6 semaines" data-style="Poli miroir, dent en or">
+            <div class="tile__media"><span class="tile__ref">SGA-01</span><img src="assets/img/aurum-01.jpg" alt="Grillz pleine bouche en argent poli avec une dent en or" loading="lazy" /></div>
+            <div class="tile__foot"><span class="tile__name">Aurum</span><span class="tile__tag">Argent &amp; Or 18K</span></div>
+          </article>
+
+          <article class="tile" data-cat="complet custom" data-ref="SGA-02" data-name="Onyx" data-material="Rhodium noir sur argent" data-teeth="Pleine bouche · crocs" data-duree="7 semaines" data-style="Finition noire, anatomique">
+            <div class="tile__media"><span class="tile__ref">SGA-02</span><img src="assets/img/onyx-01.jpg" alt="Grillz pleine bouche en rhodium noir avec crocs" loading="lazy" /></div>
+            <div class="tile__foot"><span class="tile__name">Onyx</span><span class="tile__tag">Rhodium noir</span></div>
+          </article>
+
+          <article class="tile" data-cat="individuelles or" data-ref="SGA-05" data-name="Solaire" data-material="Or rose 18K" data-teeth="3 dents · crocs" data-duree="4 semaines" data-style="Crocs polis">
+            <div class="tile__media"><span class="tile__ref">SGA-05</span><img src="assets/img/solaire-01.jpg" alt="Crocs en or rose sur moulage dentaire" loading="lazy" /></div>
+            <div class="tile__foot"><span class="tile__name">Solaire</span><span class="tile__tag">Or rose 18K</span></div>
+          </article>
+
+          <article class="tile" data-cat="custom complet" data-ref="SGA-04" data-name="Memento" data-material="Argent 925 sculpté" data-teeth="Bandeau · 8 motifs" data-duree="8 semaines" data-style="Têtes de mort &amp; ossements">
+            <div class="tile__media"><span class="tile__ref">SGA-04</span><img src="assets/img/memento-01.jpg" alt="Grillz en argent sculpté de têtes de mort et d'ossements" loading="lazy" /></div>
+            <div class="tile__foot"><span class="tile__name">Memento</span><span class="tile__tag">Argent sculpté</span></div>
+          </article>
+
+          <article class="tile" data-cat="diamants individuelles or" data-ref="SGA-03" data-name="Émeraude" data-material="Or blanc 18K" data-teeth="Dents individuelles" data-duree="6 semaines" data-style="Sertissage pierre verte">
+            <div class="tile__media"><span class="tile__ref">SGA-03</span><img src="assets/img/emeraude-01.jpg" alt="Grillz en or blanc serti d'une pierre verte" loading="lazy" /></div>
+            <div class="tile__foot"><span class="tile__name">Émeraude</span><span class="tile__tag">Or blanc · Pierre</span></div>
+          </article>
+
+          <article class="tile" data-cat="individuelles custom" data-ref="SGA-07" data-name="Le Croc" data-material="Argent 925 poli" data-teeth="1 dent · canine" data-duree="3 semaines" data-style="Croc anatomique">
+            <div class="tile__media"><span class="tile__ref">SGA-07</span><img src="assets/img/croc-01.jpg" alt="Macro d'une canine en argent poli" loading="lazy" /></div>
+            <div class="tile__foot"><span class="tile__name">Le Croc</span><span class="tile__tag">Argent poli</span></div>
+          </article>
+
+          <article class="tile" data-cat="custom individuelles" data-ref="SGA-08" data-name="Astre" data-material="Argent 925 ajouré" data-teeth="1 dent · motif" data-duree="4 semaines" data-style="Étoile ajourée">
+            <div class="tile__media"><span class="tile__ref">SGA-08</span><img src="assets/img/astre-01.jpg" alt="Grillz en forme d'étoile ajourée en argent" loading="lazy" /></div>
+            <div class="tile__foot"><span class="tile__name">Astre</span><span class="tile__tag">Argent ajouré</span></div>
+          </article>
+
+          <article class="tile" data-cat="custom" data-ref="SGA-09" data-name="L'Écriture" data-material="Argent 925" data-teeth="Pleine bouche · lettrage" data-duree="7 semaines" data-style="Lettrage façonné main">
+            <div class="tile__media"><span class="tile__ref">SGA-09</span><img src="assets/img/ecriture-01.jpg" alt="Grillz en argent à motif de lettrage tenu en main gantée" loading="lazy" /></div>
+            <div class="tile__foot"><span class="tile__name">L'Écriture</span><span class="tile__tag">Lettrage</span></div>
+          </article>
+
+          <article class="tile" data-cat="complet or" data-ref="SGA-06" data-name="Bicolore" data-material="Argent 925 &amp; Or" data-teeth="Pleine bouche · 12 dents" data-duree="6 semaines" data-style="Accent or sur argent">
+            <div class="tile__media"><span class="tile__ref">SGA-06</span><img src="assets/img/bicolore-01.jpg" alt="Grillz pleine bouche argent avec accents or" loading="lazy" /></div>
+            <div class="tile__foot"><span class="tile__name">Bicolore</span><span class="tile__tag">Argent &amp; Or</span></div>
+          </article>
+
+          <article class="tile" data-cat="complet custom" data-ref="SGA-02·B" data-name="Onyx II" data-material="Rhodium noir" data-teeth="Pleine bouche" data-duree="7 semaines" data-style="Crocs sombres">
+            <div class="tile__media"><span class="tile__ref">SGA-02·B</span><img src="assets/img/onyx-02.jpg" alt="Variation de grillz en rhodium noir" loading="lazy" /></div>
+            <div class="tile__foot"><span class="tile__name">Onyx II</span><span class="tile__tag">Rhodium noir</span></div>
+          </article>
+
+          <article class="tile" data-cat="diamants or individuelles" data-ref="SGA-03·B" data-name="Émeraude · profil" data-material="Or blanc 18K" data-teeth="Dents individuelles" data-duree="6 semaines" data-style="Pierre sertie">
+            <div class="tile__media"><span class="tile__ref">SGA-03·B</span><img src="assets/img/emeraude-02.jpg" alt="Détail de profil du grillz serti pierre verte" loading="lazy" /></div>
+            <div class="tile__foot"><span class="tile__name">Émeraude</span><span class="tile__tag">Profil</span></div>
+          </article>
+
+          <article class="tile" data-cat="custom complet" data-ref="SGA-04·B" data-name="Memento · revers" data-material="Argent 925 sculpté" data-teeth="Bandeau" data-duree="8 semaines" data-style="Ossements ciselés">
+            <div class="tile__media"><span class="tile__ref">SGA-04·B</span><img src="assets/img/memento-03.jpg" alt="Autre angle du grillz sculpté têtes de mort" loading="lazy" /></div>
+            <div class="tile__foot"><span class="tile__name">Memento</span><span class="tile__tag">Revers</span></div>
+          </article>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" role="dialog" aria-modal="true" aria-label="Détail de la création">
+      <button class="lightbox__close" aria-label="Fermer"></button>
+      <div class="lightbox__inner">
+        <div class="lightbox__media"><img src="" alt="" /></div>
+        <div class="lightbox__body">
+          <span class="label label--nodash">Création sur mesure</span>
+          <h2 class="lightbox__name display"></h2>
+          <dl class="lightbox__details"></dl>
+          <a href="contact.html" class="btn">Commander une pièce similaire <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer__top">
+          <div class="footer__brand">
+            <p class="display">Swiss Grillz<br />Atelier</p>
+            <p>Haute joaillerie dentaire sur mesure. Façonnée à la main, en Suisse, par des dentistes-joailliers.</p>
+          </div>
+          <div class="footer__cols">
+            <div class="footer__col">
+              <h4>Explorer</h4>
+              <ul>
+                <li><a href="savoir-faire.html">Savoir-faire</a></li>
+                <li><a href="processus.html">Processus</a></li>
+                <li><a href="galerie.html">Galerie</a></li>
+                <li><a href="contact.html">Contact &amp; Devis</a></li>
+              </ul>
+            </div>
+            <div class="footer__col">
+              <h4>Atelier</h4>
+              <ul>
+                <li><address>Rue du Rhône<br />1204 Genève, Suisse</address></li>
+                <li><a href="mailto:atelier@swissgrillz.ch">atelier@swissgrillz.ch</a></li>
+                <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram ↗</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <span>© <span data-year>2026</span> Swiss Grillz Atelier — Mentions légales</span>
+          <span class="swiss"><i class="swiss-flag" aria-hidden="true"></i> Fabriqué en Suisse</span>
+        </div>
+      </div>
+    </footer>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.swissgrillzatelier.ch/" },
+          { "@type": "ListItem", "position": 2, "name": "Galerie", "item": "https://www.swissgrillzatelier.ch/galerie.html" }
+        ]
+      }
+    </script>
+    <script defer src="js/util.js"></script>
+    <script defer src="js/scroll-reveal.js"></script>
+    <script defer src="js/nav.js"></script>
+    <script defer src="js/gallery.js"></script>
+    <script defer src="js/form.js"></script>
+    <script defer src="js/cursor.js"></script>
+    <script defer src="js/main.js"></script>
+  </body>
+</html>

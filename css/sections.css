@@ -1,0 +1,273 @@
+/* ============================================================
+   SECTIONS — voies, matières, atelier, garanties, FAQ
+   Inspiration : bor.co.id (blocs techniques, specs, accordéon)
+   ============================================================ */
+
+/* ---------- VOIES (deux colonnes) ---------- */
+.pathways {
+  display: grid;
+  gap: 0;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--ink);
+}
+.pathway {
+  padding-block: clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--line);
+}
+.pathway__id {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+  display: block;
+}
+.pathway h3 {
+  font-size: var(--step-2);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.pathway > p {
+  color: var(--ink-55);
+  margin-bottom: 1.6rem;
+  max-width: 44ch;
+}
+.pathway__specs {
+  border-top: 1px solid var(--line);
+  margin-bottom: 1.6rem;
+}
+.pathway__specs > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.75rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.pathway__specs dt {
+  color: var(--ink-55);
+}
+.pathway__specs dd {
+  color: var(--ink);
+  text-align: right;
+}
+@media (min-width: 820px) {
+  .pathways {
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(2rem, 5vw, 4rem);
+  }
+  .pathway:nth-child(1) {
+    padding-right: clamp(2rem, 5vw, 4rem);
+  }
+}
+
+/* ---------- TABLEAU DES MATIÈRES ---------- */
+.spectable {
+  display: grid;
+  gap: 0;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--ink);
+}
+.spec-group {
+  padding-block: clamp(1.8rem, 4vw, 2.6rem);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 1.4rem;
+  grid-template-columns: 1fr;
+}
+.spec-group__label {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.spec-group__list > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding-block: 0.9rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.spec-group__list > div:last-child {
+  border-bottom: none;
+}
+.spec-group__list b {
+  font-weight: 600;
+  font-size: var(--step-1);
+  letter-spacing: -0.01em;
+}
+.spec-group__list span {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink-55);
+  text-align: right;
+}
+@media (min-width: 800px) {
+  .spec-group {
+    grid-template-columns: 12rem 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* ---------- ATELIER (photo + specs) ---------- */
+.lab {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+.lab__media {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--bg-panel);
+}
+.lab__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.15) contrast(1.02);
+}
+.lab__statement {
+  font-size: var(--step-2);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 1.6rem;
+  max-width: 22ch;
+}
+.lab__statement span {
+  color: var(--ink);
+}
+.lab__body p {
+  color: var(--ink-70);
+  margin-bottom: 1.2rem;
+  max-width: 50ch;
+}
+.lab__card {
+  border-top: 1px solid var(--line);
+  margin-block: 2rem;
+}
+.lab__card > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.lab__card dt {
+  color: var(--ink-55);
+}
+.lab__card dd {
+  color: var(--ink);
+  text-align: right;
+}
+@media (min-width: 860px) {
+  .lab {
+    grid-template-columns: 0.85fr 1fr;
+  }
+}
+
+/* ---------- GARANTIES ---------- */
+.care {
+  display: grid;
+  gap: 0;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--ink);
+}
+.care__col {
+  padding-block: clamp(1.8rem, 4vw, 2.6rem);
+  border-bottom: 1px solid var(--line);
+}
+.care__col h3 {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.6rem;
+}
+.care__col li {
+  display: grid;
+  gap: 0.35rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.care__col li:last-child {
+  border-bottom: none;
+}
+.care__col b {
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.care__col p {
+  color: var(--ink-55);
+  font-size: var(--step--1);
+}
+@media (min-width: 820px) {
+  .care {
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(2rem, 5vw, 4rem);
+  }
+  .care__col:nth-child(1) {
+    padding-right: clamp(2rem, 5vw, 4rem);
+  }
+}
+
+/* ---------- FAQ (accordéon natif <details>) ---------- */
+.faq {
+  border-top: 1px solid var(--ink);
+}
+.faq__item {
+  border-bottom: 1px solid var(--line);
+}
+.faq__item summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  padding-block: clamp(1.2rem, 3vw, 1.8rem);
+  cursor: pointer;
+  list-style: none;
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: color var(--dur) var(--ease);
+}
+.faq__item summary::-webkit-details-marker {
+  display: none;
+}
+.faq__item summary:hover {
+  color: var(--accent);
+}
+.faq__item summary::after {
+  content: "+";
+  font-family: var(--font-mono);
+  font-size: 1.4em;
+  color: var(--accent);
+  transition: transform var(--dur) var(--ease);
+  flex-shrink: 0;
+}
+.faq__item[open] summary::after {
+  transform: rotate(45deg);
+}
+.faq__answer {
+  padding-bottom: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--ink-55);
+  max-width: 60ch;
+}

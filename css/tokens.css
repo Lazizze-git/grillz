@@ -1,0 +1,49 @@
+/* ============================================================
+   TOKENS — variables globales, palette, échelle typographique
+   Direction : catalogue technique / Swiss organique
+   ============================================================ */
+:root {
+  /* Palette — fond noir, texte blanc cassé & gris, accent vert lime */
+  --bg: #0a0a0a;
+  --bg-panel: #1a1a1a;
+  --bg-ink: #131313;
+  --ink: #f1efe8;
+  --ink-70: rgba(241, 239, 232, 0.72);
+  --ink-55: rgba(241, 239, 232, 0.55);
+  --ink-35: rgba(241, 239, 232, 0.34);
+  --paper: #f1efe8;
+  --paper-55: rgba(241, 239, 232, 0.55);
+  --line: rgba(241, 239, 232, 0.18);
+  --line-soft: rgba(241, 239, 232, 0.1);
+  --line-paper: rgba(241, 239, 232, 0.16);
+  --accent: #c6ff3b;
+  --accent-soft: #dcff85;
+
+  /* Typographie */
+  --font-sans: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "Space Mono", "SFMono-Regular", ui-monospace, monospace;
+
+  /* Échelle fluide */
+  --step--2: clamp(0.62rem, 0.6rem + 0.1vw, 0.68rem);
+  --step--1: clamp(0.75rem, 0.72rem + 0.15vw, 0.85rem);
+  --step-0: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);
+  --step-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+  --step-2: clamp(1.5rem, 1.3rem + 1vw, 2.1rem);
+  --step-3: clamp(2rem, 1.6rem + 2vw, 3.2rem);
+  --step-4: clamp(2.8rem, 2rem + 4vw, 5.5rem);
+  --step-5: clamp(3.4rem, 2rem + 7vw, 9rem);
+
+  /* Grille & rythme */
+  --wrap: 1360px;
+  --gutter: clamp(1.15rem, 4vw, 3.5rem);
+  --section-y: clamp(4.5rem, 10vw, 9rem);
+  --radius: 4px;
+  --top-gap: 24px; /* marge haute (header flottant) */
+
+  /* Transitions & courbes (fortes, façon Emil Kowalski) */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1); /* ease-out — entrées */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1); /* ease-out — interactions */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1); /* déplacements à l'écran */
+  --dur: 0.22s; /* hovers / petites transitions (< 300ms) */
+  --dur-press: 0.14s; /* feedback au clic */
+}
