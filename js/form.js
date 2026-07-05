@@ -33,7 +33,8 @@ function initForm() {
           flag(field.closest(".field") || field);
           return false;
         }
-      } else if (!field.value.trim()) {
+      } else if (!field.value.trim() || !field.checkValidity()) {
+        /* checkValidity couvre le format (email…) en plus du champ vide */
         flag(field.closest(".field") || field);
         field.focus();
         return false;

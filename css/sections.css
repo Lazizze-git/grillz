@@ -271,3 +271,13 @@
   color: var(--ink-55);
   max-width: 60ch;
 }
+/* Ouverture en fondu-descente (au lieu d'une apparition sèche) */
+.faq__item[open] .faq__answer {
+  animation: faq-in 0.35s var(--ease-out);
+}
+@keyframes faq-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}

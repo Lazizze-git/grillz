@@ -175,6 +175,10 @@
   text-transform: uppercase;
   color: var(--ink-55);
 }
+.catalog__bar--foot {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
 .catalog {
   display: grid;
   grid-template-columns: 1fr;

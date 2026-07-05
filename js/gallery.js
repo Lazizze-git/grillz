@@ -37,13 +37,38 @@ function initGallery() {
   const updateCount = () => {
     if (!countEl) return;
     const n = tiles.filter((t) => !t.classList.contains("is-hidden")).length;
-    countEl.textContent = `${String(n).padStart(2, "0")} pièces`;
+    countEl.textContent = `${String(n).padStart(2, "0")} vues`;
   };
 
+  /* Relance l'apparition en fondu des tuiles visibles après un filtrage */
+  const replayFilterIn = () => {
+    grid.classList.remove("is-filtering");
+    void grid.offsetWidth; /* force le redémarrage de l'animation */
+    grid.classList.add("is-filtering");
+  };
+
+  /* Nombre de vues par catégorie, affiché dans chaque pastille */
+  const countFor = (cat) =>
+    cat === "all"
+      ? tiles.length
+      : tiles.filter((t) => t.dataset.cat.split(" ").includes(cat)).length;
+
   filters.forEach((btn) => {
+    btn.setAttribute("aria-pressed", String(btn.classList.contains("is-active")));
+    if (!btn.querySelector(".filter__count")) {
+      const count = document.createElement("span");
+      count.className = "filter__count";
+      count.setAttribute("aria-hidden", "true");
+      count.textContent = String(countFor(btn.dataset.filter)).padStart(2, "0");
+      btn.appendChild(count);
+    }
     btn.addEventListener("click", () => {
-      filters.forEach((f) => f.classList.remove("is-active"));
+      filters.forEach((f) => {
+        f.classList.remove("is-active");
+        f.setAttribute("aria-pressed", "false");
+      });
       btn.classList.add("is-active");
+      btn.setAttribute("aria-pressed", "true");
       const cat = btn.dataset.filter;
       tiles.forEach((tile) => {
         const match =
@@ -51,6 +76,7 @@ function initGallery() {
         tile.classList.toggle("is-hidden", !match);
       });
       updateCount();
+      replayFilterIn();
     });
   });
   updateCount();
@@ -63,8 +89,10 @@ function initGallery() {
   const lbName = lightbox.querySelector(".lightbox__name");
   const lbDetails = lightbox.querySelector(".lightbox__details");
   const closeBtn = lightbox.querySelector(".lightbox__close");
+  let lastTile = null; /* pour rendre le focus à la tuile d'origine */
 
   const open = (tile) => {
+    lastTile = tile;
     const d = tile.dataset;
     const img = tile.querySelector("img");
     lbImg.src = img.src;
@@ -91,6 +119,7 @@ function initGallery() {
   const close = () => {
     lightbox.classList.remove("is-open");
     document.body.style.overflow = "";
+    lastTile?.focus();
   };
 
   /* Desktop (survol possible) : clic = fiche détaillée.
@@ -134,6 +163,24 @@ function initGallery() {
     if (e.target === lightbox) close();
   });
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && lightbox.classList.contains("is-open")) close();
+    if (!lightbox.classList.contains("is-open")) return;
+
+    if (e.key === "Escape") {
+      close();
+      return;
+    }
+
+    /* Piège de focus : Tab boucle entre le bouton fermer et le lien CTA */
+    if (e.key !== "Tab") return;
+    const focusables = lightbox.querySelectorAll("button, a[href]");
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   });
 }

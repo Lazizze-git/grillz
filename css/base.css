@@ -47,6 +47,10 @@ strong {
 .section {
   padding-block: var(--section-y);
 }
+/* Variante : la section colle à l'en-tête de page qui la précède */
+.section--tight {
+  padding-top: 0;
+}
 
 .muted {
   color: var(--ink-55);

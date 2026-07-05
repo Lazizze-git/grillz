@@ -80,6 +80,7 @@
   color: var(--accent-soft);
 }
 .specs__grid {
+  margin-top: 2rem;
   border-top: 1px solid var(--line-paper);
 }
 .specs__row {
@@ -102,6 +103,7 @@
   text-align: right;
 }
 .specs__cta h2 {
+  font-size: var(--step-3);
   margin-bottom: 1.2rem;
 }
 .specs__cta p {

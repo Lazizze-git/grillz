@@ -49,8 +49,10 @@
   gap: 1rem 1.5rem;
   justify-content: space-between;
   align-items: center;
-  padding-block: 1rem;
-  border-top: 1px solid var(--ink);
+  /* Espace identique au-dessus et en dessous : la rangée est centrée
+     entre la ligne de l'en-tête et son trait bas */
+  padding-block: clamp(1.3rem, 2.5vw, 1.7rem);
+  /* Pas de trait haut : la ligne de l'en-tête de page joue déjà ce rôle */
   border-bottom: 1px solid var(--line);
   margin-bottom: clamp(2rem, 4vw, 3rem);
 }

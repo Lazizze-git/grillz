@@ -277,6 +277,11 @@
   visibility: hidden;
 }
 
+/* --- Note de consentement --- */
+.form-note {
+  font-size: var(--step--1);
+}
+
 /* --- Récapitulatif --- */
 .recap {
   border-top: 1px solid var(--line);
@@ -345,6 +350,9 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 1.8rem;
+}
+.contact-aside__cal p {
+  margin-top: 1rem;
 }
 .contact-aside__cal .btn {
   margin-top: 1.4rem;
