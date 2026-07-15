@@ -8,7 +8,7 @@ function initGallery() {
   const tiles = Array.from(grid.querySelectorAll(".tile"));
   const filters = document.querySelectorAll(".filter");
 
-  /* ---- Panneau d'infos au survol (glisse depuis le bas de la photo) ---- */
+  /* ---- Panneau d'infos au survol, desktop uniquement (bandeau bas de photo) ---- */
   tiles.forEach((tile) => {
     if (tile.querySelector(".tile__info")) return;
     const d = tile.dataset;
@@ -22,9 +22,6 @@ function initGallery() {
     info.className = "tile__info";
     info.setAttribute("aria-hidden", "true");
     info.innerHTML =
-      `<div class="tile__info-top"><span class="tile__info-ref">${
-        d.ref || ""
-      }</span></div>` +
       `<span class="tile__info-name">${d.name || ""}</span>` +
       `<dl class="tile__info-specs">` +
       rows.map((r) => `<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join("") +
@@ -86,6 +83,8 @@ function initGallery() {
   if (!lightbox) return;
 
   const lbImg = lightbox.querySelector(".lightbox__media img");
+  const lbMediaRef = lightbox.querySelector(".lightbox__media-ref");
+  const lbIdRef = lightbox.querySelector(".lightbox__id-ref");
   const lbName = lightbox.querySelector(".lightbox__name");
   const lbDetails = lightbox.querySelector(".lightbox__details");
   const closeBtn = lightbox.querySelector(".lightbox__close");
@@ -98,6 +97,8 @@ function initGallery() {
     lbImg.src = img.src;
     lbImg.alt = img.alt;
     lbName.textContent = d.name;
+    lbIdRef.textContent = d.ref || "";
+    lbMediaRef.textContent = d.ref ? `Ref: ${d.ref}` : "";
 
     const rows = [
       ["Référence", d.ref],
@@ -107,8 +108,12 @@ function initGallery() {
       ["Style", d.style],
     ].filter(([, v]) => v);
 
+    /* Caractéristiques numérotées façon spec sheet : 01 // Référence */
     lbDetails.innerHTML = rows
-      .map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`)
+      .map(
+        ([k, v], i) =>
+          `<div><dt><i>${String(i + 1).padStart(2, "0")} //</i> ${k}</dt><dd>${v}</dd></div>`
+      )
       .join("");
 
     lightbox.classList.add("is-open");
@@ -122,41 +127,23 @@ function initGallery() {
     lastTile?.focus();
   };
 
-  /* Desktop (survol possible) : clic = fiche détaillée.
-     Mobile / tactile : tap = ouvre le panneau d'infos, re-tap ou scroll = ferme. */
-  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  /* Glisser la fiche vers le bas (ou molette vers le bas) la ferme */
+  if (typeof window.attachSheetDismiss === "function") {
+    window.attachSheetDismiss(lightbox.querySelector(".lightbox__inner"), close);
+  }
 
-  const toggleReveal = (tile) => {
-    const isOpen = tile.classList.contains("is-revealed");
-    tiles.forEach((t) => t.classList.remove("is-revealed"));
-    if (!isOpen) tile.classList.add("is-revealed");
-  };
-
+  /* Clic ou tap = fiche détaillée (le panneau au survol reste réservé au desktop) */
   tiles.forEach((tile) => {
     tile.setAttribute("role", "button");
     tile.setAttribute("tabindex", "0");
-    tile.addEventListener("click", () => {
-      if (canHover) open(tile);
-      else toggleReveal(tile);
-    });
+    tile.addEventListener("click", () => open(tile));
     tile.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        if (canHover) open(tile);
-        else toggleReveal(tile);
+        open(tile);
       }
     });
   });
-
-  if (!canHover) {
-    window.addEventListener(
-      "scroll",
-      () => {
-        tiles.forEach((t) => t.classList.remove("is-revealed"));
-      },
-      { passive: true }
-    );
-  }
 
   closeBtn.addEventListener("click", close);
   lightbox.addEventListener("click", (e) => {

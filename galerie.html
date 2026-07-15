@@ -29,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css" />
@@ -167,14 +167,24 @@
 
     <!-- Lightbox -->
     <div class="lightbox" role="dialog" aria-modal="true" aria-label="Détail de la création">
-      <button class="lightbox__close" aria-label="Fermer"></button>
+      <button class="lightbox__close">Fermer <i aria-hidden="true">×</i></button>
       <div class="lightbox__inner">
-        <div class="lightbox__media"><img src="" alt="" /></div>
+        <div class="lightbox__media">
+          <img src="" alt="" />
+          <span class="lightbox__media-ref" aria-hidden="true"></span>
+        </div>
         <div class="lightbox__body">
-          <span class="label label--nodash">Création sur mesure</span>
+          <div class="lightbox__head">
+            <span class="lightbox__id">Fiche <i>//</i> <span class="lightbox__id-ref"></span></span>
+            <span class="lightbox__state"><i class="dot" aria-hidden="true"></i>Sur mesure</span>
+          </div>
           <h2 class="lightbox__name display"></h2>
           <dl class="lightbox__details"></dl>
           <a href="contact.html" class="btn">Commander une pièce similaire <span class="arrow">→</span></a>
+          <div class="lightbox__meta" aria-hidden="true">
+            <span>Swiss Grillz Atelier</span>
+            <span>Genève · CH</span>
+          </div>
         </div>
       </div>
     </div>
@@ -226,6 +236,7 @@
     <script defer src="js/util.js"></script>
     <script defer src="js/scroll-reveal.js"></script>
     <script defer src="js/nav.js"></script>
+    <script defer src="js/sheet-dismiss.js"></script>
     <script defer src="js/gallery.js"></script>
     <script defer src="js/form.js"></script>
     <script defer src="js/cursor.js"></script>

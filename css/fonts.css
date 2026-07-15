@@ -1,12 +1,18 @@
 /* ============================================================
-   POLICES — Switzer (variable, auto-hébergée)
-   © Indian Type Foundry · Fontshare
+   POLICES — Disket Mono (titres, auto-hébergée © Rostype)
+   + Space Mono (corps & labels, Google Fonts)
    ============================================================ */
 @font-face {
-  font-family: "Switzer";
-  src: url("../assets/fonts/Switzer-Variable.woff2") format("woff2"),
-    url("../assets/fonts/Switzer-Variable.woff") format("woff");
-  font-weight: 100 900;
+  font-family: "Disket Mono";
+  src: url("../assets/fonts/Disket-Mono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Disket Mono";
+  src: url("../assets/fonts/Disket-Mono-Bold.woff2") format("woff2");
+  font-weight: 700;
   font-display: swap;
   font-style: normal;
 }

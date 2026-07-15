@@ -67,9 +67,6 @@
     transform var(--dur-press) var(--ease-out);
   outline-offset: -2px;
 }
-.tile.is-revealed {
-  border-color: transparent;
-}
 .tile:active {
   transform: scale(0.99);
 }
@@ -108,9 +105,10 @@
   margin-top: 1rem;
 }
 .tile__name {
+  font-family: var(--font-display);
   font-size: var(--step-1);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 .tile__tag {
   font-family: var(--font-mono);
@@ -134,46 +132,35 @@
   }
 }
 
-/* Panneau d'infos au survol — glisse depuis le bas, remplit toute la case en noir */
+/* Panneau d'infos au survol (desktop uniquement) — bandeau qui glisse depuis le bas */
 .tile__info {
   position: absolute;
-  inset: 0;
+  inset: auto 0 0 0;
   z-index: 4;
-  display: flex;
+  display: none;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1.4rem;
+  gap: 0.55rem;
+  padding: 1rem 1.1rem 1.1rem;
   color: var(--paper);
   background: var(--bg);
+  border-top: 1px solid var(--line-paper);
   transform: translateY(101%);
   opacity: 0;
   transition: transform 0.45s var(--ease-out), opacity 0.3s var(--ease-out);
   pointer-events: none;
 }
-.tile__info-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--accent-soft);
-}
 .tile__info-name {
-  font-size: var(--step-2);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 700;
+  letter-spacing: 0;
   line-height: 1;
-}
-.tile__info-specs {
-  margin-top: auto;
 }
 .tile__info-specs > div {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  padding-block: 0.7rem;
+  padding-block: 0.45rem;
   border-top: 1px solid var(--line-paper);
   font-family: var(--font-mono);
   font-size: var(--step--1);
@@ -187,30 +174,10 @@
   color: var(--paper);
   text-align: right;
 }
-/* Ouverture au tap (mobile / tactile) */
-.tile.is-revealed .tile__info {
-  transform: translateY(0);
-  opacity: 1;
-}
-/* Desktop : les infos s'affichent sur un bandeau en bas (pas tout le carré) */
+/* Le bandeau n'existe qu'au survol souris — jamais au tactile */
 @media (hover: hover) and (pointer: fine) {
   .tile__info {
-    inset: auto 0 0 0;
-    gap: 0.55rem;
-    padding: 1rem 1.1rem 1.1rem;
-    border-top: 1px solid var(--line-paper);
-  }
-  .tile__info-top {
-    display: none;
-  }
-  .tile__info-name {
-    font-size: var(--step-1);
-  }
-  .tile__info-specs {
-    margin-top: 0;
-  }
-  .tile__info-specs > div {
-    padding-block: 0.45rem;
+    display: flex;
   }
   .tile:hover .tile__info,
   .tile:focus-within .tile__info {
@@ -226,121 +193,5 @@
 @media (min-width: 940px) {
   .grid-gallery {
     grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* --- Lightbox --- */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--gutter);
-  background: color-mix(in srgb, var(--bg-ink) 82%, transparent);
-  backdrop-filter: blur(8px);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s var(--ease), visibility 0.4s;
-}
-.lightbox.is-open {
-  opacity: 1;
-  visibility: visible;
-}
-.lightbox__close {
-  position: absolute;
-  top: 1.4rem;
-  right: 1.4rem;
-  width: 46px;
-  height: 46px;
-  border: 1px solid var(--line-paper);
-  border-radius: 50%;
-  color: var(--paper);
-  display: grid;
-  place-items: center;
-  transition: background var(--dur) var(--ease);
-}
-.lightbox__close::before,
-.lightbox__close::after {
-  content: "";
-  position: absolute;
-  width: 16px;
-  height: 1.5px;
-  background: currentColor;
-}
-.lightbox__close::before {
-  transform: rotate(45deg);
-}
-.lightbox__close::after {
-  transform: rotate(-45deg);
-}
-.lightbox__close:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-.lightbox__inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-  max-width: 960px;
-  width: 100%;
-  max-height: 88vh;
-  overflow: auto;
-  background: var(--bg);
-  border-radius: var(--radius);
-  transform: translateY(20px);
-  transition: transform 0.5s var(--ease);
-}
-.lightbox.is-open .lightbox__inner {
-  transform: none;
-}
-.lightbox__media {
-  aspect-ratio: 4 / 3;
-  background: var(--bg-panel);
-}
-.lightbox__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.lightbox__body {
-  padding: clamp(1.8rem, 4vw, 3rem);
-}
-.lightbox__name {
-  font-size: var(--step-3);
-  margin-block: 1rem 1.8rem;
-}
-.lightbox__details {
-  display: grid;
-  gap: 0;
-  margin-bottom: 1.8rem;
-  border-top: 1px solid var(--line);
-}
-.lightbox__details > div {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-block: 0.9rem;
-  border-bottom: 1px solid var(--line);
-}
-.lightbox__details dt {
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--ink-55);
-}
-.lightbox__details dd {
-  text-align: right;
-  font-size: var(--step-0);
-}
-@media (min-width: 760px) {
-  .lightbox__inner {
-    grid-template-columns: 1.1fr 1fr;
-    max-height: 80vh;
-  }
-  .lightbox__media {
-    aspect-ratio: auto;
-    height: 100%;
   }
 }

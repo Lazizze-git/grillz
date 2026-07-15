@@ -20,8 +20,8 @@
   --accent-soft: #dcff85;
 
   /* Typographie */
-  --font-sans: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: "Space Mono", "SFMono-Regular", ui-monospace, monospace;
+  --font-display: "Disket Mono", "Space Mono", ui-monospace, monospace;
 
   /* Échelle fluide */
   --step--2: clamp(0.62rem, 0.6rem + 0.1vw, 0.68rem);
