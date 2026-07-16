@@ -29,7 +29,8 @@
     transform: scale(1.04);
   }
 }
-.step__num {
+/* .step .step__num : bat « .step__body p » qui grisait le chiffre */
+.step .step__num {
   font-family: var(--font-mono);
   font-size: clamp(2.5rem, 8vw, 4.5rem);
   color: var(--accent);
