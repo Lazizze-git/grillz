@@ -56,6 +56,12 @@
   color: var(--ink);
   text-align: right;
 }
+/* Lien de la carte calé à droite (table = bloc ajusté à son contenu,
+   pour que le soulignement animé garde la largeur du texte) */
+.pathway .link {
+  display: table;
+  margin-left: auto;
+}
 @media (min-width: 820px) {
   .pathways {
     grid-template-columns: 1fr 1fr;

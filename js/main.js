@@ -16,11 +16,13 @@
   }
 
   function boot() {
+    safe(window.initTopoBg, "initTopoBg");
     safe(window.initScrollReveal, "initScrollReveal");
     safe(window.initNav, "initNav");
     safe(window.initGallery, "initGallery");
     safe(window.initForm, "initForm");
     safe(window.initYear, "initYear");
+    safe(window.initClock, "initClock");
     safe(window.initCursor, "initCursor");
   }
 

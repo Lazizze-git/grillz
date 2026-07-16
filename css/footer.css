@@ -1,0 +1,151 @@
+/* ============================================================
+   FOOTER — pied de page « fiche technique » : appel à l'action,
+   colonnes numérotées, statut vivant, wordmark signature.
+   (styles déplacés depuis chrome.css puis enrichis)
+   ============================================================ */
+.footer {
+  background: var(--bg-ink);
+  color: var(--paper);
+  padding-block: clamp(4rem, 8vw, 7rem) 2.5rem;
+}
+
+/* ---------- Appel à l'action ---------- */
+.footer__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 3rem;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: clamp(2.2rem, 5vw, 3.5rem);
+  margin-bottom: clamp(2.2rem, 5vw, 3.5rem);
+  border-bottom: 1px solid var(--line-paper);
+}
+.footer__hook {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--step-2);
+  line-height: 1.15;
+  max-width: 24ch;
+  text-wrap: balance;
+}
+
+/* ---------- Marque + colonnes ---------- */
+.footer__top {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  grid-template-columns: 1fr;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid var(--line-paper);
+}
+.footer__brand .display {
+  font-size: clamp(2.2rem, 6vw, 3.5rem);
+  margin-bottom: 1.5rem;
+}
+.footer__brand p:last-child {
+  color: var(--paper-55);
+  max-width: 34ch;
+  font-size: var(--step--1);
+}
+.footer__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.footer__col h4 {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  margin-bottom: 1.4rem;
+}
+.footer__col li {
+  margin-bottom: 0.8rem;
+  color: var(--paper-55);
+  font-size: var(--step--1);
+}
+.footer__col a,
+.footer__col address {
+  color: var(--paper-55);
+  font-style: normal;
+  font-size: var(--step--1);
+  transition: color var(--dur) var(--ease);
+}
+.footer__col a:hover {
+  color: var(--paper);
+}
+
+/* Statut : point pulsant + heure locale de l'atelier (js/clock.js) */
+.footer__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  color: var(--paper);
+}
+.footer__state .dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.footer__state .dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: ping 2.4s var(--ease-out) infinite;
+}
+
+/* ---------- Wordmark signature ---------- */
+.footer__wordmark {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 8.2vw, 7.1rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-align: center;
+  white-space: nowrap;
+  color: var(--paper);
+  opacity: 0.14;
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  user-select: none;
+}
+
+/* ---------- Barre légale ---------- */
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--paper-55);
+}
+.footer__bottom .swiss {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+@media (min-width: 640px) {
+  .footer__cols {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 780px) {
+  .footer__top {
+    grid-template-columns: 1fr 1.7fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer__state .dot::after {
+    animation: none;
+  }
+}
