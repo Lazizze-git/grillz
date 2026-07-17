@@ -4,7 +4,13 @@
    (styles déplacés depuis chrome.css puis enrichis)
    ============================================================ */
 .footer {
-  background: var(--bg-ink);
+  /* Pas de fond plein : un simple voile qui s'opacifie vers le bas,
+     laissant respirer le fond topographique animé du site */
+  background: linear-gradient(
+    to bottom,
+    rgba(17, 20, 27, 0),
+    rgba(17, 20, 27, 0.9)
+  );
   color: var(--paper);
   padding-block: clamp(4rem, 8vw, 7rem) 2.5rem;
 }
@@ -97,21 +103,6 @@
   border-radius: 50%;
   background: var(--accent);
   animation: ping 2.4s var(--ease-out) infinite;
-}
-
-/* ---------- Wordmark signature ---------- */
-.footer__wordmark {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.9rem, 8.2vw, 7.1rem);
-  line-height: 1;
-  letter-spacing: 0.02em;
-  text-align: center;
-  white-space: nowrap;
-  color: var(--paper);
-  opacity: 0.14;
-  margin-top: clamp(2.5rem, 6vw, 4.5rem);
-  user-select: none;
 }
 
 /* ---------- Barre légale ---------- */

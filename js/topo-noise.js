@@ -44,11 +44,12 @@ function createTopoNoise() {
     return lerp(lerp(x00, x10, fy), lerp(x01, x11, fy), fz);
   }
 
-  /* Deux octaves : grandes collines + léger détail, comme un vrai relief */
+  /* Deux octaves : grandes collines dominantes + un très léger détail,
+     pour un relief aux formes amples et arrondies */
   function field(x, y, t) {
     return (
-      noise3(x, y, t) * 0.72 +
-      noise3(x * 2.3 + 31.7, y * 2.3 + 11.3, t * 1.6) * 0.28
+      noise3(x, y, t) * 0.84 +
+      noise3(x * 1.9 + 31.7, y * 1.9 + 11.3, t * 1.5) * 0.16
     );
   }
 

@@ -57,6 +57,15 @@ button {
   cursor: pointer;
 }
 
+fieldset {
+  border: none;
+  min-width: 0;
+}
+
+legend {
+  padding: 0;
+}
+
 a {
   color: inherit;
   text-decoration: none;

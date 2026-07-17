@@ -132,7 +132,8 @@
     grid-template-columns: repeat(4, 1fr);
   }
 }
-.choice {
+/* label.choice : doit l'emporter sur « .field label » (display: block) */
+label.choice {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -220,7 +221,8 @@
 }
 
 /* --- Upload --- */
-.upload {
+/* label.upload : doit l'emporter sur « .field label » (display: block) */
+label.upload {
   display: flex;
   flex-direction: column;
   align-items: center;

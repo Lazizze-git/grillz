@@ -68,7 +68,6 @@
 
 /* --- Infos pratiques --- */
 .specs {
-  background: var(--bg-ink);
   color: var(--paper);
 }
 .specs__inner {

@@ -1,15 +1,18 @@
 /**
  * Fond topographique animé — courbes de niveau très discrètes derrière le
  * contenu, comme une carte d'altitude qui dérive lentement (réf. bor.co.id).
- * Canvas 2D natif, aucune librairie ; les courbes sont extraites du champ
- * d'altitude (topo-noise.js) par « marching squares ». Le calque est créé
- * par ce script : sans JavaScript, le site garde simplement son fond uni.
+ * Canvas 2D natif, aucune librairie ; le champ d'altitude vient de
+ * topo-noise.js, les courbes de topo-contours.js, et elles sont tracées ici
+ * en courbes de Bézier pour un rendu rond et fluide. Le calque est créé par
+ * ce script : sans JavaScript, le site garde simplement son fond uni.
  * - « prefers-reduced-motion » : une seule image fixe, pas d'animation.
  * - Onglet masqué : rendu en pause.
  * Global : window.initTopoBg (appelé par main.js).
  */
 function initTopoBg() {
-  if (!window.createTopoNoise || !window.Path2D) return;
+  if (!window.createTopoNoise || !window.createTopoContours || !window.Path2D) {
+    return;
+  }
 
   const canvas = document.createElement("canvas");
   canvas.className = "topo-bg";
@@ -19,21 +22,13 @@ function initTopoBg() {
   document.body.prepend(canvas);
 
   const noise = window.createTopoNoise();
-  const CELL = 26; /* pas de la grille d'échantillonnage, en px CSS */
-  const SCALE = 1 / 420; /* largeur des « collines » (~420 px) */
+  const contours = window.createTopoContours();
+  const CELL = 20; /* pas de la grille d'échantillonnage, en px CSS */
+  const SCALE = 1 / 500; /* largeur des « collines » (~500 px) */
   const LEVELS = 9; /* nombre de courbes de niveau */
   const MASTER = 3; /* une courbe maîtresse (plus marquée) toutes les 3 */
   const SPEED = 0.021; /* dérive du relief — très lente */
-  const FRAME_MS = 1000 / 30; /* 30 images/s suffisent largement */
-
-  /* Segments de contour par configuration de cellule (marching squares).
-     Bords : 0 = haut, 1 = droite, 2 = bas, 3 = gauche. */
-  const CASES = [
-    [], [[3, 2]], [[2, 1]], [[3, 1]],
-    [[0, 1]], [[0, 1], [3, 2]], [[0, 2]], [[0, 3]],
-    [[0, 3]], [[0, 2]], [[0, 3], [1, 2]], [[0, 1]],
-    [[3, 1]], [[2, 1]], [[3, 2]], [],
-  ];
+  const FRAME_MS = 15; /* plafonne à ~60 images/s les écrans plus rapides */
 
   let cols = 0;
   let rows = 0;
@@ -51,46 +46,42 @@ function initTopoBg() {
     rows = Math.ceil(h / CELL) + 1;
     values = new Float32Array(cols * rows);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
   }
 
-  /* Position de la traversée du niveau entre deux altitudes */
-  function crossing(v0, v1, level) {
-    const d = v1 - v0;
-    if (d === 0) return 0.5;
-    return Math.min(Math.max((level - v0) / d, 0), 1);
-  }
-
-  /* Trace toutes les courbes d'un niveau donné dans le chemin fourni */
-  function contour(path, level) {
-    for (let j = 0; j < rows - 1; j++) {
-      for (let i = 0; i < cols - 1; i++) {
-        const a = values[j * cols + i];
-        const b = values[j * cols + i + 1];
-        const c = values[(j + 1) * cols + i + 1];
-        const d = values[(j + 1) * cols + i];
-        let code = 0;
-        if (a > level) code |= 8;
-        if (b > level) code |= 4;
-        if (c > level) code |= 2;
-        if (d > level) code |= 1;
-        if (code === 0 || code === 15) continue;
-
-        const x = i * CELL;
-        const y = j * CELL;
-        /* Points d'intersection sur les 4 bords de la cellule */
-        const pts = [
-          [x + CELL * crossing(a, b, level), y],
-          [x + CELL, y + CELL * crossing(b, c, level)],
-          [x + CELL * crossing(d, c, level), y + CELL],
-          [x, y + CELL * crossing(a, d, level)],
-        ];
-        const segs = CASES[code];
-        for (let s = 0; s < segs.length; s++) {
-          path.moveTo(pts[segs[s][0]][0], pts[segs[s][0]][1]);
-          path.lineTo(pts[segs[s][1]][0], pts[segs[s][1]][1]);
-        }
-      }
+  /* Trace une polyligne en l'arrondissant : des quadratiques qui passent par
+     le milieu de chaque segment — les angles deviennent des courbes. */
+  function smoothLine(path, pts) {
+    const n = pts.length;
+    if (n < 3) {
+      path.moveTo(pts[0][0], pts[0][1]);
+      if (n === 2) path.lineTo(pts[1][0], pts[1][1]);
+      return;
     }
+    const closed =
+      Math.abs(pts[0][0] - pts[n - 1][0]) + Math.abs(pts[0][1] - pts[n - 1][1]) < 0.01;
+    if (closed) {
+      const m = n - 1; /* le dernier point répète le premier */
+      path.moveTo((pts[m - 1][0] + pts[0][0]) / 2, (pts[m - 1][1] + pts[0][1]) / 2);
+      for (let i = 0; i < m; i++) {
+        const next = pts[(i + 1) % m];
+        path.quadraticCurveTo(
+          pts[i][0], pts[i][1],
+          (pts[i][0] + next[0]) / 2, (pts[i][1] + next[1]) / 2
+        );
+      }
+      path.closePath();
+      return;
+    }
+    path.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < n - 1; i++) {
+      path.quadraticCurveTo(
+        pts[i][0], pts[i][1],
+        (pts[i][0] + pts[i + 1][0]) / 2, (pts[i][1] + pts[i + 1][1]) / 2
+      );
+    }
+    path.lineTo(pts[n - 1][0], pts[n - 1][1]);
   }
 
   function draw(seconds) {
@@ -107,7 +98,9 @@ function initTopoBg() {
     const master = new Path2D();
     for (let l = 0; l < LEVELS; l++) {
       const level = 0.15 + (0.7 * l) / (LEVELS - 1);
-      contour(l % MASTER === 0 ? master : fine, level);
+      const lines = contours.trace(values, cols, rows, CELL, level);
+      const path = l % MASTER === 0 ? master : fine;
+      for (let k = 0; k < lines.length; k++) smoothLine(path, lines[k]);
     }
     ctx.strokeStyle = "rgba(238, 240, 244, 0.05)";
     ctx.stroke(fine);
