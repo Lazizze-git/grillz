@@ -3,10 +3,41 @@
    (héritage & teaser process = composants partagés .lab / .deploy)
    ============================================================ */
 
-/* --- Trois piliers (bloc panneau) --- */
-.fab {
+/* --- En-tête avec photo portrait à droite --- */
+.page-head--split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: end;
+}
+.page-head--split .page-head__text > p:last-child {
+  color: var(--ink-55);
+  max-width: 48ch;
+  font-size: var(--step-1);
+}
+.page-head__visual {
+  overflow: hidden;
+  border-radius: var(--radius);
   background: var(--bg-panel);
 }
+.page-head__visual img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 45%;
+  filter: grayscale(1) contrast(1.05);
+}
+@media (min-width: 860px) {
+  .page-head--split {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+  .page-head__visual img {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+/* --- Trois piliers --- */
 .fab__grid {
   display: grid;
   gap: 0;
@@ -118,13 +149,6 @@
 .profile__creds dd {
   color: var(--ink);
   text-align: right;
-}
-.profile__sign {
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--accent);
 }
 @media (min-width: 860px) {
   .profile {

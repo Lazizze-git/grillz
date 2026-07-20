@@ -114,4 +114,8 @@
   .specs__inner {
     grid-template-columns: 1fr 1fr;
   }
+  /* Cale la première ligne du titre sur la première ligne du tableau */
+  .specs__cta {
+    padding-top: calc(4.7rem - 0.93vw);
+  }
 }

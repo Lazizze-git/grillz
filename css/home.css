@@ -109,6 +109,14 @@
   color: var(--accent);
   font-style: normal;
 }
+/* Colonne étroite entre 860 et 1180px : on réduit d'un cran pour garder la ligne entière */
+@media (min-width: 860px) and (max-width: 1180px) {
+  .hero__metrics {
+    font-size: var(--step--2);
+    letter-spacing: 0.01em;
+    gap: 0.5em 0.6em;
+  }
+}
 .hero__cta {
   display: flex;
   flex-wrap: wrap;
