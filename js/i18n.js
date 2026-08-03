@@ -41,7 +41,7 @@
     "Fermer le menu": "Close menu",
     "Accueil": "Home",
     "Entrée en matière": "Where it begins",
-    "Origine & profil": "Origin & profile",
+    "Origine & matières": "Origin & materials",
     "De l'empreinte à la livraison": "From impression to delivery",
     "Les créations": "The creations",
     "Devis & rendez-vous": "Quotes & appointments",
@@ -248,28 +248,31 @@
     "Choix de la langue": "Language",
 
     /* Savoir-faire */
+    "Une carrière entière passée dans la technique dentaire, aujourd'hui au service du bijou. Voici notre origine, nos gestes et nos matières.":
+      "A whole career spent in dental technology, today in the service of jewellery. Here are our origin, our gestures and our materials.",
+    "01 // Origine": "01 // Origin",
+    "02 // Transmission": "02 // Passing it on",
+    "Former, examiner,": "Training, examining,",
+    "présider.": "presiding.",
+    "Formatrice d'apprentis": "Apprentice trainer",
+    "Des générations de techniciens formées à l'établi : le geste, la mesure, la patience.":
+      "Generations of technicians trained at the bench: the gesture, the measure, the patience.",
+    "Experte aux examens": "Examination expert",
+    "Juger le travail des autres oblige à connaître la frontière entre bien fait et irréprochable.":
+      "Judging the work of others means knowing the line between well made and flawless.",
+    "Présidente · section vaudoise": "President · Vaud section",
+    "Trois ans à la tête de l'association des laboratoires dentaires du canton.":
+      "Three years leading the canton's association of dental laboratories.",
+    "03 // Aujourd'hui": "03 // Today",
+    "La même rigueur,": "The same rigour,",
+    "appliquée au bijou.": "applied to jewellery.",
+    "Une empreinte, une bouche : la pièce épouse les reliefs et les asymétries. Un maintien franc, sans compromis, sans douleur.":
+      "One impression, one mouth: the piece follows every relief and asymmetry. A firm hold, without compromise, without pain.",
     "Savoir-faire & Histoire": "Craft & History",
     "L'art dentaire rencontre la": "Dental art meets",
     "haute joaillerie": "high jewellery",
-    "Une maison née en 1978 dans la technique dentaire, élevée à l'exigence d'un atelier de joaillerie. Voici notre origine, nos gestes et nos matières.":
-      "A maison born in 1978 in dental technology, raised to the standards of a jewellery atelier. Here are our origin, our gestures and our materials.",
-    "01 // Héritage": "01 // Heritage",
-    "D'un cabinet dentaire": "From a dental practice",
-    "à une maison de joaillerie.": "to a jewellery maison.",
-    "Tout commence par": "Everything begins with",
-    "une empreinte.": "an impression.",
-    "L'histoire commence en 1978 : la mère du fondateur entre dans la technique dentaire et bâtit un magnifique cabinet. Près de cinquante ans d'expertise de la dent — c'est ce socle qui garantit aujourd'hui le savoir-faire de chaque grillz.":
-      "The story begins in 1978: the founder's mother enters dental technology and builds a magnificent practice. Nearly fifty years of expertise of the tooth — the foundation that guarantees the craft behind every grillz today.",
-    "Pendant des années, nos mains ont appris la bouche : ses reliefs, ses asymétries, son confort. Cette intimité-là ne s'improvise pas.":
-      "For years, our hands learned the mouth: its reliefs, its asymmetries, its comfort. That intimacy cannot be improvised.",
-    "Le passage à la joaillerie fut une évidence. Appliquer à l'or et à l'argent la rigueur d'un geste technique : un ajustement parfait, sans compromis, sans douleur. Chaque pièce porte cette double exigence — celle du technicien-dentiste et celle du joaillier.":
-      "The move to jewellery was self-evident. Applying to gold and silver the rigour of a technical gesture: a perfect fit, without compromise, without pain. Each piece carries this double standard — the dental technician's and the jeweller's.",
-    "Origine": "Origin",
-    "Technique dentaire · 1978": "Dental technology · 1978",
     "Métier": "Trade",
-    "Technicien-dentiste joaillier": "Dental technician & jeweller",
     "Ajustement anatomique": "Anatomical fit",
-    "02 // Portrait": "02 // Portrait",
     "Depuis 1978,": "Since 1978,",
     "la technicienne-dentiste.": "the dental technician.",
     "Grillz argent et or posé sur son modèle en plâtre, à l'atelier":
@@ -291,24 +294,13 @@
     "Technicienne-dentiste · depuis 1978": "Dental technician · since 1978",
     "Indépendante": "Self-employed",
     "Depuis 1993": "Since 1993",
-    "Transmission": "Passing it on",
-    "Formatrice d'apprentis · experte aux examens": "Apprentice trainer · examination expert",
-    "Engagement": "Commitment",
-    "Présidente des laboratoires dentaires · section vaudoise":
-      "President of the dental laboratories association · Vaud section",
-    "Aujourd'hui": "Today",
-    "Grillz & bijoux dentaires": "Grillz & dental jewellery",
-    "Héritage": "Heritage",
-    "03 // Trois piliers": "03 // Three pillars",
+    "04 // Trois piliers": "04 // Three pillars",
     "Pourquoi la Suisse": "Why Switzerland",
     "change tout.": "changes everything.",
     "La précision horlogère n'est pas un argument marketing : c'est une culture du dixième de millimètre, appliquée à votre sourire.":
       "Watchmaking precision is not a marketing claim: it is a culture of the tenth of a millimetre, applied to your smile.",
     "Précision horlogère appliquée à la joaillerie dentaire. Chaque pièce naît, vit et se finit dans notre atelier.":
       "Watchmaking precision applied to dental jewellery. Each piece is born, lives and is finished in our atelier.",
-    "Expertise dentaire": "Dental expertise",
-    "Un savoir-faire familial forgé dans la technique dentaire depuis 1978. Moulage professionnel, confort anatomique parfait.":
-      "A family craft forged in dental technology since 1978. Professional moulding, perfect anatomical comfort.",
     "Matériaux certifiés": "Certified materials",
     "Or 10K à 18K, argent 925, chrome-cobalt, diamants naturels et synthétiques. Une traçabilité totale, consignée sur votre certificat d'authenticité.":
       "10K to 18K gold, 925 silver, chrome-cobalt, natural and lab-grown diamonds. Full traceability, recorded on your certificate of authenticity.",
@@ -316,7 +308,7 @@
       "Gloved hand holding a silver grillz above a dental cast",
     "Établi · Lausanne": "Bench · Lausanne",
     "Fonte → ciselure → sertissage → polissage": "Casting → chasing → setting → polishing",
-    "04 // Matières": "04 // Materials",
+    "05 // Matières": "05 // Materials",
     "Choisies comme": "Chosen the way",
     "on choisit une pierre.": "one chooses a stone.",
     "Faites défiler →": "Scroll →",
@@ -341,7 +333,7 @@
     "Croix, crocs, motifs sculptés : tous les designs particuliers sont possibles, dessinés avec vous.":
       "Crosses, fangs, sculpted motifs: any specific design is possible, drawn with you.",
     "Sur demande": "On request",
-    "05 // Le geste": "05 // The gesture",
+    "06 // Le geste": "06 // The gesture",
     "Le métal,": "The metal,",
     "geste après geste.": "gesture after gesture.",
     "Chaque pièce traverse le même établi, entre les mêmes mains, du métal brut à l'éclat final.":

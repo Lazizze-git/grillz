@@ -79,24 +79,21 @@ function cmsHydrateCraft(craft) {
     cmsPick(craft.portraitCaption, craft.portraitCaptionEn)
   );
 
-  const body = document.querySelector(".profile__body");
+  /* Le texte est réparti dans la page : chaque paragraphe a son emplacement. */
   const paragraphs = cmsPick(craft.portraitParagraphs, craft.portraitParagraphsEn);
-  if (body && Array.isArray(paragraphs) && paragraphs.length) {
-    const olds = body.querySelectorAll(":scope > p:not(.profile__intro)");
-    const anchor = olds.length ? olds[olds.length - 1].nextSibling : null;
-    olds.forEach((p) => p.remove());
-    paragraphs.forEach((text) => {
-      if (text && text.trim()) body.insertBefore(cmsEl("p", null, text.trim()), anchor);
+  if (Array.isArray(paragraphs)) {
+    paragraphs.forEach((text, i) => {
+      cmsText(document.querySelector('[data-craft-p="' + (i + 1) + '"]'), text);
     });
   }
 
   const quote = cmsPick(craft.portraitQuote, craft.portraitQuoteEn);
-  const quoteEl = document.querySelector(".profile__quote blockquote p");
+  const quoteEl = document.querySelector("[data-craft-quote]");
   if (quoteEl && quote && quote.trim()) {
     quoteEl.textContent = "« " + quote.trim().replace(/^[«"]\s*|\s*[»"]$/g, "") + " »";
   }
   cmsText(
-    document.querySelector(".profile__quote figcaption"),
+    document.querySelector("[data-craft-author]"),
     cmsPick(craft.portraitQuoteAuthor, craft.portraitQuoteAuthorEn)
   );
 }

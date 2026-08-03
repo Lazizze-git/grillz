@@ -14,7 +14,7 @@ elle reste un brouillon visible seulement dans l'espace d'édition.
 | --- | --- |
 | **Page d'accueil** | La grande photo du haut, sa légende, le titre en deux lignes, le paragraphe d'introduction et les trois repères (prix, délai, envoi). |
 | **Créations (galerie)** | Les pièces : nom, référence, photos, catégories, matériau, nombre de dents, délai, style. Chaque photo devient une vue dans la galerie ; la première sert de vignette sur l'accueil. |
-| **Page Savoir-faire** | La photo d'en-tête, le portrait de la technicienne-dentiste, sa légende, ses paragraphes et sa phrase mise en avant. |
+| **Page Savoir-faire** | La photo d'en-tête, le portrait de la technicienne-dentiste, sa légende, ses paragraphes et sa phrase mise en avant. Les quatre paragraphes se placent à quatre endroits distincts de la page (origine, transmission, puis deux colonnes) : garder cet ordre. |
 | **Réglages du site** | E-mail, téléphone, adresse, Instagram et le statut « Carnet ouvert » — repris dans le menu et le pied de page de toutes les pages. |
 
 ## Ajouter une création
