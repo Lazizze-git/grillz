@@ -264,6 +264,13 @@
     "Trois ans à la tête de l'association des laboratoires dentaires du canton.":
       "Three years leading the canton's association of dental laboratories.",
     "03 // Aujourd'hui": "03 // Today",
+    "À deux": "Together",
+    "Mère & fils": "Mother & son",
+    "Expérience": "Experience",
+    "Plus de 40 années": "More than 40 years",
+    "Artisanale, à l'atelier": "By hand, in the atelier",
+    "Séries": "Series",
+    "Aucune · pièces uniques": "None · unique pieces",
     "La même rigueur,": "The same rigour,",
     "appliquée au bijou.": "applied to jewellery.",
     "Une empreinte, une bouche : la pièce épouse les reliefs et les asymétries. Un maintien franc, sans compromis, sans douleur.":

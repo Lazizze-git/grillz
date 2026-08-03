@@ -185,21 +185,6 @@
   color: var(--ink-55);
 }
 
-/* --- Deux paragraphes côte à côte, pour ne jamais faire de pavé --- */
-.duo {
-  display: grid;
-  gap: clamp(1.6rem, 4vw, 3.5rem);
-  grid-template-columns: 1fr;
-}
-.duo p {
-  color: var(--ink-70);
-  max-width: 56ch;
-}
-@media (min-width: 860px) {
-  .duo {
-    grid-template-columns: 1fr 1fr;
-  }
-}
 @media (min-width: 860px) {
   /* Texte à gauche, photo à droite : contrepoint de la section Héritage */
   .profile {
