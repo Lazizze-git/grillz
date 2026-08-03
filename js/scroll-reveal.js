@@ -3,11 +3,15 @@
  * - Éléments .reveal / .reveal-mask : fondu-montée à l'entrée dans le viewport.
  * - Conteneurs [data-stagger] : leurs enfants .reveal apparaissent en cascade.
  * Sans IO ou en "reduced motion" : tout est révélé immédiatement.
+ * Réentrant : un second appel ne reprend que les éléments arrivés depuis
+ * (contenu injecté par le CMS), les autres sont marqués comme déjà traités.
  */
 function initScrollReveal() {
-  const SEL = ".reveal, .reveal-mask";
+  const SEL = ".reveal:not([data-revealed]), .reveal-mask:not([data-revealed])";
   const all = document.querySelectorAll(SEL);
   if (!all.length) return;
+  const fresh = new Set(all);
+  all.forEach((el) => el.setAttribute("data-revealed", ""));
 
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const noIO = typeof window.IntersectionObserver === "undefined";
@@ -69,7 +73,10 @@ function initScrollReveal() {
     { threshold: 0.1, rootMargin: "0px 0px -6% 0px" }
   );
 
+  /* Seuls les groupes contenant du contenu nouveau sont (re)traités. */
   groups.forEach((g) => {
+    const hasFresh = Array.from(g.querySelectorAll(".reveal")).some((c) => fresh.has(c));
+    if (!hasFresh) return;
     if (inFold(g)) revealGroup(g);
     else groupIO.observe(g);
   });

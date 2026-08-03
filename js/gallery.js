@@ -1,9 +1,16 @@
 /**
  * Galerie — filtres par catégorie + lightbox fiche projet.
+ * Réentrant : rappelé après l'arrivée du contenu du CMS, il reprend les
+ * nouvelles tuiles sans dupliquer les écouteurs des filtres et de la fiche.
  */
+let galleryOpenTile = null; /* ouverture de la fiche, partagée entre les appels */
+
 function initGallery() {
   const grid = document.querySelector(".grid-gallery");
   if (!grid) return;
+
+  const firstRun = !grid.hasAttribute("data-gallery-ready");
+  grid.setAttribute("data-gallery-ready", "");
 
   const tiles = Array.from(grid.querySelectorAll(".tile"));
   const filters = document.querySelectorAll(".filter");
@@ -30,10 +37,13 @@ function initGallery() {
   });
 
   /* ---- Filtres + compteur ---- */
+  /* Relu à chaque fois : les tuiles peuvent avoir été remplacées par le CMS. */
+  const allTiles = () => Array.from(grid.querySelectorAll(".tile"));
+
   const countEl = document.querySelector("[data-count]");
   const updateCount = () => {
     if (!countEl) return;
-    const n = tiles.filter((t) => !t.classList.contains("is-hidden")).length;
+    const n = allTiles().filter((t) => !t.classList.contains("is-hidden")).length;
     countEl.textContent = `${String(n).padStart(2, "0")} vues`;
   };
 
@@ -47,18 +57,29 @@ function initGallery() {
   /* Nombre de vues par catégorie, affiché dans chaque pastille */
   const countFor = (cat) =>
     cat === "all"
-      ? tiles.length
-      : tiles.filter((t) => t.dataset.cat.split(" ").includes(cat)).length;
+      ? allTiles().length
+      : allTiles().filter((t) => t.dataset.cat.split(" ").includes(cat)).length;
+
+  const applyFilter = (cat) => {
+    allTiles().forEach((tile) => {
+      const match = cat === "all" || tile.dataset.cat.split(" ").includes(cat);
+      tile.classList.toggle("is-hidden", !match);
+    });
+    updateCount();
+    replayFilterIn();
+  };
 
   filters.forEach((btn) => {
     btn.setAttribute("aria-pressed", String(btn.classList.contains("is-active")));
-    if (!btn.querySelector(".filter__count")) {
-      const count = document.createElement("span");
+    let count = btn.querySelector(".filter__count");
+    if (!count) {
+      count = document.createElement("span");
       count.className = "filter__count";
       count.setAttribute("aria-hidden", "true");
-      count.textContent = String(countFor(btn.dataset.filter)).padStart(2, "0");
       btn.appendChild(count);
     }
+    count.textContent = String(countFor(btn.dataset.filter)).padStart(2, "0");
+    if (!firstRun) return; /* écouteur déjà en place */
     btn.addEventListener("click", () => {
       filters.forEach((f) => {
         f.classList.remove("is-active");
@@ -66,17 +87,17 @@ function initGallery() {
       });
       btn.classList.add("is-active");
       btn.setAttribute("aria-pressed", "true");
-      const cat = btn.dataset.filter;
-      tiles.forEach((tile) => {
-        const match =
-          cat === "all" || tile.dataset.cat.split(" ").includes(cat);
-        tile.classList.toggle("is-hidden", !match);
-      });
-      updateCount();
-      replayFilterIn();
+      applyFilter(btn.dataset.filter);
     });
   });
-  updateCount();
+
+  /* Après un remplacement des tuiles, le filtre choisi reste appliqué. */
+  const activeFilter = document.querySelector(".filter.is-active");
+  if (!firstRun && activeFilter && activeFilter.dataset.filter !== "all") {
+    applyFilter(activeFilter.dataset.filter);
+  } else {
+    updateCount();
+  }
 
   /* ---- Lightbox ---- */
   const lightbox = document.querySelector(".lightbox");
@@ -128,22 +149,29 @@ function initGallery() {
   };
 
   /* Glisser la fiche vers le bas (ou molette vers le bas) la ferme */
-  if (typeof window.attachSheetDismiss === "function") {
+  if (firstRun && typeof window.attachSheetDismiss === "function") {
     window.attachSheetDismiss(lightbox.querySelector(".lightbox__inner"), close);
   }
+
+  /* La fiche n'est câblée qu'une fois : les tuiles neuves réutilisent la même
+     fonction d'ouverture, celle que connaissent les écouteurs de fermeture. */
+  if (firstRun) galleryOpenTile = open;
+  const openTile = galleryOpenTile || open;
 
   /* Clic ou tap = fiche détaillée (le panneau au survol reste réservé au desktop) */
   tiles.forEach((tile) => {
     tile.setAttribute("role", "button");
     tile.setAttribute("tabindex", "0");
-    tile.addEventListener("click", () => open(tile));
+    tile.addEventListener("click", () => openTile(tile));
     tile.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        open(tile);
+        openTile(tile);
       }
     });
   });
+
+  if (!firstRun) return; /* les écouteurs de la fiche sont déjà posés */
 
   closeBtn.addEventListener("click", close);
   lightbox.addEventListener("click", (e) => {

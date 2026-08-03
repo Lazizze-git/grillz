@@ -667,6 +667,7 @@
   }
 
   var lang = detect();
+  window.MA_LANG = lang; /* lu par le CMS pour servir la bonne langue */
   initSwitcher(lang);
   if (lang === "en") translatePage();
 })();

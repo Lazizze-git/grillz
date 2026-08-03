@@ -26,9 +26,23 @@
     safe(window.initCursor, "initCursor");
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
-  } else {
+  /* Le contenu du CMS arrive après coup : on reprend alors les éléments
+     nouvellement injectés (galerie, catalogue, apparitions au scroll). */
+  function refresh() {
+    safe(window.initScrollReveal, "initScrollReveal (CMS)");
+    safe(window.initGallery, "initGallery (CMS)");
+  }
+
+  function start() {
     boot();
+    if (window.cmsReady && typeof window.cmsReady.then === "function") {
+      window.cmsReady.then(refresh, refresh);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
   }
 })();
