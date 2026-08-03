@@ -36,10 +36,7 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <div class="cursor" aria-hidden="true">
-      <span class="cursor__dot"></span>
-      <span class="cursor__ring"></span>
-    </div>
+    <div class="cursor" aria-hidden="true"></div>
 
     <header class="nav">
       <div class="wrap nav__inner">
@@ -120,28 +117,38 @@
         </div>
       </section>
 
-      <!-- 02 // Profil de l'artisan -->
+      <!-- 02 // Portrait de la technicienne-dentiste -->
       <section class="sec wrap">
         <header class="sec-head reveal">
-          <span class="sec-head__id">02 // Profil</span>
-          <h2 class="sec-head__title">La main derrière <span>chaque pièce.</span></h2>
+          <span class="sec-head__id">02 // Portrait</span>
+          <h2 class="sec-head__title">Depuis 1978, <span>la technicienne-dentiste.</span></h2>
         </header>
 
         <div class="profile">
+          <!-- PHOTO PROVISOIRE — remplacer le fichier assets/img/portrait-technicienne.jpg
+               par son portrait (cadrage vertical, idéalement 1440 × 1800 px). -->
           <figure class="profile__photo reveal">
-            <img src="assets/img/ecriture-02.jpg" alt="Portrait de l'artisan à l'établi, façonnant un grillz en argent" loading="lazy" />
-            <figcaption>À l'établi · Lausanne</figcaption>
+            <img src="assets/img/portrait-technicienne.jpg" alt="Grillz argent et or posé sur son modèle en plâtre, à l'atelier" loading="lazy" />
+            <figcaption>Technique dentaire · depuis 1978</figcaption>
           </figure>
           <div class="profile__body reveal" data-delay="1">
-            <p class="profile__intro">Technicien-dentiste de formation, <span>joaillier par obsession.</span></p>
-            <p>Formé à la technique dentaire auprès de sa mère, dans le métier depuis 1978, le fondateur a passé quinze ans à comprendre la bouche — puis autant à apprendre à la sublimer. D'elle, il tient aussi le goût de l'esthétisme : des dents qui ont un vrai caractère, pas seulement des dents parfaites. C'est cette double culture, technique et joaillière, qui donne à chaque pièce son ajustement sans faille.</p>
-            <p>Il travaille seul, à l'établi, du premier moulage au dernier polissage. Aucune sous-traitance, aucune série : une pièce, une bouche, une signature.</p>
+            <p class="profile__intro">Passion, précision, <span>exigence de qualité.</span></p>
+            <p>Technicienne-dentiste depuis 1978, j'ai exercé mon métier avec passion, précision et exigence de qualité pour la satisfaction de ma clientèle. Au fil des décennies, j'ai acquis une solide expérience technique et esthétique en travaillant comme salariée, puis comme indépendante depuis 1993.</p>
+            <p>Tout au long de ma carrière, je me suis investie dans la profession en tant que formatrice d'apprentis, experte aux examens et présidente de l'association des laboratoires dentaires pour la section vaudoise durant trois ans. Transmettre mon savoir-faire et contribuer à l'évolution de ma profession sont des valeurs essentielles pour moi.</p>
+            <p>Aujourd'hui, je mets cette expérience au service d'un domaine différent, qui allie technique et création artistique. Les grillz et bijoux dentaires sont créés avec la même rigueur et le même souci du détail : ces exigences de qualité ont guidé toute ma carrière.</p>
+            <p>Travailler aux côtés de mon fils est une nouvelle aventure, qui me permet de conjuguer l'expérience de plus de quarante années avec une approche moderne et créative, enrichie par de belles rencontres avec une clientèle aux univers variés. Ensemble, nous avons une excellente collaboration, ainsi qu'une grande satisfaction de réaliser des pièces uniques, fabriquées artisanalement avec la même passion.</p>
+            <figure class="profile__quote">
+              <blockquote>
+                <p>« Parce qu'un sourire est une signature, chaque grillz mérite le plus haut niveau d'exigence. »</p>
+              </blockquote>
+              <figcaption>La technicienne-dentiste de la maison</figcaption>
+            </figure>
             <dl class="profile__creds">
-              <div><dt>Formation</dt><dd>Technique dentaire · Lausanne</dd></div>
-              <div><dt>Héritage</dt><dd>Un savoir-faire familial · 1978</dd></div>
-              <div><dt>Expérience</dt><dd>15 ans à l'établi</dd></div>
-              <div><dt>Spécialité</dt><dd>Ajustement anatomique</dd></div>
-              <div><dt>Atelier</dt><dd>Av. de Sévelin 36, Lausanne</dd></div>
+              <div><dt>Métier</dt><dd>Technicienne-dentiste · depuis 1978</dd></div>
+              <div><dt>Indépendante</dt><dd>Depuis 1993</dd></div>
+              <div><dt>Transmission</dt><dd>Formatrice d'apprentis · experte aux examens</dd></div>
+              <div><dt>Engagement</dt><dd>Présidente des laboratoires dentaires · section vaudoise</dd></div>
+              <div><dt>Aujourd'hui</dt><dd>Grillz &amp; bijoux dentaires</dd></div>
             </dl>
           </div>
         </div>
@@ -314,6 +321,7 @@
           <span>© <span data-year>2026</span> Maison Alliani — Mentions légales</span>
           <span>46°31′N — 6°38′E</span>
           <span class="swiss"><i class="swiss-flag" aria-hidden="true"></i> Fabriqué en Suisse</span>
+          <span class="lang-switch" aria-label="Choix de la langue"><button type="button" data-lang="fr">FR</button><i aria-hidden="true">/</i><button type="button" data-lang="en">EN</button></span>
         </div>
       </div>
     </footer>
@@ -329,6 +337,7 @@
       }
     </script>
     <script defer src="js/util.js"></script>
+    <script defer src="js/i18n.js"></script>
     <script defer src="js/topo-noise.js"></script>
     <script defer src="js/topo-contours.js"></script>
     <script defer src="js/topo-bg.js"></script>

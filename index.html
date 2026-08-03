@@ -39,10 +39,7 @@
   </head>
   <body>
     <!-- Curseur custom -->
-    <div class="cursor" aria-hidden="true">
-      <span class="cursor__dot"></span>
-      <span class="cursor__ring"></span>
-    </div>
+    <div class="cursor" aria-hidden="true"></div>
 
     <!-- Navigation -->
     <header class="nav">
@@ -468,6 +465,7 @@
           <span>© <span data-year>2026</span> Maison Alliani — Mentions légales</span>
           <span>46°31′N — 6°38′E</span>
           <span class="swiss"><i class="swiss-flag" aria-hidden="true"></i> Fabriqué en Suisse</span>
+          <span class="lang-switch" aria-label="Choix de la langue"><button type="button" data-lang="fr">FR</button><i aria-hidden="true">/</i><button type="button" data-lang="en">EN</button></span>
         </div>
       </div>
     </footer>
@@ -497,6 +495,7 @@
       }
     </script>
     <script defer src="js/util.js"></script>
+    <script defer src="js/i18n.js"></script>
     <script defer src="js/topo-noise.js"></script>
     <script defer src="js/topo-contours.js"></script>
     <script defer src="js/topo-bg.js"></script>

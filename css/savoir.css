@@ -150,13 +150,41 @@
   color: var(--ink);
   text-align: right;
 }
+
+/* Citation en exergue (portrait de la technicienne-dentiste) */
+.profile__quote {
+  margin-block: 2.4rem;
+  padding-left: clamp(1rem, 2.5vw, 1.6rem);
+  border-left: 2px solid var(--accent);
+  max-width: 46ch;
+}
+.profile__quote blockquote p {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--step-1);
+  line-height: 1.35;
+  color: var(--ink);
+  margin-bottom: 0;
+  max-width: none;
+  text-wrap: balance;
+}
+.profile__quote figcaption {
+  margin-top: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-55);
+}
 @media (min-width: 860px) {
+  /* Texte à gauche, photo à droite : contrepoint de la section Héritage */
   .profile {
-    grid-template-columns: 0.8fr 1fr;
+    grid-template-columns: 1fr 0.8fr;
   }
   .profile__photo {
     position: sticky;
     top: 96px;
+    order: 2;
   }
 }
 

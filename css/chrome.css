@@ -283,6 +283,7 @@
     position: fixed;
     inset: 0;
     z-index: 9999;
+    opacity: 0; /* révélé au premier mouvement de souris */
     transition: opacity 0.3s ease;
   }
   .has-cursor,
@@ -290,30 +291,28 @@
   .has-cursor button {
     cursor: none;
   }
-  .cursor__dot,
-  .cursor__ring {
+  /* La pointe du SVG est en (3 ; 2.4) dans un viewBox de 28 × 38 affiché
+     en 32 × 43, soit (3.4 ; 2.7) à l'écran : on décale d'autant pour la
+     caler exactement sur le pointeur réel. */
+  .cursor__arrow {
     position: fixed;
     top: 0;
     left: 0;
-    border-radius: 50%;
+    margin: -2.7px 0 0 -3.4px;
+    line-height: 0;
     will-change: transform;
+    filter: drop-shadow(0 3px 7px rgba(0, 0, 0, 0.55));
   }
-  .cursor__dot {
-    width: 6px;
-    height: 6px;
-    background: var(--ink);
+  .cursor__arrow svg {
+    display: block;
+    transform-origin: 3.4px 2.7px;
+    transition: transform 0.25s var(--ease);
   }
-  .cursor__ring {
-    width: 34px;
-    height: 34px;
-    border: 1px solid var(--ink-35);
-    transition: width 0.3s var(--ease), height 0.3s var(--ease),
-      background 0.3s var(--ease);
+  .cursor--active .cursor__arrow svg {
+    transform: scale(1.12);
   }
-  .cursor--active .cursor__ring {
-    width: 52px;
-    height: 52px;
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
-    border-color: var(--accent);
+  .cursor--press .cursor__arrow svg {
+    transform: scale(0.9);
+    transition-duration: var(--dur-press);
   }
 }
