@@ -125,6 +125,34 @@
   gap: 0.6em;
 }
 
+/* Sélecteur de langue FR / EN */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+.lang-switch i {
+  font-style: normal;
+  opacity: 0.5;
+}
+.lang-switch button {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--paper-55);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.lang-switch button:hover {
+  color: var(--paper);
+}
+.lang-switch button.is-active {
+  color: var(--accent-soft);
+}
+
 @media (min-width: 640px) {
   .footer__cols {
     grid-template-columns: repeat(3, 1fr);
