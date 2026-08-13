@@ -50,8 +50,9 @@ du contenu, écrite dans le code. Rien ne casse, rien ne disparaît.
   reconstruit galerie, catalogue et portraits avant l'initialisation des
   modules (`js/cms-client.js`, `js/cms-gallery.js`, `js/cms-content.js`).
 - Origines autorisées (CORS) : `localhost:5502`, `127.0.0.1:5502`,
-  `maisonalliani.ch`, `www.maisonalliani.ch`. **Ajouter le domaine définitif
-  avant la mise en ligne** : `npx sanity cors add https://… --no-credentials`.
+  `maison-alliani.com`, `www.maison-alliani.com`. **À déclarer avant la mise
+  en ligne** : `npx sanity cors add https://maison-alliani.com --no-credentials`
+  (puis idem pour `https://www.maison-alliani.com`).
 
 ### Commandes
 

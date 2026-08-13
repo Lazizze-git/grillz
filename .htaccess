@@ -1,0 +1,36 @@
+# Maison Alliani — configuration Apache (hébergement Infomaniak)
+# Domaine canonique : https://maison-alliani.com (sans www)
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # HTTPS obligatoire
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://maison-alliani.com%{REQUEST_URI} [R=301,L]
+
+  # www → domaine nu
+  RewriteCond %{HTTP_HOST} ^www\.maison-alliani\.com$ [NC]
+  RewriteRule ^ https://maison-alliani.com%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# Encodage par défaut
+AddDefaultCharset UTF-8
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# Cache navigateur
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
