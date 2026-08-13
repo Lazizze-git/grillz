@@ -89,6 +89,12 @@
         <div class="contact">
           <!-- Formulaire multi-étapes -->
           <form class="cocreation" novalidate>
+            <!-- Piège à robots : hors écran, jamais rempli par un visiteur -->
+            <p class="hp" aria-hidden="true">
+              <label for="site">Laissez ce champ vide</label>
+              <input type="text" id="site" name="site" tabindex="-1" autocomplete="off" />
+            </p>
+
             <div class="cocreation__progress" aria-hidden="true">
               <span class="is-done"></span><span></span><span></span><span></span><span></span>
             </div>
@@ -205,7 +211,7 @@
               <div class="field">
                 <label>Photos de référence</label>
                 <label class="upload">
-                  <input type="file" name="refs" accept="image/*" multiple />
+                  <input type="file" name="refs[]" accept="image/*" multiple />
                   <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 22V8M9 14l7-7 7 7M5 24v2a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor"/></svg>
                   <span class="upload__text">Glissez vos images ou cliquez pour parcourir</span>
                 </label>

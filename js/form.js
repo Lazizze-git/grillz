@@ -1,7 +1,7 @@
 /**
  * Formulaire de co-création — multi-étapes, progression, validation légère,
  * récapitulatif dynamique, écran de succès.
- * Démo front : aucune donnée n'est réellement envoyée (branchement back à prévoir).
+ * L'envoi passe par envoi.php, à la racine du site (hébergement PHP).
  */
 function initForm() {
   const form = document.querySelector(".cocreation");
@@ -110,13 +110,48 @@ function initForm() {
       .join("");
   }
 
-  /* Soumission */
-  form.addEventListener("submit", (e) => {
+  /* Soumission — les réponses partent vers envoi.php, qui écrit à l'atelier. */
+  const send = form.querySelector('[type="submit"]');
+  const alert = document.createElement("p");
+  alert.className = "form-error";
+  alert.setAttribute("role", "alert");
+  alert.hidden = true;
+  send?.closest(".fnav")?.before(alert);
+
+  const en = () => window.MA_LANG === "en";
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!validate(steps[current])) return;
-    steps.forEach((s) => s.classList.remove("is-active"));
-    form.querySelector(".cocreation__progress")?.setAttribute("hidden", "");
-    success?.classList.add("is-shown");
-    success?.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    alert.hidden = true;
+    send.disabled = true;
+    const label = send.innerHTML;
+    send.textContent = en() ? "Sending…" : "Envoi…";
+
+    try {
+      const res = await fetch("envoi.php", {
+        method: "POST",
+        body: new FormData(form)
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) throw new Error(data.error || "");
+
+      steps.forEach((s) => s.classList.remove("is-active"));
+      form.querySelector(".cocreation__progress")?.setAttribute("hidden", "");
+      success?.classList.add("is-shown");
+      success?.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch (err) {
+      /* L'échec ne doit jamais coûter le contact : on redonne l'adresse. */
+      const raison =
+        err.message ||
+        (en() ? "The message could not be sent." : "L'envoi n'a pas abouti.");
+      alert.textContent = en()
+        ? `${raison} Please write to alan.alliani2503@gmail.com.`
+        : `${raison} Écrivez-nous à alan.alliani2503@gmail.com.`;
+      alert.hidden = false;
+      send.disabled = false;
+      send.innerHTML = label;
+    }
   });
 }
