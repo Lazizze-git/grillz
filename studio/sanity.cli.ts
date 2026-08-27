@@ -6,9 +6,10 @@ export default defineCliConfig({
     dataset: "production"
   },
   /* Adresse du Studio en ligne : https://maisonalliani.sanity.studio
-     L'identifiant d'application est écrit ici par le CLI au premier déploiement. */
+     L'identifiant d'application a été attribué au premier déploiement. */
   studioHost: "maisonalliani",
   deployment: {
+    appId: "i9dqd48iq4wrr31algpe7z02",
     autoUpdates: true
   }
 });
