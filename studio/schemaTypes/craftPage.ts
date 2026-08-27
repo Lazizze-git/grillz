@@ -199,6 +199,7 @@ export const craftPage = defineType({
     defineField({ name: "portraitQuoteAuthorEn", title: "Signature (EN)", type: "string", fieldset: "en", group: "transmission" })
   ],
   preview: {
-    prepare: () => ({ title: "Page Savoir-faire" })
+    select: { media: "headImage" },
+    prepare: ({ media }) => ({ title: "Page Savoir-faire", media })
   }
 });

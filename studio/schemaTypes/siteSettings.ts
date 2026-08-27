@@ -23,7 +23,14 @@ export const siteSettings = defineType({
   ],
   fields: [
     /* ---------- Coordonnées ---------- */
-    defineField({ name: "email", title: "Adresse e-mail", type: "string", group: "contact" }),
+    defineField({
+      name: "email",
+      title: "Adresse e-mail",
+      type: "string",
+      group: "contact",
+      description: "Reçoit les demandes du formulaire et s'affiche sur tout le site.",
+      validation: (rule) => rule.required().email()
+    }),
     defineField({
       name: "phone",
       title: "Téléphone affiché",

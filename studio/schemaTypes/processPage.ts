@@ -55,5 +55,8 @@ export const processPage = defineType({
     defineField({ name: "ctaTextEn", title: "Texte de l'encart (EN)", type: "text", rows: 3, fieldset: "en", group: "practical" }),
     defineField({ name: "ctaLabelEn", title: "Bouton de l'encart (EN)", type: "string", fieldset: "en", group: "practical" })
   ],
-  preview: { prepare: () => ({ title: "Page Processus" }) }
+  preview: {
+    select: { media: "steps.0.image" },
+    prepare: ({ media }) => ({ title: "Page Processus", media })
+  }
 });

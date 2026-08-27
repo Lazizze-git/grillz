@@ -1,26 +1,40 @@
+import {
+  CogIcon,
+  DiamondIcon,
+  EnvelopeIcon,
+  HomeIcon,
+  ImagesIcon,
+  SparklesIcon,
+  ThListIcon
+} from "@sanity/icons";
 import type { StructureResolver } from "sanity/structure";
 
+type Builder = Parameters<StructureResolver>[0];
+type Icon = typeof HomeIcon;
+
 /**
- * Menu de gauche du Studio, pensé pour le client : une entrée par page du
- * site, les créations en liste, les réglages communs à part.
+ * Une page du site : un document unique, qu'on ouvre directement.
+ * L'identifiant du document est celui de son type — il n'y en a qu'un.
  */
-const singleton = (S: Parameters<StructureResolver>[0], id: string, title: string) =>
+const page = (S: Builder, id: string, title: string, icon: Icon) =>
   S.listItem()
-    .title(title)
     .id(id)
+    .title(title)
+    .icon(icon)
     .child(S.document().schemaType(id).documentId(id).title(title));
 
+/** Menu de gauche du Studio, dans l'ordre des pages du site. */
 export const structure: StructureResolver = (S) =>
   S.list()
     .title("Contenu du site")
     .items([
-      singleton(S, "homePage", "Page d'accueil"),
-      singleton(S, "craftPage", "Page Savoir-faire"),
-      singleton(S, "processPage", "Page Processus"),
-      singleton(S, "galleryPage", "Page Galerie"),
-      singleton(S, "contactPage", "Page Contact"),
+      page(S, "homePage", "Page d'accueil", HomeIcon),
+      page(S, "craftPage", "Page Savoir-faire", SparklesIcon),
+      page(S, "processPage", "Page Processus", ThListIcon),
+      page(S, "galleryPage", "Page Galerie", ImagesIcon),
+      page(S, "contactPage", "Page Contact", EnvelopeIcon),
       S.divider(),
-      S.documentTypeListItem("piece").title("Créations (galerie)"),
+      S.documentTypeListItem("piece").title("Créations (galerie)").icon(DiamondIcon),
       S.divider(),
-      singleton(S, "siteSettings", "Réglages du site")
+      page(S, "siteSettings", "Réglages du site", CogIcon)
     ]);

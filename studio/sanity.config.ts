@@ -4,6 +4,19 @@ import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./schemaTypes";
 import { structure } from "./structure";
 
+/**
+ * Les pages du site n'ont qu'un seul document chacune : elles se modifient,
+ * jamais ne se créent ni ne se suppriment.
+ */
+const PAGES = [
+  "homePage",
+  "craftPage",
+  "processPage",
+  "galleryPage",
+  "contactPage",
+  "siteSettings"
+];
+
 export default defineConfig({
   name: "maison-alliani",
   title: "Maison Alliani",
@@ -13,21 +26,20 @@ export default defineConfig({
 
   plugins: [structureTool({ structure }), visionTool()],
 
+  document: {
+    /* Supprimer ou dupliquer la page d'accueil n'a aucun sens et la ferait
+       disparaître du site : ces actions sont retirées pour ces documents. */
+    actions: (prev, context) =>
+      PAGES.includes(context.schemaType)
+        ? prev.filter(
+            (action) => !["delete", "duplicate", "unpublish"].includes(action.action ?? "")
+          )
+        : prev
+  },
+
   schema: {
     types: schemaTypes,
-    /* Les pages à réglage unique n'ont qu'un seul document : elles ne doivent
-       pas apparaître dans le menu « créer un document ». */
-    templates: (prev) =>
-      prev.filter(
-        (t) =>
-          ![
-            "homePage",
-            "craftPage",
-            "processPage",
-            "galleryPage",
-            "contactPage",
-            "siteSettings"
-          ].includes(t.schemaType)
-      )
+    /* Ces mêmes pages ne doivent pas apparaître dans « créer un document ». */
+    templates: (prev) => prev.filter((t) => !PAGES.includes(t.schemaType))
   }
 });

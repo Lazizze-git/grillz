@@ -251,6 +251,11 @@ export const homePage = defineType({
     defineField({ name: "careNoteEn", title: "Mot de la fin (EN)", type: "text", rows: 3, fieldset: "en", group: "care" })
   ],
   preview: {
-    prepare: () => ({ title: "Page d'accueil" })
+    select: { media: "heroImage", subtitle: "heroTitleTop" },
+    prepare: ({ media, subtitle }) => ({
+      title: "Page d'accueil",
+      subtitle: subtitle || undefined,
+      media
+    })
   }
 });
