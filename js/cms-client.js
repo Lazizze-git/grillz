@@ -83,6 +83,11 @@ function cmsSetImage(el, image, opts) {
   if (!src) return;
   el.src = src;
   el.removeAttribute("srcset");
+  /* Les dimensions demandées réservent la place avant l'arrivée de la photo :
+     la page cesse de sauter pendant le chargement. La mise en page reste
+     gouvernée par le CSS, ces attributs ne servent que de proportions. */
+  if (opts && opts.w) el.setAttribute("width", String(opts.w));
+  if (opts && opts.h) el.setAttribute("height", String(opts.h));
   const alt = cmsPick(image.alt, image.altEn);
   if (alt) el.alt = alt;
 }

@@ -8,6 +8,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { SEO } from "./seo-defaults.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const SITE = resolve(here, "../..");
@@ -162,7 +163,9 @@ const intro = (label, title, titleAccent, lead) => ({
   lead
 });
 
-const seo = (title, description) => ({ _type: "seoBlock", title, description });
+/* Les textes de référencement viennent d'un fichier partagé : le contenu de
+   départ et le correctif appliqué au projet en ligne ne peuvent pas diverger. */
+const seo = (id) => ({ _type: "seoBlock", ...SEO[id] });
 
 const step = (title, text) => ({ title, text });
 const row = (label, value) => ({ label, value });
@@ -196,7 +199,7 @@ function autoEn(node) {
  * ------------------------------------------------------------------------ */
 
 const HERO_SUB =
-  "Grillz et pièces dentaires de haute joaillerie, ajustés au dixième de millimètre dans notre atelier lausannois. Empreinte, façonnage à la main, pièce unique — jamais de modèle standard, jamais de stock.";
+  "Grillz et pièces dentaires de haute joaillerie, ajustés au dixième de millimètre dans notre atelier de Lausanne. Empreinte, façonnage à la main, pièce unique — jamais de modèle standard, jamais de stock.";
 
 const PORTRAIT = [
   "Technicienne-dentiste depuis 1978, j'ai exercé mon métier avec passion, précision et exigence de qualité pour la satisfaction de ma clientèle. Au fil des décennies, j'ai acquis une solide expérience technique et esthétique en travaillant comme salariée, puis comme indépendante depuis 1993.",
@@ -223,7 +226,7 @@ const homePage = {
   },
   heroCaption: "Porté // Atelier Lausanne",
   heroCaptionEn: "Worn // Lausanne atelier",
-  heroTitleTop: "Façonné pour",
+  heroTitleTop: "Grillz façonnés pour",
   heroTitleBottom: "une seule bouche.",
   heroSub: HERO_SUB,
   metrics: ["Dès 170 CHF", "2–4 semaines", "Envoi international"],
@@ -373,10 +376,7 @@ const homePage = {
     secondaryLabel: "Voir le catalogue"
   },
 
-  seo: seo(
-    "Grillz sur mesure en Suisse — Maison Alliani",
-    "Grillz sur mesure façonnés à la main en Suisse. Pièces uniques de haute joaillerie dentaire : or, argent 925, chrome-cobalt, diamants. Dès 170 CHF, sur rendez-vous."
-  )
+  seo: seo("homePage")
 };
 
 const craftPage = {
@@ -502,10 +502,7 @@ const craftPage = {
     secondaryLabel: "Prendre rendez-vous"
   },
 
-  seo: seo(
-    "Savoir-faire & Histoire — Maison Alliani",
-    "L'héritage d'une maison suisse née en 1978 dans la technique dentaire : fabrication artisanale, or 10K à 18K, argent 925, chrome-cobalt, diamants naturels et synthétiques."
-  )
+  seo: seo("craftPage")
 };
 
 const processPage = {
@@ -557,10 +554,7 @@ const processPage = {
   ctaText: "Tout démarre par un échange. Décrivez-nous votre projet, nous répondons sous 48 heures.",
   ctaLabel: "Démarrer ma commande",
 
-  seo: seo(
-    "Le Processus de commande — Maison Alliani",
-    "Du premier échange à la remise en main propre : consultation, prise d'empreinte dentaire, fabrication artisanale en Suisse et livraison avec certificat d'authenticité."
-  )
+  seo: seo("processPage")
 };
 
 const galleryPage = {
@@ -583,10 +577,7 @@ const galleryPage = {
   ]),
   countLabel: "vues",
 
-  seo: seo(
-    "Galerie des créations — Maison Alliani",
-    "Chaque pièce est une commande unique : grillz or et diamants, dents individuelles, créations custom. Découvrez la galerie de l'atelier."
-  )
+  seo: seo("galleryPage")
 };
 
 const contactPage = {
@@ -662,10 +653,7 @@ const contactPage = {
   atelierNote: "Sur rendez-vous uniquement",
   writeTitle: "Écrire",
 
-  seo: seo(
-    "Contact & Devis — Maison Alliani",
-    "Démarrez votre projet de grillz sur mesure. Formulaire de co-création en quelques étapes ou réservez un appel de 20 minutes avec l'atelier suisse."
-  )
+  seo: seo("contactPage")
 };
 
 const siteSettings = {

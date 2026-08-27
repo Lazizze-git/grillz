@@ -49,13 +49,13 @@
 
     /* Accueil — hero */
     "Carnet ouvert · sur rendez-vous": "Order book open · by appointment",
-    "Façonné pour": "Crafted for",
+    "Grillz façonnés pour": "Grillz crafted for",
     "une seule bouche.": "one mouth only.",
     "Grillz ajouré en métal précieux porté sur un sourire, photographie noir et blanc en lumière douce":
       "Openwork precious-metal grillz worn on a smile, black-and-white photograph in soft light",
     "Porté": "Worn",
     "Atelier Lausanne": "Lausanne atelier",
-    "Grillz et pièces dentaires de haute joaillerie, ajustés au dixième de millimètre dans notre atelier lausannois. Empreinte, façonnage à la main, pièce unique — jamais de modèle standard, jamais de stock.":
+    "Grillz et pièces dentaires de haute joaillerie, ajustés au dixième de millimètre dans notre atelier de Lausanne. Empreinte, façonnage à la main, pièce unique — jamais de modèle standard, jamais de stock.":
       "High-jewellery grillz and dental pieces, fitted to a tenth of a millimetre in our Lausanne atelier. Impression, hand crafting, one-of-a-kind piece — never a standard model, never stock.",
     "Dès 170 CHF": "From CHF 170",
     "2–4 semaines": "2–4 weeks",
@@ -549,11 +549,21 @@
     }
   }
 
+  /**
+   * Le français est la langue du site : c'est lui qui est écrit dans les
+   * pages, indexé par Google et servi par défaut à tout le monde.
+   *
+   * La détection automatique par la langue du navigateur a été retirée :
+   * les robots d'indexation explorent en anglais, et le site leur montrait
+   * donc une traduction — titre et description compris. Un atelier lausannois
+   * se retrouvait référencé en anglais sur des recherches francophones.
+   *
+   * L'anglais reste accessible, mais sur choix explicite du visiteur, via le
+   * sélecteur FR/EN du pied de page. Ce choix est mémorisé.
+   */
   function detect() {
     var s = stored();
-    if (s === "fr" || s === "en") return s;
-    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || "fr";
-    return nav.toLowerCase().indexOf("fr") === 0 ? "fr" : "en";
+    return s === "en" ? "en" : "fr";
   }
 
   function tr(value) {

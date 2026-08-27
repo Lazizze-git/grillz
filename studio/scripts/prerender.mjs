@@ -76,6 +76,30 @@ async function render(page) {
   return out;
 }
 
+/** Sitemap daté du jour du calcul, plutôt qu'une date figée dans le fichier. */
+function writeSitemap(dir, day) {
+  const PRIORITY = {
+    "index.html": "1.0",
+    "savoir-faire.html": "0.8",
+    "galerie.html": "0.8",
+    "processus.html": "0.7",
+    "contact.html": "0.7"
+  };
+  const urls = Object.entries(PRIORITY)
+    .map(([page, priority]) => {
+      const loc = page === "index.html" ? "" : page;
+      return `  <url>\n    <loc>https://maison-alliani.com/${loc}</loc>\n` +
+        `    <lastmod>${day}</lastmod>\n    <priority>${priority}</priority>\n  </url>`;
+    })
+    .join("\n");
+  writeFileSync(
+    join(dir, "sitemap.xml"),
+    `<?xml version="1.0" encoding="UTF-8"?>\n` +
+      `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+    "utf8"
+  );
+}
+
 /**
  * Compte les photos restées sur le fichier écrit dans la page.
  * Une photo servie par le CMS porte toujours ses paramètres de recadrage.
@@ -107,6 +131,8 @@ for (const page of PAGES) {
   console.log(`  ${page.padEnd(20)} ${(html.length / 1024).toFixed(0)} Ko` +
     (manquantes ? `  — ${manquantes} photo(s) encore sur le fichier local` : ""));
 }
+
+writeSitemap(OUT, new Date().toISOString().slice(0, 10));
 
 console.log(`\nPages écrites dans ${OUT}`);
 if (photos) {

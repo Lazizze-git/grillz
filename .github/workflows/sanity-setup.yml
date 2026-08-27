@@ -21,6 +21,10 @@ on:
         description: "Mettre l'espace d'édition en ligne"
         type: boolean
         default: true
+      patch_seo:
+        description: "Appliquer les titres et descriptions Google aux pages"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -59,6 +63,13 @@ jobs:
         # « --missing » ne touche à rien de ce qui existe déjà : relancer ce
         # workflow n'écrasera jamais le travail du client.
         run: npx sanity dataset import scripts/seed.ndjson production --missing
+
+      - name: Appliquer les textes de référencement
+        if: inputs.patch_seo
+        working-directory: studio
+        # Ne touche qu'au bloc « seo » des cinq pages : le reste du contenu,
+        # y compris ce qu'a écrit le client, est laissé intact.
+        run: node scripts/patch-seo.mjs
 
       - name: Déclarer les origines autorisées
         working-directory: studio
