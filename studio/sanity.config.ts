@@ -8,7 +8,7 @@ export default defineConfig({
   name: "maison-alliani",
   title: "Maison Alliani",
 
-  projectId: "64jkc7yr",
+  projectId: "eh6tu5mk",
   dataset: "production",
 
   plugins: [structureTool({ structure }), visionTool()],

@@ -4,7 +4,7 @@
  * et aucun jeton n'est exposé côté navigateur.
  */
 const CMS = {
-  projectId: "64jkc7yr",
+  projectId: "eh6tu5mk",
   dataset: "production",
   apiVersion: "v2024-06-01",
   timeoutMs: 3000

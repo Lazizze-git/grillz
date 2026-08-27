@@ -80,7 +80,7 @@ du contenu, écrite dans le code. Rien ne casse, rien ne disparaît.
 
 ## Notes techniques
 
-- Projet Sanity `64jkc7yr`, dataset `production` (public en lecture seule).
+- Projet Sanity `eh6tu5mk`, dataset `production` (public en lecture seule).
 - Le site interroge l'API depuis le navigateur, sans clé secrète, et
   reconstruit les pages avant l'initialisation des modules.
 - `js/cms-client.js` contient le moteur de liaison. Les pages portent des
