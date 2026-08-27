@@ -12,7 +12,7 @@ on:
       studio_host:
         description: "Nom de l'espace d'édition, sans « .sanity.studio »"
         required: true
-        default: maison-alliani
+        default: maisonalliani
       import_content:
         description: "Importer le contenu de départ et les photos"
         type: boolean

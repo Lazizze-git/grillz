@@ -2,7 +2,7 @@
 
 Le contenu du site se modifie ici, sans toucher au code :
 
-**https://maison-alliani.sanity.studio**
+**https://maisonalliani.sanity.studio**
 
 Toute modification **publiée** apparaît sur le site en quelques secondes, après
 un rafraîchissement de la page. Tant qu'une modification n'est pas publiée,
@@ -110,7 +110,7 @@ du contenu, écrite dans le code. Rien ne casse, rien ne disparaît.
 ```bash
 npm install            # une seule fois
 npm run dev            # espace d'édition en local : http://localhost:3333
-npm run deploy         # met en ligne https://maison-alliani.sanity.studio
+npm run deploy         # met en ligne https://maisonalliani.sanity.studio
 
 node scripts/build-seed.mjs                                  # régénère le contenu de départ
 npx sanity dataset import scripts/seed.ndjson production --replace

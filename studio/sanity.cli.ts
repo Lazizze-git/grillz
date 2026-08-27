@@ -5,9 +5,9 @@ export default defineCliConfig({
     projectId: "eh6tu5mk",
     dataset: "production"
   },
-  /* Adresse du Studio en ligne : https://maison-alliani.sanity.studio
+  /* Adresse du Studio en ligne : https://maisonalliani.sanity.studio
      L'identifiant d'application est écrit ici par le CLI au premier déploiement. */
-  studioHost: "maison-alliani",
+  studioHost: "maisonalliani",
   deployment: {
     autoUpdates: true
   }
