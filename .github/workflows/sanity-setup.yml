@@ -63,6 +63,8 @@ jobs:
       - name: Déclarer les origines autorisées
         working-directory: studio
         run: |
+          # Le site lit du contenu publié, sans identité : aucun jeton ne doit
+          # partir depuis ces origines.
           for origine in \
             https://maison-alliani.com \
             https://www.maison-alliani.com \
@@ -74,6 +76,15 @@ jobs:
               echo "  déjà déclarée (ou refusée) : $origine"
             fi
           done
+
+          # L'espace d'édition, lui, agit au nom de la personne connectée :
+          # sa connexion temps réel a besoin de porter son identité.
+          studio="https://${{ inputs.studio_host }}.sanity.studio"
+          if npx sanity cors add "$studio" --credentials -y; then
+            echo "  ajoutée : $studio"
+          else
+            echo "  déjà déclarée (ou refusée) : $studio"
+          fi
 
       - name: Mettre l'espace d'édition en ligne
         if: inputs.deploy_studio
