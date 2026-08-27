@@ -90,7 +90,7 @@ function cmsBuildCard(piece, index, total) {
   card.appendChild(spec);
 
   const link = cmsEl("a", "cat-card__link", "Inspecter ");
-  link.href = "galerie.html";
+  link.href = "/galerie";
   link.appendChild(cmsEl("span", "arrow", "→"));
   card.appendChild(link);
   return card;

@@ -87,7 +87,8 @@ function writeSitemap(dir, day) {
   };
   const urls = Object.entries(PRIORITY)
     .map(([page, priority]) => {
-      const loc = page === "index.html" ? "" : page;
+      /* Les pages s'annoncent sans extension, comme elles sont servies. */
+      const loc = page === "index.html" ? "" : page.replace(/\.html$/, "");
       return `  <url>\n    <loc>https://maison-alliani.com/${loc}</loc>\n` +
         `    <lastmod>${day}</lastmod>\n    <priority>${priority}</priority>\n  </url>`;
     })

@@ -9,11 +9,11 @@ const SITE = "https://maison-alliani.com";
 
 /** L'adresse de la page que chaque rubrique alimente. */
 const PAGE_OF: Record<string, { title: string; href: string }> = {
-  homePage: { title: "Page d'accueil", href: "/index.html" },
-  craftPage: { title: "Page Savoir-faire", href: "/savoir-faire.html" },
-  processPage: { title: "Page Processus", href: "/processus.html" },
-  galleryPage: { title: "Page Galerie", href: "/galerie.html" },
-  contactPage: { title: "Page Contact", href: "/contact.html" }
+  homePage: { title: "Page d'accueil", href: "/" },
+  craftPage: { title: "Page Savoir-faire", href: "/savoir-faire" },
+  processPage: { title: "Page Processus", href: "/processus" },
+  galleryPage: { title: "Page Galerie", href: "/galerie" },
+  contactPage: { title: "Page Contact", href: "/contact" }
 };
 
 const pageLocations = Object.fromEntries(
@@ -58,8 +58,8 @@ export default defineConfig({
             select: { name: "name" },
             resolve: (doc) => ({
               locations: [
-                { title: `Galerie — ${doc?.name ?? "création"}`, href: "/galerie.html" },
-                { title: "Page d'accueil", href: "/index.html" }
+                { title: `Galerie — ${doc?.name ?? "création"}`, href: "/galerie" },
+                { title: "Page d'accueil", href: "/" }
               ]
             })
           }),
