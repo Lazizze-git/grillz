@@ -15,11 +15,19 @@ export default defineConfig({
 
   schema: {
     types: schemaTypes,
-    /* Les réglages uniques (accueil, réglages, savoir-faire) ne doivent pas
-       apparaître dans le menu « créer un document ». */
+    /* Les pages à réglage unique n'ont qu'un seul document : elles ne doivent
+       pas apparaître dans le menu « créer un document ». */
     templates: (prev) =>
       prev.filter(
-        (t) => !["homePage", "siteSettings", "craftPage"].includes(t.schemaType)
+        (t) =>
+          ![
+            "homePage",
+            "craftPage",
+            "processPage",
+            "galleryPage",
+            "contactPage",
+            "siteSettings"
+          ].includes(t.schemaType)
       )
   }
 });

@@ -35,14 +35,14 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body>
+  <body data-page="gallery">
     <div class="cursor" aria-hidden="true"></div>
 
     <header class="nav">
       <div class="wrap nav__inner">
         <a href="index.html" class="nav__logo" aria-label="Maison Alliani — accueil">
           <b>Maison Alliani</b>
-          <span>Atelier · CH</span>
+          <span data-cms="settings.navTagline">Atelier · CH</span>
         </a>
         <nav class="nav__links" aria-label="Navigation principale">
           <a href="savoir-faire.html">Savoir-faire</a>
@@ -74,28 +74,28 @@
       <div class="menu__foot">
         <a href="mailto:alan.alliani2503@gmail.com" class="link">alan.alliani2503@gmail.com</a>
         <a href="https://www.instagram.com/maison_alliani/" class="link" target="_blank" rel="noopener">Instagram ↗</a>
-        <span class="label label--muted label--nodash">Lausanne · Suisse</span>
+        <span class="label label--muted label--nodash" data-cms="settings.navPlace">Lausanne · Suisse</span>
       </div>
     </div>
 
     <main>
       <section class="page-head wrap">
-        <p class="page-head__label label reveal">Galerie</p>
-        <h1 class="display reveal-mask"><span>Nos <em>créations</em>.</span></h1>
-        <p class="reveal" data-delay="2">Chaque pièce est une commande unique. Cliquez pour découvrir matériaux, détails et histoire.</p>
+        <p class="page-head__label label reveal" data-cms="gallery.pageHead.label">Galerie</p>
+        <h1 class="display reveal-mask"><span data-cms-lead="gallery.pageHead.title">Nos <em data-cms="gallery.pageHead.titleAccent">créations</em>.</span></h1>
+        <p class="reveal" data-delay="2" data-cms="gallery.pageHead.lead">Chaque pièce est une commande unique. Cliquez pour découvrir matériaux, détails et histoire.</p>
       </section>
 
       <section class="section section--tight wrap" aria-label="Galerie filtrable">
         <div class="gallery-bar reveal">
           <div class="filters" role="group" aria-label="Filtrer par style">
-            <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">Tout</button>
-            <button type="button" class="filter" data-filter="or" aria-pressed="false">Or</button>
-            <button type="button" class="filter" data-filter="diamants" aria-pressed="false">Diamants</button>
-            <button type="button" class="filter" data-filter="complet" aria-pressed="false">Complet</button>
-            <button type="button" class="filter" data-filter="individuelles" aria-pressed="false">Individuelles</button>
-            <button type="button" class="filter" data-filter="custom" aria-pressed="false">Custom</button>
+            <button type="button" class="filter is-active" data-filter="all" aria-pressed="true" data-cms-lead="gallery.filters.0.label">Tout</button>
+            <button type="button" class="filter" data-filter="or" aria-pressed="false" data-cms-lead="gallery.filters.1.label">Or</button>
+            <button type="button" class="filter" data-filter="diamants" aria-pressed="false" data-cms-lead="gallery.filters.2.label">Diamants</button>
+            <button type="button" class="filter" data-filter="complet" aria-pressed="false" data-cms-lead="gallery.filters.3.label">Complet</button>
+            <button type="button" class="filter" data-filter="individuelles" aria-pressed="false" data-cms-lead="gallery.filters.4.label">Individuelles</button>
+            <button type="button" class="filter" data-filter="custom" aria-pressed="false" data-cms-lead="gallery.filters.5.label">Custom</button>
           </div>
-          <span class="gallery-count" data-count>12 vues</span>
+          <span class="gallery-count" data-count data-cms-attr="data-label:gallery.countLabel">12 vues</span>
         </div>
 
         <div class="grid-gallery reveal">
@@ -190,17 +190,17 @@
     <footer class="footer">
       <div class="wrap">
         <div class="footer__cta">
-          <p class="footer__hook">Une pièce unique commence par une conversation.</p>
-          <a href="contact.html" class="btn btn--solid">Prendre rendez-vous <span class="arrow">→</span></a>
+          <p class="footer__hook" data-cms="settings.footerHook">Une pièce unique commence par une conversation.</p>
+          <a href="contact.html" class="btn btn--solid" data-cms-lead="settings.footerCta">Prendre rendez-vous <span class="arrow">→</span></a>
         </div>
         <div class="footer__top">
           <div class="footer__brand">
             <p class="display">Maison<br />Alliani</p>
-            <p>Haute joaillerie dentaire sur mesure. Façonnée à la main, en Suisse, par un technicien-dentiste devenu joaillier.</p>
+            <p data-cms="settings.footerBrandText">Haute joaillerie dentaire sur mesure. Façonnée à la main, en Suisse, par un technicien-dentiste devenu joaillier.</p>
           </div>
           <div class="footer__cols">
             <div class="footer__col">
-              <h4>01 // Explorer</h4>
+              <h4 data-cms="settings.footerColExplore">01 // Explorer</h4>
               <ul>
                 <li><a href="savoir-faire.html">Savoir-faire</a></li>
                 <li><a href="processus.html">Processus</a></li>
@@ -209,7 +209,7 @@
               </ul>
             </div>
             <div class="footer__col">
-              <h4>02 // Atelier</h4>
+              <h4 data-cms="settings.footerColAtelier">02 // Atelier</h4>
               <ul>
                 <li><address>Av. de Sévelin 36<br />1004 Lausanne, Suisse</address></li>
                 <li><a href="mailto:alan.alliani2503@gmail.com">alan.alliani2503@gmail.com</a></li>
@@ -218,19 +218,19 @@
               </ul>
             </div>
             <div class="footer__col">
-              <h4>03 // Statut</h4>
+              <h4 data-cms="settings.footerColStatus">03 // Statut</h4>
               <ul>
                 <li><span class="footer__state"><span class="dot" aria-hidden="true"></span>Carnet ouvert</span></li>
-                <li>Sur rendez-vous uniquement</li>
-                <li><span data-clock>–:–</span> · heure de l'atelier</li>
+                <li data-cms="settings.footerStatusNote">Sur rendez-vous uniquement</li>
+                <li><span data-clock>–:–</span> · <span data-cms="settings.footerClockNote">heure de l'atelier</span></li>
               </ul>
             </div>
           </div>
         </div>
         <div class="footer__bottom">
-          <span>© <span data-year>2026</span> Maison Alliani — Mentions légales</span>
-          <span>46°31′N — 6°38′E</span>
-          <span class="swiss"><i class="swiss-flag" aria-hidden="true"></i> Fabriqué en Suisse</span>
+          <span>© <span data-year>2026</span> Maison Alliani — <span data-cms="settings.footerLegal">Mentions légales</span></span>
+          <span data-cms="settings.footerCoords">46°31′N — 6°38′E</span>
+          <span class="swiss"><i class="swiss-flag" aria-hidden="true"></i> <span data-cms="settings.footerMadeIn">Fabriqué en Suisse</span></span>
           <span class="lang-switch" aria-label="Choix de la langue"><button type="button" data-lang="fr">FR</button><i aria-hidden="true">/</i><button type="button" data-lang="en">EN</button></span>
         </div>
       </div>

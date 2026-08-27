@@ -44,7 +44,9 @@ function initGallery() {
   const updateCount = () => {
     if (!countEl) return;
     const n = allTiles().filter((t) => !t.classList.contains("is-hidden")).length;
-    countEl.textContent = `${String(n).padStart(2, "0")} vues`;
+    /* Le mot du compteur vient du CMS quand il y est réglé (data-label). */
+    const word = countEl.dataset.label || "vues";
+    countEl.textContent = `${String(n).padStart(2, "0")} ${word}`;
   };
 
   /* Relance l'apparition en fondu des tuiles visibles après un filtrage */

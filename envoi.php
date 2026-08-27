@@ -77,11 +77,17 @@ const LIBELLES = [
     "urgent" => "Urgent",
 ];
 
-/** Libellé lisible d'un choix du formulaire. */
+/**
+ * Libellé lisible d'un choix du formulaire.
+ * La page envoie le libellé affiché au visiteur (« <nom>_label ») : c'est lui
+ * qui fait foi, pour que l'e-mail reflète ce qui est écrit dans le CMS.
+ */
 function libelle(string $nom): string
 {
     $valeur = champ($nom);
     if ($valeur === "") return "—";
+    $affiche = champ($nom . "_label");
+    if ($affiche !== "") return mb_substr($affiche, 0, 120);
     return LIBELLES[$valeur] ?? $valeur;
 }
 

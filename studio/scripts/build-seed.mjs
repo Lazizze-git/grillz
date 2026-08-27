@@ -126,6 +126,68 @@ const pieceDoc = (p, i) => ({
   }))
 });
 
+/* ------------------------------------------------------------------------ *
+ *  Outils de mise en forme des documents
+ * ------------------------------------------------------------------------ */
+
+/** Une entrée de tableau Sanity : type et clé stable, pour un import rejouable. */
+const list = (type, items) =>
+  items.map((item, i) => ({ _type: type, _key: type + "-" + i, ...item }));
+
+/** Une photo du site, téléversée par l'import depuis assets/img. */
+const img = (file, alt) => ({ _type: "siteImage", _sanityAsset: IMG(file), alt });
+
+/** En-tête de section : numéro, titre en deux teintes, introduction. */
+const head = (id, title, titleAccent, lead) => ({
+  _type: "sectionHead",
+  id,
+  ...(title ? { title } : {}),
+  ...(titleAccent ? { titleAccent } : {}),
+  ...(lead ? { lead } : {})
+});
+
+/** Haut de page : étiquette, titre en deux temps, chapeau. */
+const intro = (label, title, titleAccent, lead) => ({
+  _type: "pageHead",
+  label,
+  title,
+  titleAccent,
+  lead
+});
+
+const seo = (title, description) => ({ _type: "seoBlock", title, description });
+
+const step = (title, text) => ({ title, text });
+const row = (label, value) => ({ label, value });
+
+/**
+ * Complète l'arbre avec les traductions connues du site : pour chaque texte
+ * français reconnu, le champ « …En » correspondant est ajouté. Un texte
+ * inconnu reste sans traduction — la version anglaise affichera le français.
+ */
+function autoEn(node) {
+  if (Array.isArray(node)) return node.map(autoEn);
+  if (!node || typeof node !== "object") return node;
+
+  const out = {};
+  for (const [key, value] of Object.entries(node)) {
+    out[key] = autoEn(value);
+    if (key.startsWith("_") || key.endsWith("En")) continue;
+    if (typeof value === "string") {
+      const t = en(value);
+      if (t) out[key + "En"] = t;
+    } else if (Array.isArray(value) && value.every((v) => typeof v === "string")) {
+      const t = value.map(en);
+      if (t.every(Boolean)) out[key + "En"] = t;
+    }
+  }
+  return out;
+}
+
+/* ------------------------------------------------------------------------ *
+ *  Textes du site
+ * ------------------------------------------------------------------------ */
+
 const HERO_SUB =
   "Grillz et pièces dentaires de haute joaillerie, ajustés au dixième de millimètre dans notre atelier lausannois. Empreinte, façonnage à la main, pièce unique — jamais de modèle standard, jamais de stock.";
 
@@ -139,63 +201,508 @@ const PORTRAIT = [
 const QUOTE =
   "Parce qu'un sourire est une signature, chaque grillz mérite le plus haut niveau d'exigence.";
 
+/* ------------------------------------------------------------------------ *
+ *  Documents
+ * ------------------------------------------------------------------------ */
+
+const homePage = {
+  _id: "homePage",
+  _type: "homePage",
+
+  heroImage: {
+    _type: "image",
+    _sanityAsset: IMG("porte-01.jpg"),
+    alt: "Grillz ajouré en métal précieux porté sur un sourire, photographie noir et blanc en lumière douce"
+  },
+  heroCaption: "Porté // Atelier Lausanne",
+  heroCaptionEn: "Worn // Lausanne atelier",
+  heroTitleTop: "Façonné pour",
+  heroTitleBottom: "une seule bouche.",
+  heroSub: HERO_SUB,
+  metrics: ["Dès 170 CHF", "2–4 semaines", "Envoi international"],
+  heroCtaPrimary: "Voir le catalogue",
+  heroCtaSecondary: "Prendre rendez-vous",
+  heroScrollHint: "Défiler pour inspecter",
+
+  catalogHead: head(
+    "00 // Catalogue",
+    "Réalisations récentes.",
+    "",
+    "Aperçu de nos dernières pièces. Chaque référence est une commande unique, façonnée sur la morphologie d'une seule personne."
+  ),
+  catalogNote: "Pièces uniques · sur commande",
+  catalogFootLabel: "Parcourir les 9 modèles →",
+
+  protocolHead: head("01 // Protocole", "Quatre gestes.", "Un seul protocole."),
+  protocolSteps: list("flowStep", [
+    step("Consultation", "On part de votre style et de votre usage. Un échange sans engagement, entièrement centré sur vous."),
+    step("Empreinte", "À l'atelier, chez votre dentiste, ou chez vous grâce au model kit que nous vous envoyons. Précision au dixième de millimètre."),
+    step("Façonnage", "Fonte directement à l'atelier. Façonnage et sertissage à la main, par des professionnels dans le métier depuis plus de 40 ans."),
+    step("Livraison", "De préférence en main propre, à l'atelier. Envoi par la poste possible pour les clients à l'étranger.")
+  ]),
+
+  interlude: {
+    _type: "interlude",
+    image: img("porte-02.jpg", "Sourire portant deux grillz sculptés en argent, portrait noir et blanc aux ombres douces"),
+    left: "Atelier · Lausanne",
+    right: "Empreinte → façonnage → livraison"
+  },
+
+  pathwaysHead: head(
+    "02 // Voies",
+    "Deux voies.",
+    "Un même sur-mesure.",
+    "Que vous soyez à Lausanne ou ailleurs, tout commence par une empreinte précise — à l'atelier, chez votre dentiste, ou chez vous grâce à notre model kit."
+  ),
+  pathways: list("pathway", [
+    {
+      id: "Voie A // À Lausanne",
+      title: "À l'atelier",
+      text: "Empreinte prise sur place par notre équipe dentaire, dans le confort de l'atelier.",
+      specs: list("specRow", [
+        row("Lieu", "Av. de Sévelin 36"),
+        row("Durée", "30–45 min"),
+        row("Remise", "En main propre")
+      ]),
+      linkLabel: "Prendre rendez-vous →"
+    },
+    {
+      id: "Voie B // Ailleurs",
+      title: "À distance",
+      text: "Empreinte réalisée chez votre dentiste — recommandé pour une meilleure garantie de tenue — ou par vous-même avec le model kit que la maison vous envoie. La pièce finie est ensuite livrée par la poste.",
+      specs: list("specRow", [
+        row("Empreinte", "Dentiste · model kit"),
+        row("Envoi", "Assuré"),
+        row("Suivi", "WhatsApp · e-mail")
+      ]),
+      linkLabel: "Nous écrire →"
+    }
+  ]),
+
+  materialsHead: head(
+    "03 // Matières",
+    "Métaux, pierres, finitions.",
+    "",
+    "Tarifs des métaux indexés sur le cours de l'or. Sélection arrêtée en atelier."
+  ),
+  materialGroups: list("specGroup", [
+    {
+      label: "Métaux",
+      items: list("careItem", [
+        step("Or 10K à 18K", "Jaune · blanc · rose"),
+        step("Argent 925 · Chrome-cobalt", "Standard atelier")
+      ])
+    },
+    {
+      label: "Finitions",
+      items: list("careItem", [
+        step("Poli miroir", "Éclat maximal"),
+        step("Satiné", "Mat doux"),
+        step("Brossé", "Texture linéaire")
+      ])
+    },
+    {
+      label: "Pierres",
+      items: list("careItem", [
+        step("Diamant naturel", "Serti main"),
+        step("Diamant synthétique", "Serti main"),
+        step("Pierres diverses", "Différents types · sur demande")
+      ])
+    }
+  ]),
+
+  atelierHead: head("04 // L'atelier", "Un atelier à Lausanne."),
+  atelierImage: img("ecriture-03.jpg", "Détail d'un grillz en argent façonné à la main à l'établi de l'atelier"),
+  atelierStatement: "Nous ne fabriquons pas des bijoux. Nous façonnons une",
+  atelierStatementAccent: "seconde peau.",
+  atelierText:
+    "Une maison héritière de la technique dentaire depuis 1978, élevée à l'exigence d'un atelier de joaillerie. Un seul lieu, où chaque pièce naît, vit et se finit — de l'empreinte à la remise en main propre.",
+  atelierRows: list("specRow", [
+    row("Lieu", "Lausanne, Suisse"),
+    row("Accès", "Sur rendez-vous"),
+    row("Matériaux", "Or · Argent 925 · Chrome-cobalt"),
+    row("Délai", "2 à 4 semaines")
+  ]),
+  atelierCtaLabel: "Découvrir le savoir-faire",
+
+  careHead: head("05 // Entretien & garanties", "Entretien.", "Et garanties."),
+  careColumns: list("careColumn", [
+    {
+      title: "Entretien",
+      items: list("careItem", [
+        step("Port — max 8 h / jour", "Retirez la pièce pour dormir et pour manger."),
+        step("Nettoyage — eau chaude & brosse à dents", "Un brossage doux à l'eau chaude suffit à raviver l'éclat."),
+        step("Rangement — modèle en plâtre fourni", "Reposez la pièce sur son modèle en plâtre, à l'abri des chocs.")
+      ])
+    },
+    {
+      title: "Garanties",
+      items: list("careItem", [
+        step("Fabrication — 30 jours", "Tout défaut d'atelier est pris en charge."),
+        step("Sertissage — à vie", "Le resserrage des pierres est garanti à vie."),
+        step("Atelier — toujours là", "Nettoyage, repolissage, ajustements : passez quand vous voulez, c'est offert.")
+      ])
+    }
+  ]),
+  careNote:
+    "La maison reste là en cas de besoin. Un polissage, un nettoyage ? Passez à l'atelier, c'est avec plaisir, et c'est gratuit.",
+
+  faqHead: head("06 // FAQ", "Questions fréquentes."),
+  faqItems: list("faqItem", [
+    { question: "Est-ce que ça fait mal ?", answer: "Non. La pièce se pose et se retire sans douleur et sans aucune intervention sur la dent." },
+    { question: "Est-ce permanent ?", answer: "Non. Un grillz est amovible : vous le mettez et l'enlevez quand vous le souhaitez." },
+    { question: "Peut-on manger avec ?", answer: "Nous recommandons de le retirer pendant les repas afin de préserver la pièce et son éclat." },
+    { question: "Est-ce que ça abîme les dents ?", answer: "Non. L'ajustement sur mesure épouse la dent sans la contraindre ni la modifier." },
+    { question: "Quels sont les délais ?", answer: "Comptez 2 à 4 semaines selon la complexité de la pièce et les matériaux choisis." },
+    { question: "Et si je ne suis pas à Lausanne ?", answer: "L'empreinte peut être réalisée chez votre dentiste — la meilleure garantie de tenue — ou chez vous grâce au model kit que nous vous envoyons. La pièce finie est ensuite livrée par la poste, où que vous soyez." }
+  ]),
+
+  deploy: {
+    _type: "deployBlock",
+    id: "07 // Sur mesure",
+    title: "Une pièce unique.",
+    titleAccent: "Pour une seule personne.",
+    primaryLabel: "Prendre rendez-vous",
+    secondaryLabel: "Voir le catalogue"
+  },
+
+  seo: seo(
+    "Grillz sur mesure en Suisse — Maison Alliani",
+    "Grillz sur mesure façonnés à la main en Suisse. Pièces uniques de haute joaillerie dentaire : or, argent 925, chrome-cobalt, diamants. Dès 170 CHF, sur rendez-vous."
+  )
+};
+
+const craftPage = {
+  _id: "craftPage",
+  _type: "craftPage",
+
+  pageHead: intro(
+    "Savoir-faire & Histoire",
+    "L'art dentaire rencontre la",
+    "haute joaillerie",
+    "Une carrière entière passée dans la technique dentaire, aujourd'hui au service du bijou. Voici notre origine, nos gestes et nos matières."
+  ),
+  headImage: {
+    _type: "image",
+    _sanityAsset: IMG("porte-02.jpg"),
+    alt: "Sourire portant deux grillz sculptés en argent, portrait noir et blanc aux ombres douces"
+  },
+
+  originHead: head("01 // Origine", "Depuis 1978,", "la technicienne-dentiste."),
+  portraitImage: {
+    _type: "image",
+    _sanityAsset: IMG("portrait-technicienne.jpg"),
+    alt: "Grillz argent et or posé sur son modèle en plâtre, à l'atelier"
+  },
+  portraitCaption: "Technique dentaire · depuis 1978",
+  profileIntro: "Passion, précision,",
+  profileIntroAccent: "exigence de qualité.",
+  portraitParagraphs: PORTRAIT,
+  portraitParagraphsEn: PORTRAIT.map((p) => en(p)).filter(Boolean),
+  creds: list("specRow", [
+    row("Métier", "Technicienne-dentiste · depuis 1978"),
+    row("Indépendante", "Depuis 1993"),
+    row("Atelier", "Av. de Sévelin 36, Lausanne"),
+    row("Signature", "Ajustement anatomique")
+  ]),
+
+  transmissionHead: head("02 // Transmission", "Former, examiner,", "présider."),
+  transmissionSteps: list("flowStep", [
+    step("Formatrice d'apprentis", "Des générations de techniciens formées à l'établi : le geste, la mesure, la patience."),
+    step("Experte aux examens", "Juger le travail des autres oblige à connaître la frontière entre bien fait et irréprochable."),
+    step("Présidente · section vaudoise", "Trois ans à la tête de l'association des laboratoires dentaires du canton.")
+  ]),
+  portraitQuote: QUOTE,
+  portraitQuoteEn:
+    "Because a smile is a signature, every grillz deserves the highest standard of all.",
+  portraitQuoteAuthor: "La technicienne-dentiste de la maison",
+
+  todayHead: head("03 // Aujourd'hui", "La même rigueur,", "appliquée au bijou."),
+  todayImage: img("ecriture-03.jpg", "Détail d'un grillz en argent façonné à la main à l'établi de l'atelier"),
+  todayRows: list("specRow", [
+    row("À deux", "Mère & fils"),
+    row("Expérience", "Plus de 40 années"),
+    row("Fabrication", "Artisanale, à l'atelier"),
+    row("Séries", "Aucune · pièces uniques")
+  ]),
+
+  pillarsHead: head(
+    "04 // Trois piliers",
+    "Pourquoi la Suisse",
+    "change tout.",
+    "La précision horlogère n'est pas un argument marketing : c'est une culture du dixième de millimètre, appliquée à votre sourire."
+  ),
+  pillars: list("flowStep", [
+    step("Fabriqué en Suisse", "Précision horlogère appliquée à la joaillerie dentaire. Chaque pièce naît, vit et se finit dans notre atelier."),
+    step("Ajustement anatomique", "Une empreinte, une bouche : la pièce épouse les reliefs et les asymétries. Un maintien franc, sans compromis, sans douleur."),
+    step("Matériaux certifiés", "Or 10K à 18K, argent 925, chrome-cobalt, diamants naturels et synthétiques. Une traçabilité totale, consignée sur votre certificat d'authenticité.")
+  ]),
+
+  interlude: {
+    _type: "interlude",
+    image: img("ecriture-01.jpg", "Main gantée tenant un grillz en argent au-dessus d'un moulage dentaire"),
+    left: "Établi · Lausanne",
+    right: "Fonte → ciselure → sertissage → polissage"
+  },
+
+  materialsHead: head("05 // Matières", "Choisies comme", "on choisit une pierre.", "Faites défiler →"),
+  materials: list("materialCard", [
+    {
+      image: img("croc-01.jpg", "Macro d'une canine en argent poli révélant le grain du métal"),
+      title: "Argent 925",
+      text: "Poli miroir ou satiné. Le métal des premières pièces, accessible et noble.",
+      cert: "Sterling certifié"
+    },
+    {
+      image: img("aurum-02.jpg", "Détail or 18 carats sur un grillz pleine bouche"),
+      title: "Argent 925 & Or 18K",
+      text: "Ici, une seule dent en or 18 carats sur une pièce en argent 925. L'or se décline du 10 aux 18 carats, jaune, blanc ou rose.",
+      cert: "Poinçon suisse"
+    },
+    {
+      image: img("emeraude-01.jpg", "Pierre verte sertie sur un grillz en or blanc"),
+      title: "Sertissage pierres & diamants",
+      text: "Diamants naturels ou synthétiques, pierres diverses — posées et serties à la main.",
+      cert: "Sertissage main"
+    },
+    {
+      image: img("onyx-02.jpg", "Grillz au design sculpté, finition sombre"),
+      title: "Designs spécifiques",
+      text: "Croix, crocs, motifs sculptés : tous les designs particuliers sont possibles, dessinés avec vous.",
+      cert: "Sur demande"
+    }
+  ]),
+
+  gestureHead: head(
+    "06 // Le geste",
+    "Le métal,",
+    "geste après geste.",
+    "Chaque pièce traverse le même établi, entre les mêmes mains, du métal brut à l'éclat final."
+  ),
+  gestureSteps: list("flowStep", [
+    step("Fonte", "Le métal précieux est fondu puis coulé sur le modèle issu de votre empreinte. La matière prend sa première forme."),
+    step("Ciselure", "Motifs, reliefs et arêtes sont travaillés à la main, à la loupe. C'est ici que naît le caractère de la pièce."),
+    step("Sertissage", "Diamants et pierres sont posés un à un, chaque griffe resserrée à la main pour une tenue à toute épreuve."),
+    step("Polissage", "Poli miroir, satiné ou brossé : la finition révèle le métal et signe le rendu final.")
+  ]),
+
+  deploy: {
+    _type: "deployBlock",
+    id: "→ Étape suivante",
+    title: "De la première empreinte",
+    titleAccent: "à la remise en main propre.",
+    primaryLabel: "Découvrir le processus",
+    secondaryLabel: "Prendre rendez-vous"
+  },
+
+  seo: seo(
+    "Savoir-faire & Histoire — Maison Alliani",
+    "L'héritage d'une maison suisse née en 1978 dans la technique dentaire : fabrication artisanale, or 10K à 18K, argent 925, chrome-cobalt, diamants naturels et synthétiques."
+  )
+};
+
+const processPage = {
+  _id: "processPage",
+  _type: "processPage",
+
+  pageHead: intro(
+    "Processus de commande",
+    "Votre pièce.",
+    "Étape par étape.",
+    "Du premier échange à la remise en main propre, chaque détail est pensé. Voici comment naît une pièce qui n'appartient qu'à vous."
+  ),
+
+  steps: list("processStep", [
+    {
+      image: img("solaire-01.jpg", "Grillz en or rose présenté dans une lumière feutrée, ambiance confidentielle"),
+      title: "Consultation",
+      text: "Nous commençons par comprendre votre esthétique, votre style, votre usage. Un échange sans engagement, entièrement centré sur vous.",
+      tag: "Sans engagement · 20 min"
+    },
+    {
+      image: img("ecriture-01.jpg", "Prise d'empreinte : main gantée manipulant un moulage dentaire"),
+      title: "L'empreinte",
+      text: "À l'atelier, chez vous grâce au model kit que la maison vous envoie, ou chez votre dentiste. Si vous n'êtes pas en Suisse et cherchez le meilleur résultat, privilégiez votre dentiste : une empreinte prise par un professionnel garantit toujours une plus grande tenue.",
+      tag: "Atelier · dentiste · model kit"
+    },
+    {
+      image: img("memento-02.jpg", "Détail sculpté d'un grillz argent, ciselure à la loupe"),
+      title: "La fabrication",
+      text: "La fonte se fait directement à l'atelier. Façonnage et sertissage à la main, par des professionnels dans le métier depuis plus de 40 ans.",
+      tag: "Atelier · Lausanne"
+    },
+    {
+      image: img("aurum-01.jpg", "Grillz fini, argent et or, prêt à être remis en main propre"),
+      title: "Remise en main propre",
+      text: "De préférence en main propre, à l'atelier, certificat d'authenticité inclus. Envoi par la poste possible pour les clients à l'étranger.",
+      tag: "Main propre · envoi postal"
+    }
+  ]),
+
+  practicalLabel: "Informations pratiques",
+  practicalRows: list("specRow", [
+    row("Délai moyen", "2 à 4 semaines"),
+    row("Paiement", "Cash uniquement"),
+    row("Livraison", "Suisse & international · Assurée"),
+    row("Garantie", "Sertissage à vie")
+  ]),
+  ctaTitle: "Prêt à façonner la vôtre ?",
+  ctaText: "Tout démarre par un échange. Décrivez-nous votre projet, nous répondons sous 48 heures.",
+  ctaLabel: "Démarrer ma commande",
+
+  seo: seo(
+    "Le Processus de commande — Maison Alliani",
+    "Du premier échange à la remise en main propre : consultation, prise d'empreinte dentaire, fabrication artisanale en Suisse et livraison avec certificat d'authenticité."
+  )
+};
+
+const galleryPage = {
+  _id: "galleryPage",
+  _type: "galleryPage",
+
+  pageHead: intro(
+    "Galerie",
+    "Nos",
+    "créations",
+    "Chaque pièce est une commande unique. Cliquez pour découvrir matériaux, détails et histoire."
+  ),
+  filters: list("choiceOption", [
+    { label: "Tout" },
+    { label: "Or" },
+    { label: "Diamants" },
+    { label: "Complet" },
+    { label: "Individuelles" },
+    { label: "Custom" }
+  ]),
+  countLabel: "vues",
+
+  seo: seo(
+    "Galerie des créations — Maison Alliani",
+    "Chaque pièce est une commande unique : grillz or et diamants, dents individuelles, créations custom. Découvrez la galerie de l'atelier."
+  )
+};
+
+const contactPage = {
+  _id: "contactPage",
+  _type: "contactPage",
+
+  pageHead: intro(
+    "Contact & Devis",
+    "Créons",
+    "ensemble",
+    "Remplissez les quelques étapes ci-dessous pour démarrer votre projet. Nous vous répondons sous 48 heures."
+  ),
+
+  steps: list("formStep", [
+    { num: "Étape 01// Qui êtes-vous ?", title: "Faisons connaissance." },
+    { num: "Étape 02// Votre projet", title: "Quelle pièce imaginez-vous ?" },
+    { num: "Étape 03// Budget & timing", title: "Cadrons votre projet." },
+    { num: "Étape 04// Inspirations", title: "Montrez-nous votre vision." },
+    { num: "Étape 05// Récapitulatif", title: "Votre projet en un coup d'œil." }
+  ]),
+
+  /* « Valeur » = le texte d'exemple affiché à l'intérieur du champ. */
+  labels: list("specRow", [
+    row("Prénom", "Votre prénom"),
+    row("Pays", "Suisse"),
+    row("Email", "vous@email.com"),
+    { label: "Type de pièce" },
+    { label: "Matériau souhaité" },
+    { label: "Budget envisagé" },
+    { label: "Date souhaitée" },
+    { label: "Urgence" },
+    { label: "Photos de référence" },
+    row("Décrivez votre projet", "Style recherché, inspirations, détails particuliers…")
+  ]),
+
+  nextLabel: "Continuer",
+  recapLabel: "Voir le récapitulatif",
+  backLabel: "← Retour",
+  submitLabel: "Envoyer mon projet",
+  uploadHint: "Glissez vos images ou cliquez pour parcourir",
+  formNote:
+    "En envoyant, vous acceptez d'être recontacté par l'atelier. Aucune donnée n'est partagée avec des tiers.",
+  successTitle: "Projet bien reçu.",
+  successText:
+    "Merci. Notre atelier revient vers vous sous 48 heures pour planifier votre consultation.",
+
+  budgetMin: 170,
+  budgetMax: 25000,
+  budgetStart: 2000,
+
+  pieceChoices: list("choiceOption", [
+    { label: "Pleine bouche" },
+    { label: "Crocs" },
+    { label: "Individuelles", full: "Dents individuelles" },
+    { label: "Custom" }
+  ]),
+  materialChoices: list("choiceOption", [
+    { label: "Or jaune" },
+    { label: "Or blanc" },
+    { label: "Argent 925" },
+    { label: "Chrome-cobalt" }
+  ]),
+  urgencyChoices: list("choiceOption", [
+    { label: "Flexible" },
+    { label: "Sous 1 mois" },
+    { label: "Urgent" }
+  ]),
+
+  callLabel: "Plus direct ?",
+  callText: "Réservez un appel de 20 minutes avec l'atelier, sans engagement.",
+  callCta: "Réserver un appel",
+  atelierTitle: "L'atelier",
+  atelierNote: "Sur rendez-vous uniquement",
+  writeTitle: "Écrire",
+
+  seo: seo(
+    "Contact & Devis — Maison Alliani",
+    "Démarrez votre projet de grillz sur mesure. Formulaire de co-création en quelques étapes ou réservez un appel de 20 minutes avec l'atelier suisse."
+  )
+};
+
+const siteSettings = {
+  _id: "siteSettings",
+  _type: "siteSettings",
+
+  email: "alan.alliani2503@gmail.com",
+  phone: "079 456 14 03",
+  phoneLink: "+41794561403",
+  addressLine1: "Av. de Sévelin 36",
+  addressLine2: "1004 Lausanne, Suisse",
+  instagram: "https://www.instagram.com/maison_alliani/",
+  instagramHandle: "@maison_alliani",
+
+  bookingOpen: true,
+  bookingLabel: "Carnet ouvert",
+  bookingDetail: "sur rendez-vous",
+
+  navTagline: "Atelier · CH",
+  navPlace: "Lausanne · Suisse",
+
+  footerHook: "Une pièce unique commence par une conversation.",
+  footerCta: "Prendre rendez-vous",
+  footerBrandText:
+    "Haute joaillerie dentaire sur mesure. Façonnée à la main, en Suisse, par un technicien-dentiste devenu joaillier.",
+  footerColExplore: "01 // Explorer",
+  footerColAtelier: "02 // Atelier",
+  footerColStatus: "03 // Statut",
+  footerStatusNote: "Sur rendez-vous uniquement",
+  footerClockNote: "heure de l'atelier",
+  footerLegal: "Mentions légales",
+  footerCoords: "46°31′N — 6°38′E",
+  footerMadeIn: "Fabriqué en Suisse"
+};
+
 const docs = [
-  {
-    _id: "homePage",
-    _type: "homePage",
-    heroImage: {
-      _type: "image",
-      _sanityAsset: IMG("porte-01.jpg"),
-      alt: "Grillz ajouré en métal précieux porté sur un sourire, photographie noir et blanc en lumière douce",
-      altEn: en("Grillz ajouré en métal précieux porté sur un sourire, photographie noir et blanc en lumière douce")
-    },
-    heroCaption: "Porté // Atelier Lausanne",
-    heroCaptionEn: "Worn // Lausanne atelier",
-    heroTitleTop: "Façonné pour", heroTitleTopEn: en("Façonné pour"),
-    heroTitleBottom: "une seule bouche.", heroTitleBottomEn: en("une seule bouche."),
-    heroSub: HERO_SUB, heroSubEn: en(HERO_SUB),
-    metrics: ["Dès 170 CHF", "2–4 semaines", "Envoi international"],
-    metricsEn: ["From CHF 170", "2–4 weeks", "Worldwide shipping"]
-  },
-  {
-    _id: "craftPage",
-    _type: "craftPage",
-    headImage: {
-      _type: "image",
-      _sanityAsset: IMG("porte-02.jpg"),
-      alt: "Sourire portant deux grillz sculptés en argent, portrait noir et blanc aux ombres douces",
-      altEn: en("Sourire portant deux grillz sculptés en argent, portrait noir et blanc aux ombres douces")
-    },
-    portraitImage: {
-      _type: "image",
-      _sanityAsset: IMG("portrait-technicienne.jpg"),
-      alt: "Grillz argent et or posé sur son modèle en plâtre, à l'atelier",
-      altEn: en("Grillz argent et or posé sur son modèle en plâtre, à l'atelier")
-    },
-    portraitCaption: "Technique dentaire · depuis 1978",
-    portraitCaptionEn: en("Technique dentaire · depuis 1978"),
-    portraitParagraphs: PORTRAIT,
-    portraitParagraphsEn: PORTRAIT.map((p) => en(p)).filter(Boolean),
-    portraitQuote: QUOTE,
-    portraitQuoteEn: "Because a smile is a signature, every grillz deserves the highest standard of all.",
-    portraitQuoteAuthor: "La technicienne-dentiste de la maison",
-    portraitQuoteAuthorEn: en("La technicienne-dentiste de la maison")
-  },
-  {
-    _id: "siteSettings",
-    _type: "siteSettings",
-    email: "alan.alliani2503@gmail.com",
-    phone: "079 456 14 03",
-    phoneLink: "+41794561403",
-    addressLine1: "Av. de Sévelin 36",
-    addressLine2: "1004 Lausanne, Suisse",
-    instagram: "https://www.instagram.com/maison_alliani/",
-    bookingOpen: true,
-    bookingLabel: "Carnet ouvert",
-    bookingLabelEn: en("Carnet ouvert")
-  },
+  homePage,
+  craftPage,
+  processPage,
+  galleryPage,
+  contactPage,
+  siteSettings,
   ...PIECES.map(pieceDoc)
-];
+].map(autoEn);
 
 const out = resolve(here, "seed.ndjson");
 writeFileSync(out, docs.map((d) => JSON.stringify(d)).join("\n") + "\n", "utf8");

@@ -65,21 +65,14 @@ function cmsHydrateGallery(pieces) {
   grid.replaceChildren.apply(grid, tiles);
 }
 
-/** Page Savoir-faire : photo d'en-tête, portrait et texte de la technicienne. */
+/**
+ * Page Savoir-faire : les quatre paragraphes du portrait sont répartis à
+ * quatre endroits distincts de la page, dans l'ordre où ils sont écrits.
+ * Le reste de la page passe par les attributs data-cms.
+ */
 function cmsHydrateCraft(craft) {
   if (!craft) return;
 
-  const head = document.querySelector(".page-head__visual img");
-  cmsSetImage(head, craft.headImage, { w: 900, h: 1200 });
-
-  const photo = document.querySelector(".profile__photo img");
-  cmsSetImage(photo, craft.portraitImage, { w: 900, h: 1125 });
-  cmsText(
-    document.querySelector(".profile__photo figcaption"),
-    cmsPick(craft.portraitCaption, craft.portraitCaptionEn)
-  );
-
-  /* Le texte est réparti dans la page : chaque paragraphe a son emplacement. */
   const paragraphs = cmsPick(craft.portraitParagraphs, craft.portraitParagraphsEn);
   if (Array.isArray(paragraphs)) {
     paragraphs.forEach((text, i) => {
@@ -87,13 +80,10 @@ function cmsHydrateCraft(craft) {
     });
   }
 
+  /* Les guillemets encadrent la citation : ils ne sont pas saisis dans le CMS. */
   const quote = cmsPick(craft.portraitQuote, craft.portraitQuoteEn);
   const quoteEl = document.querySelector("[data-craft-quote]");
   if (quoteEl && quote && quote.trim()) {
     quoteEl.textContent = "« " + quote.trim().replace(/^[«"]\s*|\s*[»"]$/g, "") + " »";
   }
-  cmsText(
-    document.querySelector("[data-craft-author]"),
-    cmsPick(craft.portraitQuoteAuthor, craft.portraitQuoteAuthorEn)
-  );
 }

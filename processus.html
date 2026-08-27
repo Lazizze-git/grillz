@@ -35,14 +35,14 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body>
+  <body data-page="process">
     <div class="cursor" aria-hidden="true"></div>
 
     <header class="nav">
       <div class="wrap nav__inner">
         <a href="index.html" class="nav__logo" aria-label="Maison Alliani — accueil">
           <b>Maison Alliani</b>
-          <span>Atelier · CH</span>
+          <span data-cms="settings.navTagline">Atelier · CH</span>
         </a>
         <nav class="nav__links" aria-label="Navigation principale">
           <a href="savoir-faire.html">Savoir-faire</a>
@@ -74,28 +74,28 @@
       <div class="menu__foot">
         <a href="mailto:alan.alliani2503@gmail.com" class="link">alan.alliani2503@gmail.com</a>
         <a href="https://www.instagram.com/maison_alliani/" class="link" target="_blank" rel="noopener">Instagram ↗</a>
-        <span class="label label--muted label--nodash">Lausanne · Suisse</span>
+        <span class="label label--muted label--nodash" data-cms="settings.navPlace">Lausanne · Suisse</span>
       </div>
     </div>
 
     <main>
       <section class="page-head wrap">
-        <p class="page-head__label label reveal">Processus de commande</p>
-        <h1 class="display reveal-mask"><span>Votre pièce. <em>Étape par étape.</em></span></h1>
-        <p class="reveal" data-delay="2">Du premier échange à la remise en main propre, chaque détail est pensé. Voici comment naît une pièce qui n'appartient qu'à vous.</p>
+        <p class="page-head__label label reveal" data-cms="process.pageHead.label">Processus de commande</p>
+        <h1 class="display reveal-mask"><span data-cms-lead="process.pageHead.title">Votre pièce. <em data-cms="process.pageHead.titleAccent">Étape par étape.</em></span></h1>
+        <p class="reveal" data-delay="2" data-cms="process.pageHead.lead">Du premier échange à la remise en main propre, chaque détail est pensé. Voici comment naît une pièce qui n'appartient qu'à vous.</p>
       </section>
 
       <section class="section wrap">
-        <div class="steps" data-stagger>
+        <div class="steps" data-stagger data-cms-repeat="process.steps">
           <article class="step reveal">
             <div class="step__media">
-              <img src="assets/img/solaire-01.jpg" alt="Grillz en or rose présenté dans une lumière feutrée, ambiance confidentielle" loading="lazy" />
+              <img src="assets/img/solaire-01.jpg" alt="Grillz en or rose présenté dans une lumière feutrée, ambiance confidentielle" loading="lazy" data-cms-img="image" data-cms-w="1100" data-cms-h="1375" />
             </div>
             <div class="step__body">
-              <p class="step__num" aria-hidden="true">01//</p>
-              <h2 class="display">Consultation</h2>
-              <p>Nous commençons par comprendre votre esthétique, votre style, votre usage. Un échange sans engagement, entièrement centré sur vous.</p>
-              <span class="step__tag">Sans engagement · 20 min</span>
+              <p class="step__num" aria-hidden="true" data-cms-num="//">01//</p>
+              <h2 class="display" data-cms="title">Consultation</h2>
+              <p data-cms="text">Nous commençons par comprendre votre esthétique, votre style, votre usage. Un échange sans engagement, entièrement centré sur vous.</p>
+              <span class="step__tag" data-cms="tag">Sans engagement · 20 min</span>
             </div>
           </article>
 
@@ -142,18 +142,18 @@
         <div class="section wrap">
           <div class="specs__inner">
             <div class="reveal">
-              <span class="label label--nodash">Informations pratiques</span>
-              <dl class="specs__grid">
-                <div class="specs__row"><dt>Délai moyen</dt><dd>2 à 4 semaines</dd></div>
+              <span class="label label--nodash" data-cms="process.practicalLabel">Informations pratiques</span>
+              <dl class="specs__grid" data-cms-repeat="process.practicalRows">
+                <div class="specs__row"><dt data-cms="label">Délai moyen</dt><dd data-cms="value">2 à 4 semaines</dd></div>
                 <div class="specs__row"><dt>Paiement</dt><dd>Cash uniquement</dd></div>
                 <div class="specs__row"><dt>Livraison</dt><dd>Suisse &amp; international · Assurée</dd></div>
                 <div class="specs__row"><dt>Garantie</dt><dd>Sertissage à vie</dd></div>
               </dl>
             </div>
             <div class="specs__cta reveal" data-delay="1">
-              <h2 class="display">Prêt à façonner la vôtre ?</h2>
-              <p>Tout démarre par un échange. Décrivez-nous votre projet, nous répondons sous 48 heures.</p>
-              <a href="contact.html" class="btn btn--solid">Démarrer ma commande <span class="arrow">→</span></a>
+              <h2 class="display" data-cms="process.ctaTitle">Prêt à façonner la vôtre ?</h2>
+              <p data-cms="process.ctaText">Tout démarre par un échange. Décrivez-nous votre projet, nous répondons sous 48 heures.</p>
+              <a href="contact.html" class="btn btn--solid" data-cms-lead="process.ctaLabel">Démarrer ma commande <span class="arrow">→</span></a>
             </div>
           </div>
         </div>
@@ -163,17 +163,17 @@
     <footer class="footer">
       <div class="wrap">
         <div class="footer__cta">
-          <p class="footer__hook">Une pièce unique commence par une conversation.</p>
-          <a href="contact.html" class="btn btn--solid">Prendre rendez-vous <span class="arrow">→</span></a>
+          <p class="footer__hook" data-cms="settings.footerHook">Une pièce unique commence par une conversation.</p>
+          <a href="contact.html" class="btn btn--solid" data-cms-lead="settings.footerCta">Prendre rendez-vous <span class="arrow">→</span></a>
         </div>
         <div class="footer__top">
           <div class="footer__brand">
             <p class="display">Maison<br />Alliani</p>
-            <p>Haute joaillerie dentaire sur mesure. Façonnée à la main, en Suisse, par un technicien-dentiste devenu joaillier.</p>
+            <p data-cms="settings.footerBrandText">Haute joaillerie dentaire sur mesure. Façonnée à la main, en Suisse, par un technicien-dentiste devenu joaillier.</p>
           </div>
           <div class="footer__cols">
             <div class="footer__col">
-              <h4>01 // Explorer</h4>
+              <h4 data-cms="settings.footerColExplore">01 // Explorer</h4>
               <ul>
                 <li><a href="savoir-faire.html">Savoir-faire</a></li>
                 <li><a href="processus.html">Processus</a></li>
@@ -182,7 +182,7 @@
               </ul>
             </div>
             <div class="footer__col">
-              <h4>02 // Atelier</h4>
+              <h4 data-cms="settings.footerColAtelier">02 // Atelier</h4>
               <ul>
                 <li><address>Av. de Sévelin 36<br />1004 Lausanne, Suisse</address></li>
                 <li><a href="mailto:alan.alliani2503@gmail.com">alan.alliani2503@gmail.com</a></li>
@@ -191,19 +191,19 @@
               </ul>
             </div>
             <div class="footer__col">
-              <h4>03 // Statut</h4>
+              <h4 data-cms="settings.footerColStatus">03 // Statut</h4>
               <ul>
                 <li><span class="footer__state"><span class="dot" aria-hidden="true"></span>Carnet ouvert</span></li>
-                <li>Sur rendez-vous uniquement</li>
-                <li><span data-clock>–:–</span> · heure de l'atelier</li>
+                <li data-cms="settings.footerStatusNote">Sur rendez-vous uniquement</li>
+                <li><span data-clock>–:–</span> · <span data-cms="settings.footerClockNote">heure de l'atelier</span></li>
               </ul>
             </div>
           </div>
         </div>
         <div class="footer__bottom">
-          <span>© <span data-year>2026</span> Maison Alliani — Mentions légales</span>
-          <span>46°31′N — 6°38′E</span>
-          <span class="swiss"><i class="swiss-flag" aria-hidden="true"></i> Fabriqué en Suisse</span>
+          <span>© <span data-year>2026</span> Maison Alliani — <span data-cms="settings.footerLegal">Mentions légales</span></span>
+          <span data-cms="settings.footerCoords">46°31′N — 6°38′E</span>
+          <span class="swiss"><i class="swiss-flag" aria-hidden="true"></i> <span data-cms="settings.footerMadeIn">Fabriqué en Suisse</span></span>
           <span class="lang-switch" aria-label="Choix de la langue"><button type="button" data-lang="fr">FR</button><i aria-hidden="true">/</i><button type="button" data-lang="en">EN</button></span>
         </div>
       </div>

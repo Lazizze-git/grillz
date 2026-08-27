@@ -37,7 +37,7 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body>
+  <body data-page="home">
     <!-- Curseur custom -->
     <div class="cursor" aria-hidden="true"></div>
 
@@ -46,7 +46,7 @@
       <div class="wrap nav__inner">
         <a href="index.html" class="nav__logo" aria-label="Maison Alliani — accueil">
           <b>Maison Alliani</b>
-          <span>Atelier · CH</span>
+          <span data-cms="settings.navTagline">Atelier · CH</span>
         </a>
         <nav class="nav__links" aria-label="Navigation principale">
           <a href="savoir-faire.html">Savoir-faire</a>
@@ -79,7 +79,7 @@
       <div class="menu__foot">
         <a href="mailto:alan.alliani2503@gmail.com" class="link">alan.alliani2503@gmail.com</a>
         <a href="https://www.instagram.com/maison_alliani/" class="link" target="_blank" rel="noopener">Instagram ↗</a>
-        <span class="label label--muted label--nodash">Lausanne · Suisse</span>
+        <span class="label label--muted label--nodash" data-cms="settings.navPlace">Lausanne · Suisse</span>
       </div>
     </div>
 
@@ -91,14 +91,14 @@
             <span class="hero__status"><span class="dot" aria-hidden="true"></span>Carnet ouvert · sur rendez-vous</span>
             <span>46°31′N — 6°38′E · Lausanne</span>
           </div>
-          <h1 class="hero__title reveal-mask"><span>Façonné pour <em>une seule bouche.</em></span></h1>
+          <h1 class="hero__title reveal-mask"><span data-cms-lead="home.heroTitleTop">Façonné pour <em data-cms="home.heroTitleBottom">une seule bouche.</em></span></h1>
           <figure class="hero__visual reveal">
-            <img src="assets/img/porte-01.jpg" alt="Grillz ajouré en métal précieux porté sur un sourire, photographie noir et blanc en lumière douce" fetchpriority="high" />
+            <img src="assets/img/porte-01.jpg" alt="Grillz ajouré en métal précieux porté sur un sourire, photographie noir et blanc en lumière douce" fetchpriority="high" data-cms-img="home.heroImage" data-cms-w="1200" data-cms-h="1600" />
             <figcaption class="hero__visual-ref" aria-hidden="true">Porté <i>//</i> Atelier Lausanne</figcaption>
           </figure>
         </div>
         <div class="hero__grid">
-          <p class="hero__sub">
+          <p class="hero__sub" data-cms="home.heroSub">
             Grillz et pièces dentaires de haute joaillerie, ajustés au dixième de
             millimètre dans notre atelier lausannois. Empreinte, façonnage à la
             main, pièce unique — jamais de modèle standard, jamais de stock.
@@ -108,20 +108,20 @@
               Dès 170 CHF <i>//</i> 2–4 semaines <i>//</i> Envoi international
             </p>
             <div class="hero__cta">
-              <a href="galerie.html" class="btn btn--solid">Voir le catalogue <span class="arrow">→</span></a>
-              <a href="contact.html" class="btn">Prendre rendez-vous <span class="arrow">→</span></a>
+              <a href="galerie.html" class="btn btn--solid" data-cms-lead="home.heroCtaPrimary">Voir le catalogue <span class="arrow">→</span></a>
+              <a href="contact.html" class="btn" data-cms-lead="home.heroCtaSecondary">Prendre rendez-vous <span class="arrow">→</span></a>
             </div>
           </div>
         </div>
-        <p class="hero__scroll">Défiler pour inspecter <span>↓</span></p>
+        <p class="hero__scroll" data-cms-lead="home.heroScrollHint">Défiler pour inspecter <span>↓</span></p>
       </section>
 
       <!-- 00 // CATALOGUE -->
       <section class="sec sec--flush wrap" aria-labelledby="cat-title">
         <header class="sec-head reveal">
-          <span class="sec-head__id">00 // Catalogue</span>
-          <h2 id="cat-title" class="sec-head__title">Réalisations récentes.</h2>
-          <p class="sec-head__lead">
+          <span class="sec-head__id" data-cms="home.catalogHead.id">00 // Catalogue</span>
+          <h2 id="cat-title" class="sec-head__title" data-cms-lead="home.catalogHead.title">Réalisations récentes. <span data-cms="home.catalogHead.titleAccent"></span></h2>
+          <p class="sec-head__lead" data-cms="home.catalogHead.lead">
             Aperçu de nos dernières pièces. Chaque référence est une commande
             unique, façonnée sur la morphologie d'une seule personne.
           </p>
@@ -129,7 +129,7 @@
 
         <div class="catalog__bar">
           <span>09 modèles référencés</span>
-          <span>Pièces uniques · sur commande</span>
+          <span data-cms="home.catalogNote">Pièces uniques · sur commande</span>
         </div>
 
         <div class="catalog" data-stagger>
@@ -207,22 +207,22 @@
         </div>
 
         <div class="catalog__bar catalog__bar--foot">
-          <a href="galerie.html" class="link">Parcourir les 9 modèles →</a>
+          <a href="galerie.html" class="link" data-cms="home.catalogFootLabel">Parcourir les 9 modèles →</a>
         </div>
       </section>
 
       <!-- 01 // PROTOCOLE -->
       <section class="sec wrap">
         <header class="sec-head reveal">
-          <span class="sec-head__id">01 // Protocole</span>
-          <h2 class="sec-head__title">Quatre gestes. <span>Un seul protocole.</span></h2>
+          <span class="sec-head__id" data-cms="home.protocolHead.id">01 // Protocole</span>
+          <h2 class="sec-head__title" data-cms-lead="home.protocolHead.title">Quatre gestes. <span data-cms="home.protocolHead.titleAccent">Un seul protocole.</span></h2>
         </header>
 
-        <div class="flow__grid" data-stagger>
+        <div class="flow__grid" data-stagger data-cms-repeat="home.protocolSteps">
           <article class="flow__step reveal">
-            <span class="flow__num">01//</span>
-            <h3>Consultation</h3>
-            <p>On part de votre style et de votre usage. Un échange sans engagement, entièrement centré sur vous.</p>
+            <span class="flow__num" data-cms-num="//">01//</span>
+            <h3 data-cms="title">Consultation</h3>
+            <p data-cms="text">On part de votre style et de votre usage. Un échange sans engagement, entièrement centré sur vous.</p>
           </article>
           <article class="flow__step reveal">
             <span class="flow__num">02//</span>
@@ -244,32 +244,32 @@
 
       <!-- INTERLUDE -->
       <figure class="interlude">
-        <img src="assets/img/porte-02.jpg" alt="Sourire portant deux grillz sculptés en argent, portrait noir et blanc aux ombres douces" loading="lazy" />
+        <img src="assets/img/porte-02.jpg" alt="Sourire portant deux grillz sculptés en argent, portrait noir et blanc aux ombres douces" loading="lazy" data-cms-img="home.interlude.image" data-cms-w="1800" />
         <figcaption class="interlude__meta">
-          <span>Atelier · Lausanne</span>
-          <span>Empreinte → façonnage → livraison</span>
+          <span data-cms="home.interlude.left">Atelier · Lausanne</span>
+          <span data-cms="home.interlude.right">Empreinte → façonnage → livraison</span>
         </figcaption>
       </figure>
 
       <!-- 02 // VOIES -->
       <section class="sec wrap">
         <header class="sec-head reveal">
-          <span class="sec-head__id">02 // Voies</span>
-          <h2 class="sec-head__title">Deux voies. <span>Un même sur-mesure.</span></h2>
-          <p class="sec-head__lead">Que vous soyez à Lausanne ou ailleurs, tout commence par une empreinte précise — à l'atelier, chez votre dentiste, ou chez vous grâce à notre model kit.</p>
+          <span class="sec-head__id" data-cms="home.pathwaysHead.id">02 // Voies</span>
+          <h2 class="sec-head__title" data-cms-lead="home.pathwaysHead.title">Deux voies. <span data-cms="home.pathwaysHead.titleAccent">Un même sur-mesure.</span></h2>
+          <p class="sec-head__lead" data-cms="home.pathwaysHead.lead">Que vous soyez à Lausanne ou ailleurs, tout commence par une empreinte précise — à l'atelier, chez votre dentiste, ou chez vous grâce à notre model kit.</p>
         </header>
 
-        <div class="pathways" data-stagger>
+        <div class="pathways" data-stagger data-cms-repeat="home.pathways" data-cms-delay="2">
           <article class="pathway reveal">
-            <span class="pathway__id">Voie A // À Lausanne</span>
-            <h3>À l'atelier</h3>
-            <p>Empreinte prise sur place par notre équipe dentaire, dans le confort de l'atelier.</p>
-            <dl class="pathway__specs">
-              <div><dt>Lieu</dt><dd>Av. de Sévelin 36</dd></div>
+            <span class="pathway__id" data-cms="id">Voie A // À Lausanne</span>
+            <h3 data-cms="title">À l'atelier</h3>
+            <p data-cms="text">Empreinte prise sur place par notre équipe dentaire, dans le confort de l'atelier.</p>
+            <dl class="pathway__specs" data-cms-repeat="specs">
+              <div><dt data-cms="label">Lieu</dt><dd data-cms="value">Av. de Sévelin 36</dd></div>
               <div><dt>Durée</dt><dd>30–45 min</dd></div>
               <div><dt>Remise</dt><dd>En main propre</dd></div>
             </dl>
-            <a href="contact.html" class="link">Prendre rendez-vous →</a>
+            <a href="contact.html" class="link" data-cms="linkLabel">Prendre rendez-vous →</a>
           </article>
 
           <article class="pathway reveal" data-delay="1">
@@ -289,16 +289,16 @@
       <!-- 03 // MATIÈRES -->
       <section class="sec wrap">
         <header class="sec-head reveal">
-          <span class="sec-head__id">03 // Matières</span>
-          <h2 class="sec-head__title">Métaux, pierres, finitions.</h2>
-          <p class="sec-head__lead">Tarifs des métaux indexés sur le cours de l'or. Sélection arrêtée en atelier.</p>
+          <span class="sec-head__id" data-cms="home.materialsHead.id">03 // Matières</span>
+          <h2 class="sec-head__title" data-cms-lead="home.materialsHead.title">Métaux, pierres, finitions. <span data-cms="home.materialsHead.titleAccent"></span></h2>
+          <p class="sec-head__lead" data-cms="home.materialsHead.lead">Tarifs des métaux indexés sur le cours de l'or. Sélection arrêtée en atelier.</p>
         </header>
 
-        <div class="spectable" data-stagger>
+        <div class="spectable" data-stagger data-cms-repeat="home.materialGroups">
           <div class="spec-group reveal">
-            <span class="spec-group__label">Métaux</span>
-            <div class="spec-group__list">
-              <div><b>Or 10K à 18K</b><span>Jaune · blanc · rose</span></div>
+            <span class="spec-group__label" data-cms="label">Métaux</span>
+            <div class="spec-group__list" data-cms-repeat="items">
+              <div><b data-cms="title">Or 10K à 18K</b><span data-cms="text">Jaune · blanc · rose</span></div>
               <div><b>Argent 925 · Chrome-cobalt</b><span>Standard atelier</span></div>
             </div>
           </div>
@@ -324,24 +324,24 @@
       <!-- 04 // L'ATELIER -->
       <section class="sec wrap">
         <header class="sec-head reveal">
-          <span class="sec-head__id">04 // L'atelier</span>
-          <h2 class="sec-head__title">Un atelier à Lausanne.</h2>
+          <span class="sec-head__id" data-cms="home.atelierHead.id">04 // L'atelier</span>
+          <h2 class="sec-head__title" data-cms-lead="home.atelierHead.title">Un atelier à Lausanne. <span data-cms="home.atelierHead.titleAccent"></span></h2>
         </header>
 
         <div class="lab">
           <figure class="lab__media reveal">
-            <img src="assets/img/ecriture-03.jpg" alt="Détail d'un grillz en argent façonné à la main à l'établi de l'atelier" loading="lazy" />
+            <img src="assets/img/ecriture-03.jpg" alt="Détail d'un grillz en argent façonné à la main à l'établi de l'atelier" loading="lazy" data-cms-img="home.atelierImage" data-cms-w="1200" />
           </figure>
           <div class="lab__body reveal" data-delay="1">
-            <p class="lab__statement">Nous ne fabriquons pas des bijoux. Nous façonnons une <span>seconde peau.</span></p>
-            <p>Une maison héritière de la technique dentaire depuis 1978, élevée à l'exigence d'un atelier de joaillerie. Un seul lieu, où chaque pièce naît, vit et se finit — de l'empreinte à la remise en main propre.</p>
-            <dl class="lab__card">
-              <div><dt>Lieu</dt><dd>Lausanne, Suisse</dd></div>
+            <p class="lab__statement" data-cms-lead="home.atelierStatement">Nous ne fabriquons pas des bijoux. Nous façonnons une <span data-cms="home.atelierStatementAccent">seconde peau.</span></p>
+            <p data-cms="home.atelierText">Une maison héritière de la technique dentaire depuis 1978, élevée à l'exigence d'un atelier de joaillerie. Un seul lieu, où chaque pièce naît, vit et se finit — de l'empreinte à la remise en main propre.</p>
+            <dl class="lab__card" data-cms-repeat="home.atelierRows">
+              <div><dt data-cms="label">Lieu</dt><dd data-cms="value">Lausanne, Suisse</dd></div>
               <div><dt>Accès</dt><dd>Sur rendez-vous</dd></div>
               <div><dt>Matériaux</dt><dd>Or · Argent 925 · Chrome-cobalt</dd></div>
               <div><dt>Délai</dt><dd>2 à 4 semaines</dd></div>
             </dl>
-            <a href="savoir-faire.html" class="btn">Découvrir le savoir-faire <span class="arrow">→</span></a>
+            <a href="savoir-faire.html" class="btn" data-cms-lead="home.atelierCtaLabel">Découvrir le savoir-faire <span class="arrow">→</span></a>
           </div>
         </div>
       </section>
@@ -349,15 +349,15 @@
       <!-- 05 // GARANTIES -->
       <section class="sec wrap">
         <header class="sec-head reveal">
-          <span class="sec-head__id">05 // Entretien &amp; garanties</span>
-          <h2 class="sec-head__title">Entretien. <span>Et garanties.</span></h2>
+          <span class="sec-head__id" data-cms="home.careHead.id">05 // Entretien &amp; garanties</span>
+          <h2 class="sec-head__title" data-cms-lead="home.careHead.title">Entretien. <span data-cms="home.careHead.titleAccent">Et garanties.</span></h2>
         </header>
 
-        <div class="care" data-stagger>
+        <div class="care" data-stagger data-cms-repeat="home.careColumns" data-cms-delay="2">
           <div class="care__col reveal">
-            <h3>Entretien</h3>
-            <ul>
-              <li><b>Port — max 8 h / jour</b><p>Retirez la pièce pour dormir et pour manger.</p></li>
+            <h3 data-cms="title">Entretien</h3>
+            <ul data-cms-repeat="items">
+              <li><b data-cms="title">Port — max 8 h / jour</b><p data-cms="text">Retirez la pièce pour dormir et pour manger.</p></li>
               <li><b>Nettoyage — eau chaude &amp; brosse à dents</b><p>Un brossage doux à l'eau chaude suffit à raviver l'éclat.</p></li>
               <li><b>Rangement — modèle en plâtre fourni</b><p>Reposez la pièce sur son modèle en plâtre, à l'abri des chocs.</p></li>
             </ul>
@@ -371,20 +371,20 @@
             </ul>
           </div>
         </div>
-        <p class="care__note reveal">La maison reste là en cas de besoin. Un polissage, un nettoyage ? Passez à l'atelier, c'est avec plaisir, et c'est gratuit.</p>
+        <p class="care__note reveal" data-cms="home.careNote">La maison reste là en cas de besoin. Un polissage, un nettoyage ? Passez à l'atelier, c'est avec plaisir, et c'est gratuit.</p>
       </section>
 
       <!-- 06 // FAQ -->
       <section class="sec wrap">
         <header class="sec-head reveal">
-          <span class="sec-head__id">06 // FAQ</span>
-          <h2 class="sec-head__title">Questions fréquentes.</h2>
+          <span class="sec-head__id" data-cms="home.faqHead.id">06 // FAQ</span>
+          <h2 class="sec-head__title" data-cms-lead="home.faqHead.title">Questions fréquentes. <span data-cms="home.faqHead.titleAccent"></span></h2>
         </header>
 
-        <div class="faq reveal">
+        <div class="faq reveal" data-cms-repeat="home.faqItems">
           <details class="faq__item">
-            <summary>Est-ce que ça fait mal ?</summary>
-            <p class="faq__answer">Non. La pièce se pose et se retire sans douleur et sans aucune intervention sur la dent.</p>
+            <summary data-cms="question">Est-ce que ça fait mal ?</summary>
+            <p class="faq__answer" data-cms="answer">Non. La pièce se pose et se retire sans douleur et sans aucune intervention sur la dent.</p>
           </details>
           <details class="faq__item">
             <summary>Est-ce permanent ?</summary>
@@ -411,11 +411,11 @@
 
       <!-- 07 // DEPLOY / CTA -->
       <section class="deploy wrap">
-        <span class="deploy__id">07 // Sur mesure</span>
-        <h2 class="deploy__title">Une pièce unique. <span>Pour une seule personne.</span></h2>
+        <span class="deploy__id" data-cms="home.deploy.id">07 // Sur mesure</span>
+        <h2 class="deploy__title" data-cms-lead="home.deploy.title">Une pièce unique. <span data-cms="home.deploy.titleAccent">Pour une seule personne.</span></h2>
         <div class="deploy__cta">
-          <a href="contact.html" class="btn btn--solid">Prendre rendez-vous <span class="arrow">→</span></a>
-          <a href="galerie.html" class="btn">Voir le catalogue <span class="arrow">→</span></a>
+          <a href="contact.html" class="btn btn--solid" data-cms-lead="home.deploy.primaryLabel">Prendre rendez-vous <span class="arrow">→</span></a>
+          <a href="galerie.html" class="btn" data-cms-lead="home.deploy.secondaryLabel">Voir le catalogue <span class="arrow">→</span></a>
         </div>
       </section>
     </main>
@@ -424,17 +424,17 @@
     <footer class="footer">
       <div class="wrap">
         <div class="footer__cta">
-          <p class="footer__hook">Une pièce unique commence par une conversation.</p>
-          <a href="contact.html" class="btn btn--solid">Prendre rendez-vous <span class="arrow">→</span></a>
+          <p class="footer__hook" data-cms="settings.footerHook">Une pièce unique commence par une conversation.</p>
+          <a href="contact.html" class="btn btn--solid" data-cms-lead="settings.footerCta">Prendre rendez-vous <span class="arrow">→</span></a>
         </div>
         <div class="footer__top">
           <div class="footer__brand">
             <p class="display">Maison<br />Alliani</p>
-            <p>Haute joaillerie dentaire sur mesure. Façonnée à la main, en Suisse, par un technicien-dentiste devenu joaillier.</p>
+            <p data-cms="settings.footerBrandText">Haute joaillerie dentaire sur mesure. Façonnée à la main, en Suisse, par un technicien-dentiste devenu joaillier.</p>
           </div>
           <div class="footer__cols">
             <div class="footer__col">
-              <h4>01 // Explorer</h4>
+              <h4 data-cms="settings.footerColExplore">01 // Explorer</h4>
               <ul>
                 <li><a href="savoir-faire.html">Savoir-faire</a></li>
                 <li><a href="processus.html">Processus</a></li>
@@ -443,7 +443,7 @@
               </ul>
             </div>
             <div class="footer__col">
-              <h4>02 // Atelier</h4>
+              <h4 data-cms="settings.footerColAtelier">02 // Atelier</h4>
               <ul>
                 <li><address>Av. de Sévelin 36<br />1004 Lausanne, Suisse</address></li>
                 <li><a href="mailto:alan.alliani2503@gmail.com">alan.alliani2503@gmail.com</a></li>
@@ -452,19 +452,19 @@
               </ul>
             </div>
             <div class="footer__col">
-              <h4>03 // Statut</h4>
+              <h4 data-cms="settings.footerColStatus">03 // Statut</h4>
               <ul>
                 <li><span class="footer__state"><span class="dot" aria-hidden="true"></span>Carnet ouvert</span></li>
-                <li>Sur rendez-vous uniquement</li>
-                <li><span data-clock>–:–</span> · heure de l'atelier</li>
+                <li data-cms="settings.footerStatusNote">Sur rendez-vous uniquement</li>
+                <li><span data-clock>–:–</span> · <span data-cms="settings.footerClockNote">heure de l'atelier</span></li>
               </ul>
             </div>
           </div>
         </div>
         <div class="footer__bottom">
-          <span>© <span data-year>2026</span> Maison Alliani — Mentions légales</span>
-          <span>46°31′N — 6°38′E</span>
-          <span class="swiss"><i class="swiss-flag" aria-hidden="true"></i> Fabriqué en Suisse</span>
+          <span>© <span data-year>2026</span> Maison Alliani — <span data-cms="settings.footerLegal">Mentions légales</span></span>
+          <span data-cms="settings.footerCoords">46°31′N — 6°38′E</span>
+          <span class="swiss"><i class="swiss-flag" aria-hidden="true"></i> <span data-cms="settings.footerMadeIn">Fabriqué en Suisse</span></span>
           <span class="lang-switch" aria-label="Choix de la langue"><button type="button" data-lang="fr">FR</button><i aria-hidden="true">/</i><button type="button" data-lang="en">EN</button></span>
         </div>
       </div>

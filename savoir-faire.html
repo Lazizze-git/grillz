@@ -35,14 +35,14 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body>
+  <body data-page="craft">
     <div class="cursor" aria-hidden="true"></div>
 
     <header class="nav">
       <div class="wrap nav__inner">
         <a href="index.html" class="nav__logo" aria-label="Maison Alliani — accueil">
           <b>Maison Alliani</b>
-          <span>Atelier · CH</span>
+          <span data-cms="settings.navTagline">Atelier · CH</span>
         </a>
         <nav class="nav__links" aria-label="Navigation principale">
           <a href="savoir-faire.html" aria-current="page">Savoir-faire</a>
@@ -74,7 +74,7 @@
       <div class="menu__foot">
         <a href="mailto:alan.alliani2503@gmail.com" class="link">alan.alliani2503@gmail.com</a>
         <a href="https://www.instagram.com/maison_alliani/" class="link" target="_blank" rel="noopener">Instagram ↗</a>
-        <span class="label label--muted label--nodash">Lausanne · Suisse</span>
+        <span class="label label--muted label--nodash" data-cms="settings.navPlace">Lausanne · Suisse</span>
       </div>
     </div>
 
@@ -82,34 +82,34 @@
       <!-- Hero de page -->
       <section class="page-head page-head--split wrap">
         <div class="page-head__text">
-          <p class="page-head__label label reveal">Savoir-faire &amp; Histoire</p>
-          <h1 class="display reveal-mask"><span>L'art dentaire rencontre la <em>haute joaillerie</em>.</span></h1>
-          <p class="reveal" data-delay="2">Une carrière entière passée dans la technique dentaire, aujourd'hui au service du bijou. Voici notre origine, nos gestes et nos matières.</p>
+          <p class="page-head__label label reveal" data-cms="craft.pageHead.label">Savoir-faire &amp; Histoire</p>
+          <h1 class="display reveal-mask"><span data-cms-lead="craft.pageHead.title">L'art dentaire rencontre la <em data-cms="craft.pageHead.titleAccent">haute joaillerie</em>.</span></h1>
+          <p class="reveal" data-delay="2" data-cms="craft.pageHead.lead">Une carrière entière passée dans la technique dentaire, aujourd'hui au service du bijou. Voici notre origine, nos gestes et nos matières.</p>
         </div>
         <figure class="page-head__visual reveal" data-delay="2">
-          <img src="assets/img/porte-02.jpg" alt="Sourire portant deux grillz sculptés en argent, portrait noir et blanc aux ombres douces" fetchpriority="high" />
+          <img src="assets/img/porte-02.jpg" alt="Sourire portant deux grillz sculptés en argent, portrait noir et blanc aux ombres douces" fetchpriority="high" data-cms-img="craft.headImage" data-cms-w="900" data-cms-h="1200" />
         </figure>
       </section>
 
       <!-- 01 // Origine -->
       <section class="sec sec--flush wrap">
         <header class="sec-head reveal">
-          <span class="sec-head__id">01 // Origine</span>
-          <h2 class="sec-head__title">Depuis 1978, <span>la technicienne-dentiste.</span></h2>
+          <span class="sec-head__id" data-cms="craft.originHead.id">01 // Origine</span>
+          <h2 class="sec-head__title" data-cms-lead="craft.originHead.title">Depuis 1978, <span data-cms="craft.originHead.titleAccent">la technicienne-dentiste.</span></h2>
         </header>
 
         <div class="profile">
           <!-- PHOTO PROVISOIRE — remplacer le fichier assets/img/portrait-technicienne.jpg
                par son portrait (cadrage vertical, idéalement 1440 × 1800 px). -->
           <figure class="profile__photo reveal">
-            <img src="assets/img/portrait-technicienne.jpg" alt="Grillz argent et or posé sur son modèle en plâtre, à l'atelier" loading="lazy" />
-            <figcaption>Technique dentaire · depuis 1978</figcaption>
+            <img src="assets/img/portrait-technicienne.jpg" alt="Grillz argent et or posé sur son modèle en plâtre, à l'atelier" loading="lazy" data-cms-img="craft.portraitImage" data-cms-w="900" data-cms-h="1125" />
+            <figcaption data-cms="craft.portraitCaption">Technique dentaire · depuis 1978</figcaption>
           </figure>
           <div class="profile__body reveal" data-delay="1">
-            <p class="profile__intro">Passion, précision, <span>exigence de qualité.</span></p>
+            <p class="profile__intro" data-cms-lead="craft.profileIntro">Passion, précision, <span data-cms="craft.profileIntroAccent">exigence de qualité.</span></p>
             <p data-craft-p="1">Technicienne-dentiste depuis 1978, j'ai exercé mon métier avec passion, précision et exigence de qualité pour la satisfaction de ma clientèle. Au fil des décennies, j'ai acquis une solide expérience technique et esthétique en travaillant comme salariée, puis comme indépendante depuis 1993.</p>
-            <dl class="profile__creds">
-              <div><dt>Métier</dt><dd>Technicienne-dentiste · depuis 1978</dd></div>
+            <dl class="profile__creds" data-cms-repeat="craft.creds">
+              <div><dt data-cms="label">Métier</dt><dd data-cms="value">Technicienne-dentiste · depuis 1978</dd></div>
               <div><dt>Indépendante</dt><dd>Depuis 1993</dd></div>
               <div><dt>Atelier</dt><dd>Av. de Sévelin 36, Lausanne</dd></div>
               <div><dt>Signature</dt><dd>Ajustement anatomique</dd></div>
@@ -121,16 +121,16 @@
       <!-- 02 // Transmission -->
       <section class="sec wrap">
         <header class="sec-head reveal">
-          <span class="sec-head__id">02 // Transmission</span>
-          <h2 class="sec-head__title">Former, examiner, <span>présider.</span></h2>
+          <span class="sec-head__id" data-cms="craft.transmissionHead.id">02 // Transmission</span>
+          <h2 class="sec-head__title" data-cms-lead="craft.transmissionHead.title">Former, examiner, <span data-cms="craft.transmissionHead.titleAccent">présider.</span></h2>
           <p class="sec-head__lead" data-craft-p="2">Tout au long de ma carrière, je me suis investie dans la profession en tant que formatrice d'apprentis, experte aux examens et présidente de l'association des laboratoires dentaires pour la section vaudoise durant trois ans. Transmettre mon savoir-faire et contribuer à l'évolution de ma profession sont des valeurs essentielles pour moi.</p>
         </header>
 
-        <div class="flow__grid" data-stagger>
+        <div class="flow__grid" data-stagger data-cms-repeat="craft.transmissionSteps">
           <article class="flow__step reveal">
-            <span class="flow__num">01//</span>
-            <h3>Formatrice d'apprentis</h3>
-            <p>Des générations de techniciens formées à l'établi : le geste, la mesure, la patience.</p>
+            <span class="flow__num" data-cms-num="//">01//</span>
+            <h3 data-cms="title">Formatrice d'apprentis</h3>
+            <p data-cms="text">Des générations de techniciens formées à l'établi : le geste, la mesure, la patience.</p>
           </article>
           <article class="flow__step reveal">
             <span class="flow__num">02//</span>
@@ -157,19 +157,19 @@
       <!-- 03 // Aujourd'hui -->
       <section class="sec wrap">
         <header class="sec-head reveal">
-          <span class="sec-head__id">03 // Aujourd'hui</span>
-          <h2 class="sec-head__title">La même rigueur, <span>appliquée au bijou.</span></h2>
+          <span class="sec-head__id" data-cms="craft.todayHead.id">03 // Aujourd'hui</span>
+          <h2 class="sec-head__title" data-cms-lead="craft.todayHead.title">La même rigueur, <span data-cms="craft.todayHead.titleAccent">appliquée au bijou.</span></h2>
         </header>
 
         <div class="lab">
           <figure class="lab__media reveal">
-            <img src="assets/img/ecriture-03.jpg" alt="Détail d'un grillz en argent façonné à la main à l'établi de l'atelier" loading="lazy" />
+            <img src="assets/img/ecriture-03.jpg" alt="Détail d'un grillz en argent façonné à la main à l'établi de l'atelier" loading="lazy" data-cms-img="craft.todayImage" data-cms-w="1200" />
           </figure>
           <div class="lab__body reveal" data-delay="1">
             <p data-craft-p="3">Aujourd'hui, je mets cette expérience au service d'un domaine différent, qui allie technique et création artistique. Les grillz et bijoux dentaires sont créés avec la même rigueur et le même souci du détail : ces exigences de qualité ont guidé toute ma carrière.</p>
             <p data-craft-p="4">Travailler aux côtés de mon fils est une nouvelle aventure, qui me permet de conjuguer l'expérience de plus de quarante années avec une approche moderne et créative, enrichie par de belles rencontres avec une clientèle aux univers variés. Ensemble, nous avons une excellente collaboration, ainsi qu'une grande satisfaction de réaliser des pièces uniques, fabriquées artisanalement avec la même passion.</p>
-            <dl class="lab__card">
-              <div><dt>À deux</dt><dd>Mère &amp; fils</dd></div>
+            <dl class="lab__card" data-cms-repeat="craft.todayRows">
+              <div><dt data-cms="label">À deux</dt><dd data-cms="value">Mère &amp; fils</dd></div>
               <div><dt>Expérience</dt><dd>Plus de 40 années</dd></div>
               <div><dt>Fabrication</dt><dd>Artisanale, à l'atelier</dd></div>
               <div><dt>Séries</dt><dd>Aucune · pièces uniques</dd></div>
@@ -182,9 +182,9 @@
       <section class="fab">
         <div class="section wrap">
           <header class="sec-head reveal">
-            <span class="sec-head__id">04 // Trois piliers</span>
-            <h2 class="sec-head__title">Pourquoi la Suisse <span>change tout.</span></h2>
-            <p class="sec-head__lead">La précision horlogère n'est pas un argument marketing : c'est une culture du dixième de millimètre, appliquée à votre sourire.</p>
+            <span class="sec-head__id" data-cms="craft.pillarsHead.id">04 // Trois piliers</span>
+            <h2 class="sec-head__title" data-cms-lead="craft.pillarsHead.title">Pourquoi la Suisse <span data-cms="craft.pillarsHead.titleAccent">change tout.</span></h2>
+            <p class="sec-head__lead" data-cms="craft.pillarsHead.lead">La précision horlogère n'est pas un argument marketing : c'est une culture du dixième de millimètre, appliquée à votre sourire.</p>
           </header>
 
           <div class="fab__grid" data-stagger>
@@ -192,22 +192,22 @@
               <div class="fab__icon" aria-hidden="true">
                 <svg viewBox="0 0 48 48"><path d="M24 6v36M6 24h36" /><circle cx="24" cy="24" r="14" /></svg>
               </div>
-              <h3>Fabriqué en Suisse</h3>
-              <p>Précision horlogère appliquée à la joaillerie dentaire. Chaque pièce naît, vit et se finit dans notre atelier.</p>
+              <h3 data-cms="craft.pillars.0.title">Fabriqué en Suisse</h3>
+              <p data-cms="craft.pillars.0.text">Précision horlogère appliquée à la joaillerie dentaire. Chaque pièce naît, vit et se finit dans notre atelier.</p>
             </article>
             <article class="fab__item reveal" data-delay="1">
               <div class="fab__icon" aria-hidden="true">
                 <svg viewBox="0 0 48 48"><path d="M24 4c8 6 8 14 8 20 0 9-4 20-8 20s-8-11-8-20c0-6 0-14 8-20Z" /><path d="M16 24h16" /></svg>
               </div>
-              <h3>Ajustement anatomique</h3>
-              <p>Une empreinte, une bouche : la pièce épouse les reliefs et les asymétries. Un maintien franc, sans compromis, sans douleur.</p>
+              <h3 data-cms="craft.pillars.1.title">Ajustement anatomique</h3>
+              <p data-cms="craft.pillars.1.text">Une empreinte, une bouche : la pièce épouse les reliefs et les asymétries. Un maintien franc, sans compromis, sans douleur.</p>
             </article>
             <article class="fab__item reveal" data-delay="2">
               <div class="fab__icon" aria-hidden="true">
                 <svg viewBox="0 0 48 48"><path d="M14 8h20l8 12-18 22L6 20 14 8Z" /><path d="M6 20h36M24 8l-6 12 6 22 6-22-6-12Z" /></svg>
               </div>
-              <h3>Matériaux certifiés</h3>
-              <p>Or 10K à 18K, argent 925, chrome-cobalt, diamants naturels et synthétiques. Une traçabilité totale, consignée sur votre certificat d'authenticité.</p>
+              <h3 data-cms="craft.pillars.2.title">Matériaux certifiés</h3>
+              <p data-cms="craft.pillars.2.text">Or 10K à 18K, argent 925, chrome-cobalt, diamants naturels et synthétiques. Une traçabilité totale, consignée sur votre certificat d'authenticité.</p>
             </article>
           </div>
         </div>
@@ -215,27 +215,27 @@
 
       <!-- Interlude -->
       <figure class="interlude">
-        <img src="assets/img/ecriture-01.jpg" alt="Main gantée tenant un grillz en argent au-dessus d'un moulage dentaire" loading="lazy" />
+        <img src="assets/img/ecriture-01.jpg" alt="Main gantée tenant un grillz en argent au-dessus d'un moulage dentaire" loading="lazy" data-cms-img="craft.interlude.image" data-cms-w="1800" />
         <figcaption class="interlude__meta">
-          <span>Établi · Lausanne</span>
-          <span>Fonte → ciselure → sertissage → polissage</span>
+          <span data-cms="craft.interlude.left">Établi · Lausanne</span>
+          <span data-cms="craft.interlude.right">Fonte → ciselure → sertissage → polissage</span>
         </figcaption>
       </figure>
 
       <!-- 05 // Matières -->
       <section class="sec wrap">
         <header class="sec-head reveal">
-          <span class="sec-head__id">05 // Matières</span>
-          <h2 class="sec-head__title">Choisies comme <span>on choisit une pierre.</span></h2>
-          <p class="sec-head__lead">Faites défiler →</p>
+          <span class="sec-head__id" data-cms="craft.materialsHead.id">05 // Matières</span>
+          <h2 class="sec-head__title" data-cms-lead="craft.materialsHead.title">Choisies comme <span data-cms="craft.materialsHead.titleAccent">on choisit une pierre.</span></h2>
+          <p class="sec-head__lead" data-cms="craft.materialsHead.lead">Faites défiler →</p>
         </header>
 
-        <div class="materials__track reveal">
+        <div class="materials__track reveal" data-cms-repeat="craft.materials">
           <article class="material">
-            <div class="material__media"><img src="assets/img/croc-01.jpg" alt="Macro d'une canine en argent poli révélant le grain du métal" loading="lazy" /></div>
-            <h3>Argent 925</h3>
-            <p>Poli miroir ou satiné. Le métal des premières pièces, accessible et noble.</p>
-            <p class="material__cert">Sterling certifié</p>
+            <div class="material__media"><img src="assets/img/croc-01.jpg" alt="Macro d'une canine en argent poli révélant le grain du métal" loading="lazy" data-cms-img="image" data-cms-w="800" data-cms-h="1000" /></div>
+            <h3 data-cms="title">Argent 925</h3>
+            <p data-cms="text">Poli miroir ou satiné. Le métal des premières pièces, accessible et noble.</p>
+            <p class="material__cert" data-cms="cert">Sterling certifié</p>
           </article>
           <article class="material">
             <div class="material__media"><img src="assets/img/aurum-02.jpg" alt="Détail or 18 carats sur un grillz pleine bouche" loading="lazy" /></div>
@@ -261,16 +261,16 @@
       <!-- 06 // Le geste -->
       <section class="sec wrap">
         <header class="sec-head reveal">
-          <span class="sec-head__id">06 // Le geste</span>
-          <h2 class="sec-head__title">Le métal, <span>geste après geste.</span></h2>
-          <p class="sec-head__lead">Chaque pièce traverse le même établi, entre les mêmes mains, du métal brut à l'éclat final.</p>
+          <span class="sec-head__id" data-cms="craft.gestureHead.id">06 // Le geste</span>
+          <h2 class="sec-head__title" data-cms-lead="craft.gestureHead.title">Le métal, <span data-cms="craft.gestureHead.titleAccent">geste après geste.</span></h2>
+          <p class="sec-head__lead" data-cms="craft.gestureHead.lead">Chaque pièce traverse le même établi, entre les mêmes mains, du métal brut à l'éclat final.</p>
         </header>
 
-        <div class="flow__grid" data-stagger>
+        <div class="flow__grid" data-stagger data-cms-repeat="craft.gestureSteps">
           <article class="flow__step reveal">
-            <span class="flow__num">01//</span>
-            <h3>Fonte</h3>
-            <p>Le métal précieux est fondu puis coulé sur le modèle issu de votre empreinte. La matière prend sa première forme.</p>
+            <span class="flow__num" data-cms-num="//">01//</span>
+            <h3 data-cms="title">Fonte</h3>
+            <p data-cms="text">Le métal précieux est fondu puis coulé sur le modèle issu de votre empreinte. La matière prend sa première forme.</p>
           </article>
           <article class="flow__step reveal">
             <span class="flow__num">02//</span>
@@ -292,11 +292,11 @@
 
       <!-- CTA -->
       <section class="deploy wrap">
-        <span class="deploy__id">→ Étape suivante</span>
-        <h2 class="deploy__title">De la première empreinte <span>à la remise en main propre.</span></h2>
+        <span class="deploy__id" data-cms="craft.deploy.id">→ Étape suivante</span>
+        <h2 class="deploy__title" data-cms-lead="craft.deploy.title">De la première empreinte <span data-cms="craft.deploy.titleAccent">à la remise en main propre.</span></h2>
         <div class="deploy__cta">
-          <a href="processus.html" class="btn btn--solid">Découvrir le processus <span class="arrow">→</span></a>
-          <a href="contact.html" class="btn">Prendre rendez-vous <span class="arrow">→</span></a>
+          <a href="processus.html" class="btn btn--solid" data-cms-lead="craft.deploy.primaryLabel">Découvrir le processus <span class="arrow">→</span></a>
+          <a href="contact.html" class="btn" data-cms-lead="craft.deploy.secondaryLabel">Prendre rendez-vous <span class="arrow">→</span></a>
         </div>
       </section>
     </main>
@@ -304,17 +304,17 @@
     <footer class="footer">
       <div class="wrap">
         <div class="footer__cta">
-          <p class="footer__hook">Une pièce unique commence par une conversation.</p>
-          <a href="contact.html" class="btn btn--solid">Prendre rendez-vous <span class="arrow">→</span></a>
+          <p class="footer__hook" data-cms="settings.footerHook">Une pièce unique commence par une conversation.</p>
+          <a href="contact.html" class="btn btn--solid" data-cms-lead="settings.footerCta">Prendre rendez-vous <span class="arrow">→</span></a>
         </div>
         <div class="footer__top">
           <div class="footer__brand">
             <p class="display">Maison<br />Alliani</p>
-            <p>Haute joaillerie dentaire sur mesure. Façonnée à la main, en Suisse, par un technicien-dentiste devenu joaillier.</p>
+            <p data-cms="settings.footerBrandText">Haute joaillerie dentaire sur mesure. Façonnée à la main, en Suisse, par un technicien-dentiste devenu joaillier.</p>
           </div>
           <div class="footer__cols">
             <div class="footer__col">
-              <h4>01 // Explorer</h4>
+              <h4 data-cms="settings.footerColExplore">01 // Explorer</h4>
               <ul>
                 <li><a href="savoir-faire.html">Savoir-faire</a></li>
                 <li><a href="processus.html">Processus</a></li>
@@ -323,7 +323,7 @@
               </ul>
             </div>
             <div class="footer__col">
-              <h4>02 // Atelier</h4>
+              <h4 data-cms="settings.footerColAtelier">02 // Atelier</h4>
               <ul>
                 <li><address>Av. de Sévelin 36<br />1004 Lausanne, Suisse</address></li>
                 <li><a href="mailto:alan.alliani2503@gmail.com">alan.alliani2503@gmail.com</a></li>
@@ -332,19 +332,19 @@
               </ul>
             </div>
             <div class="footer__col">
-              <h4>03 // Statut</h4>
+              <h4 data-cms="settings.footerColStatus">03 // Statut</h4>
               <ul>
                 <li><span class="footer__state"><span class="dot" aria-hidden="true"></span>Carnet ouvert</span></li>
-                <li>Sur rendez-vous uniquement</li>
-                <li><span data-clock>–:–</span> · heure de l'atelier</li>
+                <li data-cms="settings.footerStatusNote">Sur rendez-vous uniquement</li>
+                <li><span data-clock>–:–</span> · <span data-cms="settings.footerClockNote">heure de l'atelier</span></li>
               </ul>
             </div>
           </div>
         </div>
         <div class="footer__bottom">
-          <span>© <span data-year>2026</span> Maison Alliani — Mentions légales</span>
-          <span>46°31′N — 6°38′E</span>
-          <span class="swiss"><i class="swiss-flag" aria-hidden="true"></i> Fabriqué en Suisse</span>
+          <span>© <span data-year>2026</span> Maison Alliani — <span data-cms="settings.footerLegal">Mentions légales</span></span>
+          <span data-cms="settings.footerCoords">46°31′N — 6°38′E</span>
+          <span class="swiss"><i class="swiss-flag" aria-hidden="true"></i> <span data-cms="settings.footerMadeIn">Fabriqué en Suisse</span></span>
           <span class="lang-switch" aria-label="Choix de la langue"><button type="button" data-lang="fr">FR</button><i aria-hidden="true">/</i><button type="button" data-lang="en">EN</button></span>
         </div>
       </div>

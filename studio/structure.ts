@@ -1,26 +1,26 @@
 import type { StructureResolver } from "sanity/structure";
 
 /**
- * Menu de gauche du Studio, pensé pour le client : les trois pages à réglage
- * unique sont des entrées directes, les créations une liste classique.
+ * Menu de gauche du Studio, pensé pour le client : une entrée par page du
+ * site, les créations en liste, les réglages communs à part.
  */
+const singleton = (S: Parameters<StructureResolver>[0], id: string, title: string) =>
+  S.listItem()
+    .title(title)
+    .id(id)
+    .child(S.document().schemaType(id).documentId(id).title(title));
+
 export const structure: StructureResolver = (S) =>
   S.list()
     .title("Contenu du site")
     .items([
-      S.listItem()
-        .title("Page d'accueil")
-        .id("homePage")
-        .child(S.document().schemaType("homePage").documentId("homePage")),
-      S.listItem()
-        .title("Page Savoir-faire")
-        .id("craftPage")
-        .child(S.document().schemaType("craftPage").documentId("craftPage")),
+      singleton(S, "homePage", "Page d'accueil"),
+      singleton(S, "craftPage", "Page Savoir-faire"),
+      singleton(S, "processPage", "Page Processus"),
+      singleton(S, "galleryPage", "Page Galerie"),
+      singleton(S, "contactPage", "Page Contact"),
       S.divider(),
       S.documentTypeListItem("piece").title("Créations (galerie)"),
       S.divider(),
-      S.listItem()
-        .title("Réglages du site")
-        .id("siteSettings")
-        .child(S.document().schemaType("siteSettings").documentId("siteSettings"))
+      singleton(S, "siteSettings", "Réglages du site")
     ]);

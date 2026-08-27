@@ -63,10 +63,14 @@ function initForm() {
   const slider = form.querySelector('input[type="range"]');
   const output = form.querySelector(".slider-wrap output");
   if (slider && output) {
-    const fmt = (v) =>
-      Number(v) >= 25000
-        ? "25 000 CHF +"
-        : `${Number(v).toLocaleString("fr-CH")} CHF`;
+    /* Le plafond suit celui du curseur : le CMS peut le déplacer. */
+    const fmt = (v) => {
+      const max = Number(slider.max);
+      const n = Number(v);
+      return n >= max
+        ? `${max.toLocaleString("fr-CH")} CHF +`
+        : `${n.toLocaleString("fr-CH")} CHF`;
+    };
     const update = () => (output.textContent = fmt(slider.value));
     slider.addEventListener("input", update);
     update();
@@ -76,11 +80,12 @@ function initForm() {
   const upload = form.querySelector(".upload input");
   const uploadLabel = form.querySelector(".upload__text");
   if (upload && uploadLabel) {
-    const base = uploadLabel.textContent;
+    /* Le texte d'origine est mis de côté : le CMS peut le remplacer ensuite. */
+    if (!uploadLabel.dataset.base) uploadLabel.dataset.base = uploadLabel.textContent;
     upload.addEventListener("change", () => {
       uploadLabel.textContent = upload.files.length
         ? `${upload.files.length} fichier(s) ajouté(s)`
-        : base;
+        : uploadLabel.dataset.base;
     });
   }
 
@@ -130,10 +135,12 @@ function initForm() {
     send.textContent = en() ? "Sending…" : "Envoi…";
 
     try {
-      const res = await fetch("envoi.php", {
-        method: "POST",
-        body: new FormData(form)
+      const body = new FormData(form);
+      ["piece", "materiau", "urgence"].forEach((name) => {
+        const checked = form.querySelector(`[name="${name}"]:checked`);
+        if (checked && checked.dataset.label) body.append(name + "_label", checked.dataset.label);
       });
+      const res = await fetch("envoi.php", { method: "POST", body });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.ok) throw new Error(data.error || "");
 

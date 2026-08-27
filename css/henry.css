@@ -42,6 +42,17 @@
   }
 }
 
+/* Carnet annoncé fermé depuis le CMS : pastille éteinte, sans battement. */
+.hero__status.is-closed .dot,
+.footer__state.is-closed .dot {
+  background: var(--ink-55);
+}
+.hero__status.is-closed .dot::after,
+.footer__state.is-closed .dot::after {
+  animation: none;
+  opacity: 0;
+}
+
 /* ---------- BARRE GALERIE : filtres + compteur + bascule de vue ---------- */
 .gallery-bar {
   display: flex;

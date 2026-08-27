@@ -10,12 +10,24 @@ elle reste un brouillon visible seulement dans l'espace d'édition.
 
 ## Ce qui est modifiable
 
+Chaque page du site a son entrée dans le menu de gauche. Les rubriques du
+Studio suivent l'ordre des sections telles qu'on les voit en ligne.
+
 | Rubrique | Contenu |
 | --- | --- |
-| **Page d'accueil** | La grande photo du haut, sa légende, le titre en deux lignes, le paragraphe d'introduction et les trois repères (prix, délai, envoi). |
+| **Page d'accueil** | La grande photo et son titre, les trois repères, les boutons, l'en-tête du catalogue, les quatre étapes du protocole, la photo de respiration, les deux voies, le tableau des matières, la section atelier, l'entretien et les garanties, la FAQ, l'appel à l'action final. |
+| **Page Savoir-faire** | Le haut de page, l'origine et le portrait de la technicienne-dentiste, la transmission, la citation, la section « Aujourd'hui », les trois piliers, les matières et les quatre gestes. |
+| **Page Processus** | Le haut de page, les quatre grandes étapes illustrées, le tableau des informations pratiques et l'encart final. |
+| **Page Galerie** | Le haut de page, les libellés des six filtres et le mot du compteur. Les pièces affichées viennent de « Créations ». |
+| **Page Contact** | Le haut de page, les titres des cinq étapes du formulaire, les intitulés des champs, les choix proposés, les bornes du budget, la confirmation d'envoi et la colonne de droite. |
 | **Créations (galerie)** | Les pièces : nom, référence, photos, catégories, matériau, nombre de dents, délai, style. Chaque photo devient une vue dans la galerie ; la première sert de vignette sur l'accueil. |
-| **Page Savoir-faire** | La photo d'en-tête, le portrait de la technicienne-dentiste, sa légende, ses paragraphes et sa phrase mise en avant. Les quatre paragraphes se placent à quatre endroits distincts de la page (origine, transmission, puis deux colonnes) : garder cet ordre. |
-| **Réglages du site** | E-mail, téléphone, adresse, Instagram et le statut « Carnet ouvert » — repris dans le menu et le pied de page de toutes les pages. |
+| **Réglages du site** | E-mail, téléphone, adresse, Instagram, le statut « Carnet ouvert », les mentions du menu et tout le pied de page — repris sur toutes les pages. |
+
+### Le référencement, page par page
+
+Chaque page a une rubrique **Référencement** : le titre de l'onglet (environ
+60 caractères) et la description affichée sous le titre dans Google (environ
+155 caractères). Laissés vides, les textes inscrits dans la page sont conservés.
 
 ## Ajouter une création
 
@@ -29,6 +41,29 @@ elle reste un brouillon visible seulement dans l'espace d'édition.
 
 Le cadrage des photos se règle en cliquant sur l'image, puis sur l'outil de
 recadrage : le point choisi reste visible quelle que soit la taille d'écran.
+
+Le compteur « 09 modèles référencés » de l'accueil se met à jour tout seul.
+
+## Ajouter ou retirer une entrée dans une liste
+
+Les listes — étapes, questions fréquentes, lignes de caractéristiques,
+matières, points d'entretien — s'allongent et se raccourcissent librement :
+la page suit. Les numéros (`01//`, `02//`…) sont recalculés automatiquement.
+
+Deux exceptions, parce que chaque entrée porte son propre dessin dans la page :
+
+- **Trois piliers** (Savoir-faire) : exactement trois, chacun gardant son
+  pictogramme.
+- **Choix du formulaire** (Contact) : le nombre est fixe et la valeur
+  technique envoyée à l'atelier reste inscrite dans la page. Seuls les
+  libellés se modifient — le formulaire ne peut donc pas se casser depuis
+  le Studio.
+
+## Titres en deux teintes
+
+Beaucoup de titres sont écrits en deux morceaux : le **Titre** s'affiche en
+blanc, la **Suite du titre** en gris. Sur l'accueil, « Quatre gestes. » puis
+« Un seul protocole. ». Laisser la suite vide donne un titre d'une seule teinte.
 
 ## Traductions
 
@@ -47,8 +82,24 @@ du contenu, écrite dans le code. Rien ne casse, rien ne disparaît.
 
 - Projet Sanity `64jkc7yr`, dataset `production` (public en lecture seule).
 - Le site interroge l'API depuis le navigateur, sans clé secrète, et
-  reconstruit galerie, catalogue et portraits avant l'initialisation des
-  modules (`js/cms-client.js`, `js/cms-gallery.js`, `js/cms-content.js`).
+  reconstruit les pages avant l'initialisation des modules.
+- `js/cms-client.js` contient le moteur de liaison. Les pages portent des
+  attributs qui désignent un champ par son chemin :
+
+  | Attribut | Effet |
+  | --- | --- |
+  | `data-cms="chemin"` | remplace le texte de l'élément |
+  | `data-cms-lead="chemin"` | remplace le début du texte, en gardant les enfants (titres en deux teintes) |
+  | `data-cms-img="chemin"` | remplace la photo ; `data-cms-w` / `data-cms-h` donnent les dimensions demandées |
+  | `data-cms-attr="href:chemin"` | remplace un attribut ; plusieurs paires séparées par une virgule |
+  | `data-cms-repeat="chemin"` | répète le premier enfant du conteneur pour chaque entrée de la liste |
+  | `data-cms-num="//"` | numérote l'entrée courante d'une répétition : `01//` |
+  | `data-cms-delay="2"` | échelonne l'apparition des entrées répétées |
+
+  Un chemin peut proposer des replis : `a.full|a.label` retient la première
+  valeur renseignée. Rien n'est écrasé tant qu'une valeur n'arrive pas : le
+  texte inscrit dans la page reste la version de secours.
+
 - Origines autorisées (CORS) : `localhost:5502`, `127.0.0.1:5502`,
   `maison-alliani.com`, `www.maison-alliani.com`. **À déclarer avant la mise
   en ligne** : `npx sanity cors add https://maison-alliani.com --no-credentials`
