@@ -221,19 +221,42 @@ function cmsRefreshRange() {
   });
 }
 
+/**
+ * Pose un contenu sur la page. Rejouable autant de fois que voulu : chaque
+ * appel repart des mêmes gabarits, ce qui permet à l'aperçu de l'espace
+ * d'édition de rafraîchir la page à chaque frappe.
+ */
+function cmsApplyAll(data) {
+  if (!data) return;
+  cmsBind(data);
+  cmsHydrateSeo(data);
+  cmsHydrateSettings(data);
+  cmsRefreshRange();
+  cmsHydrateHome(data.home, data.pieces);
+  if (typeof window.cmsHydrateGallery === "function") window.cmsHydrateGallery(data.pieces);
+  if (typeof window.cmsHydrateCraft === "function") window.cmsHydrateCraft(data.craft);
+}
+
+/* Repris par le module d'aperçu, qui rejoue la même requête et la même pose. */
+window.CMS_QUERY = CMS_QUERY;
+window.cmsApplyAll = cmsApplyAll;
+
 /* Une seule requête pour toute la page ; les erreurs restent silencieuses
    pour ne jamais casser l'affichage. */
 window.cmsReady = cmsQuery(CMS_QUERY)
-  .then((data) => {
-    if (!data) return;
-    cmsBind(data);
-    cmsHydrateSeo(data);
-    cmsHydrateSettings(data);
-    cmsRefreshRange();
-    cmsHydrateHome(data.home, data.pieces);
-    if (typeof window.cmsHydrateGallery === "function") window.cmsHydrateGallery(data.pieces);
-    if (typeof window.cmsHydrateCraft === "function") window.cmsHydrateCraft(data.craft);
-  })
+  .then(cmsApplyAll)
   .catch(() => {
     /* CMS injoignable : le contenu écrit dans les pages reste affiché. */
   });
+
+/*
+ * Aperçu dans l'espace d'édition : le module n'est chargé que si la page est
+ * affichée dans un cadre, ce qui n'arrive jamais chez un visiteur. Il pèse
+ * plusieurs centaines de kilo-octets et n'a rien à faire en production.
+ */
+if (window.top !== window.self) {
+  const script = document.createElement("script");
+  script.src = "js/preview.bundle.js";
+  script.defer = true;
+  document.head.appendChild(script);
+}

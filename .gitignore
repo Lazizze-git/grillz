@@ -13,3 +13,4 @@
 
 # Pages calculées avant envoi sur le serveur
 dist/
+js/preview.bundle.js

@@ -9,7 +9,8 @@
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "prerender": "node scripts/prerender.mjs"
+    "prerender": "node scripts/prerender.mjs",
+    "build:preview": "node scripts/build-preview.mjs"
   },
   "dependencies": {
     "@sanity/vision": "^6.8.0",
@@ -19,7 +20,11 @@
     "styled-components": "^6.1.15"
   },
   "devDependencies": {
-    "typescript": "^5.9.3",
-    "jsdom": "^29.1.1"
+    "@sanity/client": "^8.3.0",
+    "@sanity/core-loader": "^2.2.1",
+    "@sanity/visual-editing": "^6.1.1",
+    "esbuild": "^0.28.2",
+    "jsdom": "^29.1.1",
+    "typescript": "^5.9.3"
   }
 }

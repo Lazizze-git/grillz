@@ -10,6 +10,9 @@ const CMS = {
   timeoutMs: 3000
 };
 
+/* Lue par le module d'aperçu, qui interroge le même projet. */
+window.CMS_CONFIG = CMS;
+
 /** Requête GROQ vers le CDN de Sanity (réponse mise en cache, purgée à chaque publication). */
 function cmsQuery(groq) {
   const url =

@@ -43,6 +43,10 @@ jobs:
         working-directory: studio
         run: npm ci
 
+      - name: Assembler le module d'aperçu
+        working-directory: studio
+        run: npm run build:preview
+
       - name: Inscrire le contenu publié dans les pages
         working-directory: studio
         run: npm run prerender
