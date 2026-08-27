@@ -11,7 +11,14 @@ import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const SITE = resolve(here, "../..");
-const IMG = (file) => "image@file://" + resolve(SITE, "assets/img", file);
+
+/**
+ * Les photos sont désignées relativement au fichier NDJSON : l'import les
+ * résout depuis son dossier. Un chemin absolu enfermerait le contenu de
+ * départ dans la machine qui l'a produit — il doit rester importable
+ * de n'importe où, y compris depuis une intégration continue.
+ */
+const IMG = (file) => "image@file://./../../assets/img/" + file;
 
 /* Le dictionnaire du site sert de source pour les traductions anglaises. */
 const dict = (() => {

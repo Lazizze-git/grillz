@@ -1,0 +1,107 @@
+# Prépare le projet Sanity sans rien avoir à taper : contenu de départ,
+# photos, origines autorisées et mise en ligne de l'espace d'édition.
+#
+# Se lance à la main depuis l'onglet Actions de GitHub.
+# Nécessite un secret SANITY_AUTH_TOKEN (jeton d'API, rôle Administrator).
+
+name: Préparer Sanity
+
+on:
+  workflow_dispatch:
+    inputs:
+      studio_host:
+        description: "Nom de l'espace d'édition, sans « .sanity.studio »"
+        required: true
+        default: maison-alliani
+      import_content:
+        description: "Importer le contenu de départ et les photos"
+        type: boolean
+        default: true
+      deploy_studio:
+        description: "Mettre l'espace d'édition en ligne"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  preparer:
+    runs-on: ubuntu-latest
+    env:
+      SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+      SANITY_IMPORT_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: studio/package-lock.json
+
+      - name: Vérifier le jeton
+        run: |
+          if [ -z "$SANITY_AUTH_TOKEN" ]; then
+            echo "::error::Le secret SANITY_AUTH_TOKEN est absent. À créer dans Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          echo "Jeton présent."
+
+      - name: Installer les dépendances
+        working-directory: studio
+        run: npm ci
+
+      - name: Importer le contenu de départ et les photos
+        if: inputs.import_content
+        working-directory: studio
+        # « --missing » ne touche à rien de ce qui existe déjà : relancer ce
+        # workflow n'écrasera jamais le travail du client.
+        run: npx sanity dataset import scripts/seed.ndjson production --missing
+
+      - name: Déclarer les origines autorisées
+        working-directory: studio
+        run: |
+          for origine in \
+            https://maison-alliani.com \
+            https://www.maison-alliani.com \
+            http://localhost:5502
+          do
+            if npx sanity cors add "$origine" --no-credentials -y; then
+              echo "  ajoutée : $origine"
+            else
+              echo "  déjà déclarée (ou refusée) : $origine"
+            fi
+          done
+
+      - name: Mettre l'espace d'édition en ligne
+        if: inputs.deploy_studio
+        working-directory: studio
+        run: npx sanity deploy -y --title "Maison Alliani" --url "${{ inputs.studio_host }}"
+
+      - name: Conserver l'identifiant d'application
+        # Sanity attribue cet identifiant au premier déploiement et l'écrit
+        # dans sanity.cli.ts. Sans lui, le déploiement suivant repartirait
+        # sur une nouvelle application.
+        run: |
+          if git diff --quiet -- studio/sanity.cli.ts; then
+            echo "Aucun identifiant nouveau à enregistrer."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add studio/sanity.cli.ts
+          git commit -m "Identifiant d'application du Studio, attribué au déploiement"
+          git push
+
+      - name: Récapitulatif
+        run: |
+          {
+            echo "### Sanity est prêt"
+            echo ""
+            echo "- Espace d'édition : https://${{ inputs.studio_host }}.sanity.studio"
+            echo "- Projet : \`eh6tu5mk\`, dataset \`production\`"
+            echo ""
+            echo "Inviter le client : sanity.io/manage → Grillz → Members → Invite, rôle **Editor**."
+          } >> "$GITHUB_STEP_SUMMARY"
