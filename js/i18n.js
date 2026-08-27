@@ -49,13 +49,13 @@
 
     /* Accueil — hero */
     "Carnet ouvert · sur rendez-vous": "Order book open · by appointment",
-    "Grillz façonnés pour": "Grillz crafted for",
+    "Façonné pour": "Crafted for",
     "une seule bouche.": "one mouth only.",
     "Grillz ajouré en métal précieux porté sur un sourire, photographie noir et blanc en lumière douce":
       "Openwork precious-metal grillz worn on a smile, black-and-white photograph in soft light",
     "Porté": "Worn",
     "Atelier Lausanne": "Lausanne atelier",
-    "Grillz et pièces dentaires de haute joaillerie, ajustés au dixième de millimètre dans notre atelier de Lausanne. Empreinte, façonnage à la main, pièce unique — jamais de modèle standard, jamais de stock.":
+    "Grillz et pièces dentaires de haute joaillerie, ajustés au dixième de millimètre dans notre atelier lausannois. Empreinte, façonnage à la main, pièce unique — jamais de modèle standard, jamais de stock.":
       "High-jewellery grillz and dental pieces, fitted to a tenth of a millimetre in our Lausanne atelier. Impression, hand crafting, one-of-a-kind piece — never a standard model, never stock.",
     "Dès 170 CHF": "From CHF 170",
     "2–4 semaines": "2–4 weeks",

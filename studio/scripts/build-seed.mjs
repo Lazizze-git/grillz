@@ -198,9 +198,6 @@ function autoEn(node) {
  *  Textes du site
  * ------------------------------------------------------------------------ */
 
-const HERO_SUB =
-  "Grillz et pièces dentaires de haute joaillerie, ajustés au dixième de millimètre dans notre atelier de Lausanne. Empreinte, façonnage à la main, pièce unique — jamais de modèle standard, jamais de stock.";
-
 const PORTRAIT = [
   "Technicienne-dentiste depuis 1978, j'ai exercé mon métier avec passion, précision et exigence de qualité pour la satisfaction de ma clientèle. Au fil des décennies, j'ai acquis une solide expérience technique et esthétique en travaillant comme salariée, puis comme indépendante depuis 1993.",
   "Tout au long de ma carrière, je me suis investie dans la profession en tant que formatrice d'apprentis, experte aux examens et présidente de l'association des laboratoires dentaires pour la section vaudoise durant trois ans. Transmettre mon savoir-faire et contribuer à l'évolution de ma profession sont des valeurs essentielles pour moi.",
@@ -226,9 +223,10 @@ const homePage = {
   },
   heroCaption: "Porté // Atelier Lausanne",
   heroCaptionEn: "Worn // Lausanne atelier",
-  heroTitleTop: "Grillz façonnés pour",
+  heroTitleTop: "Façonné pour",
   heroTitleBottom: "une seule bouche.",
-  heroSub: HERO_SUB,
+  heroSub:
+    "Grillz et pièces dentaires de haute joaillerie, ajustés au dixième de millimètre dans notre atelier lausannois. Empreinte, façonnage à la main, pièce unique — jamais de modèle standard, jamais de stock.",
   metrics: ["Dès 170 CHF", "2–4 semaines", "Envoi international"],
   heroCtaPrimary: "Voir le catalogue",
   heroCtaSecondary: "Prendre rendez-vous",
