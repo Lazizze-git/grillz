@@ -10,6 +10,11 @@ export default defineCliConfig({
   studioHost: "maisonalliani",
   deployment: {
     appId: "i9dqd48iq4wrr31algpe7z02",
-    autoUpdates: true
+    /* Studio autonome : tout son code part au déploiement, rien n'est
+       récupéré à l'ouverture. Un réseau qui filtre sanity-cdn.com laisserait
+       sinon l'espace d'édition tourner sans fin sur « Loading document ».
+       Contrepartie : les mises à jour de Sanity arrivent au prochain
+       déploiement, plus toutes seules. */
+    autoUpdates: false
   }
 });
