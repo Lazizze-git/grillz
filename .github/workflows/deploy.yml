@@ -3,6 +3,11 @@ name: Deploy to Infomaniak
 on:
   push:
     branches: [main]
+    # L'espace d'édition et les workflows ne font pas partie du site :
+    # les modifier n'a aucune raison de renvoyer les pages en production.
+    paths-ignore:
+      - 'studio/**'
+      - '.github/**'
   workflow_dispatch:
 
 jobs:
