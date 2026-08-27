@@ -1,12 +1,12 @@
-import {
-  CogIcon,
-  DiamondIcon,
-  EnvelopeIcon,
-  HomeIcon,
-  ImagesIcon,
-  SparklesIcon,
-  ThListIcon
-} from "@sanity/icons";
+/* Les icônes s'importent une par une : la racine du paquet n'en exporte
+   aucune, et tout charger alourdirait l'espace d'édition pour rien. */
+import { CogIcon } from "@sanity/icons/Cog";
+import { DiamondIcon } from "@sanity/icons/Diamond";
+import { EnvelopeIcon } from "@sanity/icons/Envelope";
+import { HomeIcon } from "@sanity/icons/Home";
+import { ImagesIcon } from "@sanity/icons/Images";
+import { ListIcon } from "@sanity/icons/List";
+import { SparklesIcon } from "@sanity/icons/Sparkles";
 import type { StructureResolver } from "sanity/structure";
 
 type Builder = Parameters<StructureResolver>[0];
@@ -30,7 +30,7 @@ export const structure: StructureResolver = (S) =>
     .items([
       page(S, "homePage", "Page d'accueil", HomeIcon),
       page(S, "craftPage", "Page Savoir-faire", SparklesIcon),
-      page(S, "processPage", "Page Processus", ThListIcon),
+      page(S, "processPage", "Page Processus", ListIcon),
       page(S, "galleryPage", "Page Galerie", ImagesIcon),
       page(S, "contactPage", "Page Contact", EnvelopeIcon),
       S.divider(),
