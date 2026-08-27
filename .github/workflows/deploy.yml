@@ -1,14 +1,31 @@
+# Envoie le site sur Infomaniak, contenu déjà inscrit dans les pages.
+#
+# Trois déclencheurs :
+#   - une modification du site dans le dépôt
+#   - une publication depuis l'espace d'édition (via son déclencheur)
+#   - un lancement à la main depuis l'onglet Actions
+
 name: Deploy to Infomaniak
 
 on:
   push:
     branches: [main]
-    # L'espace d'édition et les workflows ne font pas partie du site :
-    # les modifier n'a aucune raison de renvoyer les pages en production.
+    # Ce qui ne change pas ce que reçoit le visiteur n'a pas à le renvoyer.
     paths-ignore:
-      - 'studio/**'
       - '.github/**'
+      - 'studio/schemaTypes/**'
+      - 'studio/structure.ts'
+      - 'studio/sanity.*'
+      - 'studio/README.md'
+  repository_dispatch:
+    types: [sanity-publish]
   workflow_dispatch:
+
+# Une publication et un envoi de code au même moment ne doivent pas se
+# marcher dessus : le second attend la fin du premier.
+concurrency:
+  group: deploy-infomaniak
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -16,12 +33,39 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Deploy via FTPS
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: studio/package-lock.json
+
+      - name: Installer les dépendances
+        working-directory: studio
+        run: npm ci
+
+      - name: Inscrire le contenu publié dans les pages
+        working-directory: studio
+        run: npm run prerender
+
+      - name: Envoyer sur le serveur
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
-          local-dir: ./
+          local-dir: ./dist/
           server-dir: ./
+
+      - name: Récapitulatif
+        run: |
+          {
+            echo "### Site déployé"
+            echo ""
+            echo "Pages calculées avec le contenu publié : plus aucune photo"
+            echo "écrite en dur ne subsiste dans le HTML livré."
+            if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+              echo ""
+              echo "Déclenché par une publication depuis l'espace d'édition."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

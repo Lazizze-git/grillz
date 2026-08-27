@@ -71,18 +71,40 @@ Le site est bilingue. Les textes d'origine sont déjà traduits ; pour un texte
 **modifié ou ajouté**, remplir aussi le bloc replié « Traduction anglaise ».
 Sans traduction, la version anglaise affiche le texte français.
 
+## Quand une modification apparaît-elle sur le site ?
+
+Une modification **publiée** part sur le site en une minute environ : la
+publication déclenche le recalcul des pages, qui sont renvoyées sur le
+serveur avec le nouveau contenu déjà inscrit dedans.
+
+En attendant ce recalcul, le site va lui-même chercher le contenu publié à
+chaque ouverture de page : la modification est donc visible tout de suite,
+même avant que les pages aient été renvoyées.
+
+Un brouillon non publié n'apparaît nulle part, sauf pour vous dans l'espace
+d'édition.
+
 ## Si le CMS est indisponible
 
-Le site continue de fonctionner : chaque page contient une version de secours
-du contenu, écrite dans le code. Rien ne casse, rien ne disparaît.
+Le site continue de fonctionner : les pages livrées contiennent déjà tout le
+contenu. Rien ne casse, rien ne disparaît.
 
 ---
 
 ## Notes techniques
 
 - Projet Sanity `eh6tu5mk`, dataset `production` (public en lecture seule).
-- Le site interroge l'API depuis le navigateur, sans clé secrète, et
-  reconstruit les pages avant l'initialisation des modules.
+- Les pages livrées au visiteur sont **calculées à la publication**
+  (`studio/scripts/prerender.mjs`) : le contenu et les adresses des photos y
+  sont déjà inscrits. Aucune photo écrite en dur ne subsiste dans le HTML
+  livré, donc aucune ancienne photo n'apparaît le temps d'un chargement, et
+  les moteurs de recherche lisent le vrai contenu.
+- Le calcul n'écrit pas une seconde fois la logique de liaison : il exécute
+  les fichiers `js/cms-*.js` du site dans un DOM simulé (`jsdom`). Ce qui est
+  calculé et ce qui s'exécute chez le visiteur ne peuvent pas diverger.
+- Le site interroge malgré tout l'API depuis le navigateur, sans clé secrète :
+  une modification publiée est visible avant même que les pages aient été
+  recalculées.
 - `js/cms-client.js` contient le moteur de liaison. Les pages portent des
   attributs qui désignent un champ par son chemin :
 
@@ -111,6 +133,8 @@ du contenu, écrite dans le code. Rien ne casse, rien ne disparaît.
 npm install            # une seule fois
 npm run dev            # espace d'édition en local : http://localhost:3333
 npm run deploy         # met en ligne https://maisonalliani.sanity.studio
+
+npm run prerender      # calcule les pages dans dist/, avec le contenu publié
 
 node scripts/build-seed.mjs                                  # régénère le contenu de départ
 npx sanity dataset import scripts/seed.ndjson production --replace

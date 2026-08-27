@@ -10,3 +10,6 @@
 
 # Outils locaux
 .claude/
+
+# Pages calculées avant envoi sur le serveur
+dist/
