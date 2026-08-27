@@ -255,8 +255,13 @@ window.cmsReady = cmsQuery(CMS_QUERY)
  * plusieurs centaines de kilo-octets et n'a rien à faire en production.
  */
 if (window.top !== window.self) {
+  const style = document.createElement("link");
+  style.rel = "stylesheet";
+  style.href = "/js/preview.bundle.css";
+  document.head.appendChild(style);
+
   const script = document.createElement("script");
-  script.src = "js/preview.bundle.js";
+  script.src = "/js/preview.bundle.js";
   script.defer = true;
   document.head.appendChild(script);
 }
