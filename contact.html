@@ -89,11 +89,20 @@
         <div class="contact">
           <!-- Formulaire multi-étapes -->
           <form class="cocreation" novalidate>
-            <!-- Piège à robots : hors écran, jamais rempli par un visiteur -->
+            <!-- Pièges à robots : hors écran, jamais remplis par un visiteur.
+                 Le second s'appelle « website » : les robots remplissent
+                 systématiquement un champ portant ce nom. -->
             <p class="hp" aria-hidden="true">
               <label for="site">Laissez ce champ vide</label>
               <input type="text" id="site" name="site" tabindex="-1" autocomplete="off" />
+              <label for="website">Laissez ce champ vide</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
             </p>
+
+            <!-- Jeton de page : écrit par js/form.js à l'ouverture. Un robot qui
+                 poste sans afficher la page ne peut pas le produire, et le
+                 serveur y lit le temps de remplissage. -->
+            <input type="hidden" name="jeton" value="" />
 
             <div class="cocreation__progress" aria-hidden="true">
               <span class="is-done"></span><span></span><span></span><span></span><span></span>

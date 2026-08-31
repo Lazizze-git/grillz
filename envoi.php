@@ -14,6 +14,9 @@ const DESTINATAIRE = "alan.alliani2503@gmail.com";
 /** Expéditeur technique : doit appartenir au domaine, sinon SPF rejette l'envoi. */
 const EXPEDITEUR = "contact@maison-alliani.com";
 
+/* Filtre anti-spam : cinq couches, dans un fichier à part. */
+require_once __DIR__ . "/spam-filter.php";
+
 const MAX_FICHIERS = 5;
 const MAX_OCTETS = 4194304;   /* 4 Mo par photo */
 const MAX_TOTAL = 12582912;   /* 12 Mo toutes photos confondues */
@@ -37,9 +40,11 @@ if (!$_POST && (int) ($_SERVER["CONTENT_LENGTH"] ?? 0) > 0) {
     repondre(413, ["ok" => false, "error" => "Vos photos sont trop lourdes."]);
 }
 
-/* Piège à robots : le champ est hors écran, un visiteur ne le remplit jamais.
-   On répond « envoyé » sans rien faire, pour ne pas renseigner le spammeur. */
-if (trim((string) ($_POST["site"] ?? "")) !== "") {
+/* Pièges à robots : les champs sont hors écran, un visiteur ne les remplit
+   jamais. On répond « envoyé » sans rien faire, pour ne pas renseigner le
+   spammeur. Le reste du filtre attend d'avoir les champs validés. */
+if (antispam_piege_declenche($_POST)) {
+    antispam_journaliser("ECARTE", 99, ["champ-piege (bloquant)"], antispam_ip($_SERVER), $_POST);
     repondre(200, ["ok" => true]);
 }
 
@@ -54,6 +59,15 @@ $email = champ("email");
 
 if ($prenom === "" || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     repondre(422, ["ok" => false, "error" => "Prénom ou adresse e-mail manquants."]);
+}
+
+/* Score de contenu, jeton de page, fréquence, doublon. Un message écarté
+   reçoit exactement la même réponse qu'un message accepté : le robot ne doit
+   pas pouvoir déduire ce qui l'a fait échouer, sinon il adapte son message.
+   Le détail part au journal, dans un dossier interdit d'accès web. */
+$antispam = antispam_filtrer($_POST, $_SERVER);
+if (!$antispam["accepte"]) {
+    repondre(200, ["ok" => true]);
 }
 
 /* Aucun saut de ligne dans ce qui part en en-tête : c'est la porte d'entrée
@@ -108,6 +122,10 @@ $texte = implode("\r\n", [
     "Message :",
     champ("message") ?: "—",
     "",
+    "--",
+    "Anti-spam : score " . $antispam["score"] . "/" . ANTISPAM_SEUIL
+        . ($antispam["raisons"] ? " (" . implode(", ", $antispam["raisons"]) . ")" : "")
+        . " — IP " . $antispam["ip"],
 ]);
 
 /* Photos de référence : on ne garde que de vraies images, dans les limites fixées. */

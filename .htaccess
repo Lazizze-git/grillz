@@ -1,6 +1,23 @@
 # Maison Alliani — configuration Apache (hébergement Infomaniak)
 # Domaine canonique : https://maison-alliani.com (sans www)
 
+# ---- Fichiers de service : jamais servis au visiteur ----
+# spam-filter.php est inclus par envoi.php ; il n'a aucune existence publique.
+<FilesMatch "^spam-filter\.php$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Dossier de travail du filtre (journal, compteurs, empreintes). Il se crée
+# tout seul côté serveur et pose aussi son propre .htaccess : le déploiement
+# FTP ne l'emporte pas avec lui.
+RedirectMatch 403 ^/\.antispam(/|$)
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 

@@ -60,6 +60,14 @@ jobs:
           protocol: ftps
           local-dir: ./dist/
           server-dir: ./
+          # Le dossier de travail du filtre anti-spam vit sur le serveur et
+          # n'existe pas dans le dépôt : la synchronisation doit l'ignorer,
+          # sous peine d'emporter le journal et les compteurs à chaque envoi.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.antispam/**
 
       - name: Récapitulatif
         run: |

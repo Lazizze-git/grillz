@@ -25,7 +25,7 @@ const OUT = resolve(process.argv[2] || join(SITE, "dist"));
 const PAGES = ["index.html", "savoir-faire.html", "processus.html", "galerie.html", "contact.html"];
 
 /* Ce qui part sur le serveur en plus des pages. */
-const STATIC = ["css", "js", "assets", "envoi.php", ".htaccess", "robots.txt", "sitemap.xml", "favicon.svg"];
+const STATIC = ["css", "js", "assets", "envoi.php", "spam-filter.php", ".htaccess", "robots.txt", "sitemap.xml", "favicon.svg"];
 
 /* Le moteur de liaison du site, dans son ordre de chargement. */
 const ENGINE = ["js/cms-client.js", "js/cms-gallery.js", "js/cms-content.js"];

@@ -14,3 +14,6 @@
 # Pages calculées avant envoi sur le serveur
 dist/
 js/preview.bundle.*
+
+# Dossier de travail du filtre anti-spam (créé sur le serveur)
+.antispam/

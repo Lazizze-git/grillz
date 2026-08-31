@@ -7,6 +7,23 @@ function initForm() {
   const form = document.querySelector(".cocreation");
   if (!form) return;
 
+  /* Jeton de page — horodatage d'ouverture suivi d'une somme de contrôle que
+     spam-filter.php recalcule à l'identique. Un robot qui poste directement
+     sur envoi.php, sans jamais afficher la page, ne peut pas le produire ; le
+     serveur en déduit aussi le temps de remplissage. Le sel et la boucle
+     doivent rester identiques des deux côtés (voir tests/). */
+  const SEL_JETON = "antispam-v1";
+  const jeton = form.querySelector('[name="jeton"]');
+  if (jeton) {
+    const secondes = Math.floor(Date.now() / 1000);
+    const source = SEL_JETON + ":" + secondes;
+    let hash = 0;
+    for (let i = 0; i < source.length; i++) {
+      hash = (hash * 31 + source.charCodeAt(i)) >>> 0;
+    }
+    jeton.value = secondes + "." + hash.toString(36);
+  }
+
   const steps = Array.from(form.querySelectorAll(".fstep"));
   const bars = Array.from(form.querySelectorAll(".cocreation__progress span"));
   const success = form.querySelector(".form-success");
