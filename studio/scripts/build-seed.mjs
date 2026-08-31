@@ -111,29 +111,6 @@ const PIECES = [
   }
 ];
 
-const pieceDoc = (p, i) => ({
-  _id: "piece-" + p.ref.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-  _type: "piece",
-  name: p.name,
-  ref: p.ref,
-  categories: p.categories,
-  tag: p.tag, tagEn: en(p.tag),
-  material: p.material, materialEn: en(p.material),
-  teeth: p.teeth, teethEn: en(p.teeth),
-  duration: p.duration, durationEn: en(p.duration),
-  style: p.style, styleEn: en(p.style),
-  featured: true,
-  order: i + 1,
-  images: p.images.map(([file, alt, label], k) => ({
-    _type: "pieceImage",
-    _key: "img" + k,
-    _sanityAsset: IMG(file),
-    alt,
-    altEn: en(alt),
-    ...(label ? { label, labelEn: en(label) } : {})
-  }))
-});
-
 /* ------------------------------------------------------------------------ *
  *  Outils de mise en forme des documents
  * ------------------------------------------------------------------------ */
@@ -212,6 +189,52 @@ const QUOTE =
  *  Documents
  * ------------------------------------------------------------------------ */
 
+/* ------------------------------------------------------------------------ *
+ *  Les réalisations, réparties entre les deux pages qui les montrent
+ *
+ *  Chaque page porte ses propres photos : la carte de l'accueil et la vue de
+ *  la galerie sont deux entrées distinctes, même quand elles partent du même
+ *  fichier. Changer l'une n'entraîne pas l'autre.
+ * ------------------------------------------------------------------------ */
+
+/** Une photo de page, avec sa description et sa traduction. */
+const photo = (file, alt) => ({ ...img(file, alt), altEn: en(alt) });
+
+/** Les cartes du catalogue de l'accueil : la première photo de chaque pièce. */
+const catalogCards = PIECES.map((p, i) => ({
+  _type: "catalogCard",
+  _key: "card-" + i,
+  image: photo(p.images[0][0], p.images[0][1]),
+  name: p.name,
+  ref: p.ref,
+  material: p.material,
+  materialEn: en(p.material),
+  duration: p.duration,
+  durationEn: en(p.duration)
+}));
+
+/** Les vues de la galerie : chaque photo de chaque pièce, référencée MA-02·B. */
+const galleryTiles = PIECES.flatMap((p, i) =>
+  p.images.map(([file, alt, label], k) => ({
+    _type: "galleryTile",
+    _key: "tile-" + i + "-" + k,
+    image: photo(file, alt),
+    name: k === 0 || !label ? p.name : p.name + " · " + label,
+    ref: k === 0 ? p.ref : p.ref + "·" + String.fromCharCode(65 + k),
+    tag: p.tag,
+    tagEn: en(p.tag),
+    categories: p.categories,
+    material: p.material,
+    materialEn: en(p.material),
+    teeth: p.teeth,
+    teethEn: en(p.teeth),
+    duration: p.duration,
+    durationEn: en(p.duration),
+    style: p.style,
+    styleEn: en(p.style)
+  }))
+);
+
 const homePage = {
   _id: "homePage",
   _type: "homePage",
@@ -238,6 +261,7 @@ const homePage = {
     "",
     "Aperçu de nos dernières pièces. Chaque référence est une commande unique, façonnée sur la morphologie d'une seule personne."
   ),
+  catalogCards,
   catalogNote: "Pièces uniques · sur commande",
   catalogFootLabel: "Parcourir les 9 modèles →",
 
@@ -574,6 +598,7 @@ const galleryPage = {
     { label: "Custom" }
   ]),
   countLabel: "vues",
+  tiles: galleryTiles,
 
   seo: seo("galleryPage")
 };
@@ -693,8 +718,7 @@ const docs = [
   processPage,
   galleryPage,
   contactPage,
-  siteSettings,
-  ...PIECES.map(pieceDoc)
+  siteSettings
 ].map(autoEn);
 
 const out = resolve(here, "seed.ndjson");

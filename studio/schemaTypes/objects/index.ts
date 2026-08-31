@@ -1,13 +1,14 @@
 import { careColumn } from "./careColumn";
 import { careItem } from "./careItem";
+import { catalogCard } from "./catalogCard";
 import { choiceOption } from "./choiceOption";
 import { deployBlock } from "./deployBlock";
 import { faqItem } from "./faqItem";
 import { flowStep } from "./flowStep";
+import { galleryTile } from "./galleryTile";
 import { formStep } from "./formStep";
 import { interlude } from "./interlude";
 import { materialCard } from "./materialCard";
-import { note } from "./note";
 import { pageHead } from "./pageHead";
 import { pathway } from "./pathway";
 import { processStep } from "./processStep";
@@ -20,7 +21,8 @@ import { specRow } from "./specRow";
 /** Briques réutilisées par plusieurs pages. */
 export const objectTypes = [
   siteImage,
-  note,
+  catalogCard,
+  galleryTile,
   seoBlock,
   pageHead,
   sectionHead,

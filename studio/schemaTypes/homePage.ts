@@ -109,21 +109,13 @@ export const homePage = defineType({
     /* ---------- Catalogue ---------- */
     defineField({ name: "catalogHead", title: "En-tête", type: "sectionHead", group: "catalog" }),
     defineField({
-      name: "catalogPhotosNote",
-      title: "Les photos de cette section viennent des créations",
-      description:
-        "Chaque carte affiche la première photo de sa création. Pour changer une photo, ouvrez la création ci-dessous : la nouvelle photo apparaît ici et dans la galerie.",
-      type: "note",
-      group: "catalog"
-    }),
-    defineField({
-      name: "catalogPieces",
+      name: "catalogCards",
       title: "Réalisations affichées",
       type: "array",
-      of: [{ type: "reference", to: [{ type: "piece" }] }],
+      of: [{ type: "catalogCard" }],
       group: "catalog",
       description:
-        "Les créations montrées sur l'accueil, dans l'ordre. Glissez une ligne pour la déplacer, cliquez dessus pour ouvrir la création et changer sa photo. Laissée vide, la section affiche automatiquement toutes les créations cochées « Afficher dans le catalogue »."
+        "Les cartes de la section, dans l'ordre. Chaque carte porte sa propre photo : la remplacer ne change rien ailleurs sur le site. Glissez une carte pour la déplacer, « Add item » en ajoute une. Le nombre annoncé plus bas suit tout seul."
     }),
     defineField({
       name: "catalogNote",

@@ -1,7 +1,6 @@
 /* Les icônes s'importent une par une : la racine du paquet n'en exporte
    aucune, et tout charger alourdirait l'espace d'édition pour rien. */
 import { CogIcon } from "@sanity/icons/Cog";
-import { DiamondIcon } from "@sanity/icons/Diamond";
 import { EnvelopeIcon } from "@sanity/icons/Envelope";
 import { HomeIcon } from "@sanity/icons/Home";
 import { ImagesIcon } from "@sanity/icons/Images";
@@ -33,10 +32,6 @@ export const structure: StructureResolver = (S) =>
       page(S, "processPage", "Page Processus", ListIcon),
       page(S, "galleryPage", "Page Galerie", ImagesIcon),
       page(S, "contactPage", "Page Contact", EnvelopeIcon),
-      S.divider(),
-      /* Les photos de la galerie et des cartes de l'accueil vivent ici : le
-         titre le dit, faute de quoi on les cherche dans les pages. */
-      S.documentTypeListItem("piece").title("Créations — photos du site").icon(DiamondIcon),
       S.divider(),
       page(S, "siteSettings", "Réglages du site", CogIcon)
     ]);

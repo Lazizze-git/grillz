@@ -13,13 +13,6 @@
 /* Projection commune des photos : adresse, description et point de recadrage. */
 const CMS_IMG = '{alt, altEn, hotspot, "url": asset->url}';
 
-/* Une création, telle que la lisent l'accueil et la galerie. */
-const CMS_PIECE = `{
-    name, ref, tag, tagEn, material, materialEn, teeth, teethEn,
-    duration, durationEn, style, styleEn, categories, featured,
-    images[]{alt, altEn, label, labelEn, hotspot, "url": asset->url}
-  }`;
-
 const CMS_QUERY = `{
   "settings": *[_type == "siteSettings"][0]{
     ...,
@@ -30,7 +23,7 @@ const CMS_QUERY = `{
     heroImage${CMS_IMG},
     atelierImage${CMS_IMG},
     interlude{..., image${CMS_IMG}},
-    catalogPieces[]->${CMS_PIECE}
+    catalogCards[]{..., image${CMS_IMG}}
   },
   "craft": *[_type == "craftPage"][0]{
     ...,
@@ -44,9 +37,11 @@ const CMS_QUERY = `{
     ...,
     steps[]{..., image${CMS_IMG}}
   },
-  "gallery": *[_type == "galleryPage"][0],
-  "contact": *[_type == "contactPage"][0],
-  "pieces": *[_type == "piece" && count(images) > 0] | order(order asc, name asc)${CMS_PIECE}
+  "gallery": *[_type == "galleryPage"][0]{
+    ...,
+    tiles[]{..., image${CMS_IMG}}
+  },
+  "contact": *[_type == "contactPage"][0]
 }`;
 
 /** Les pages du site, désignées par <body data-page>. */
@@ -64,29 +59,29 @@ function cmsFillSlashed(el, parts) {
   });
 }
 
-/** Une carte du catalogue de l'accueil. */
-function cmsBuildCard(piece, index, total) {
-  const card = cmsEl("article", "cat-card reveal");
-  if (index % 3) card.dataset.delay = String(index % 3);
+/** Une carte du catalogue de l'accueil, telle qu'elle est écrite dans la page. */
+function cmsBuildCard(card, index, total) {
+  const el = cmsEl("article", "cat-card reveal");
+  if (index % 3) el.dataset.delay = String(index % 3);
 
   const head = cmsEl("div", "cat-card__head");
-  head.appendChild(cmsEl("span", "cat-card__ref", piece.ref));
+  head.appendChild(cmsEl("span", "cat-card__ref", card.ref));
   head.appendChild(cmsEl("span", null, cmsPad(index + 1) + "/" + cmsPad(total)));
-  card.appendChild(head);
+  el.appendChild(head);
 
   const media = cmsEl("div", "cat-card__media");
   const img = cmsEl("img");
   img.loading = "lazy";
-  cmsSetImage(img, piece.images[0], { w: 900, h: 1125 });
+  cmsSetImage(img, card.image, { w: 900, h: 1125 });
   media.appendChild(img);
-  card.appendChild(media);
+  el.appendChild(media);
 
-  card.appendChild(cmsEl("h3", "cat-card__name", piece.name));
+  el.appendChild(cmsEl("h3", "cat-card__name", card.name));
 
   const spec = cmsEl("div", "cat-card__spec");
   [
-    ["Matière", cmsPick(piece.material, piece.materialEn)],
-    ["Délai", cmsPick(piece.duration, piece.durationEn)],
+    ["Matière", cmsPick(card.material, card.materialEn)],
+    ["Délai", cmsPick(card.duration, card.durationEn)],
     ["Prix", "Sur devis"]
   ].forEach(([label, value]) => {
     if (!value) return;
@@ -94,13 +89,13 @@ function cmsBuildCard(piece, index, total) {
     line.appendChild(cmsEl("b", null, value));
     spec.appendChild(line);
   });
-  card.appendChild(spec);
+  el.appendChild(spec);
 
   const link = cmsEl("a", "cat-card__link", "Inspecter ");
   link.href = "/galerie";
   link.appendChild(cmsEl("span", "arrow", "→"));
-  card.appendChild(link);
-  return card;
+  el.appendChild(link);
+  return el;
 }
 
 /** Le nombre de modèles annoncé suit le nombre réel de créations publiées. */
@@ -112,7 +107,7 @@ function cmsRetagCount(el, count) {
 }
 
 /** Accueil : grande photo, repères et catalogue. Le reste passe par data-cms. */
-function cmsHydrateHome(home, pieces) {
+function cmsHydrateHome(home) {
   if (home) {
     const caption = cmsPick(home.heroCaption, home.heroCaptionEn);
     if (caption) {
@@ -130,14 +125,11 @@ function cmsHydrateHome(home, pieces) {
   const catalog = document.querySelector(".catalog");
   if (!catalog) return;
 
-  /* Les créations montrées ici sont celles choisies dans la page d'accueil,
-     dans l'ordre où elles y sont rangées. Tant qu'aucune n'est désignée, le
-     catalogue reprend toutes celles qui portent la case du catalogue. */
-  const chosen = (home && home.catalogPieces ? home.catalogPieces : []).filter(Boolean);
-  const source = chosen.length ? chosen : (pieces || []).filter((p) => p.featured !== false);
-
-  /* Une création sans photo n'a pas de carte à montrer. */
-  const shown = source.filter((p) => p && p.images && p.images[0]);
+  /* Les cartes appartiennent à la page : rien n'est repris d'ailleurs.
+     Tant qu'aucune n'est écrite, celles du fichier restent affichées. */
+  const shown = (home && home.catalogCards ? home.catalogCards : []).filter(
+    (card) => card && card.image
+  );
   if (!shown.length) return;
   catalog.replaceChildren.apply(
     catalog,
@@ -273,8 +265,10 @@ function cmsApplyAll(data) {
   cmsHydrateShare(data);
   cmsHydrateSettings(data);
   cmsRefreshRange();
-  cmsHydrateHome(data.home, data.pieces);
-  if (typeof window.cmsHydrateGallery === "function") window.cmsHydrateGallery(data.pieces);
+  cmsHydrateHome(data.home);
+  if (typeof window.cmsHydrateGallery === "function") {
+    window.cmsHydrateGallery(data.gallery && data.gallery.tiles);
+  }
   if (typeof window.cmsHydrateCraft === "function") window.cmsHydrateCraft(data.craft);
 }
 

@@ -53,16 +53,6 @@ export default defineConfig({
       resolve: {
         locations: {
           ...pageLocations,
-          /* Une création apparaît dans la galerie et sur l'accueil. */
-          piece: defineLocations({
-            select: { name: "name" },
-            resolve: (doc) => ({
-              locations: [
-                { title: `Galerie — ${doc?.name ?? "création"}`, href: "/galerie" },
-                { title: "Page d'accueil", href: "/" }
-              ]
-            })
-          }),
           /* Les réglages se retrouvent sur toutes les pages. */
           siteSettings: defineLocations({
             locations: Object.values(PAGE_OF)

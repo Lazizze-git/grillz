@@ -1,68 +1,51 @@
 /**
  * Reconstruction de la galerie et de la page Savoir-faire à partir de Sanity.
- * Chaque photo d'une création devient une vue de la galerie ; la fiche
- * détaillée est ensuite gérée par gallery.js, qui lit les attributs data-*.
+ * Chaque vue de la page Galerie devient une tuile ; la fiche détaillée est
+ * ensuite gérée par gallery.js, qui lit les attributs data-*.
  */
 
-/** Vues supplémentaires d'une même pièce : MA-02, puis MA-02·B, MA-02·C… */
-function cmsViewRef(ref, index) {
-  if (!ref) return "";
-  return index === 0 ? ref : ref + "·" + String.fromCharCode(65 + index);
-}
-
-function cmsViewName(piece, image, index) {
-  const label = cmsPick(image.label, image.labelEn);
-  if (index === 0 || !label) return piece.name;
-  return piece.name + " · " + label;
-}
-
 /** Une tuile de la grille, avec les caractéristiques lues par la fiche détaillée. */
-function cmsBuildTile(piece, image, index) {
-  const tile = cmsEl("article", "tile");
-  tile.dataset.cat = (piece.categories || []).join(" ");
-  tile.dataset.ref = cmsViewRef(piece.ref, index);
-  tile.dataset.name = cmsViewName(piece, image, index);
+function cmsBuildTile(tile) {
+  const el = cmsEl("article", "tile");
+  el.dataset.cat = (tile.categories || []).join(" ");
+  el.dataset.ref = tile.ref || "";
+  el.dataset.name = tile.name || "";
   const specs = {
-    material: cmsPick(piece.material, piece.materialEn),
-    teeth: cmsPick(piece.teeth, piece.teethEn),
-    duree: cmsPick(piece.duration, piece.durationEn),
-    style: cmsPick(piece.style, piece.styleEn)
+    material: cmsPick(tile.material, tile.materialEn),
+    teeth: cmsPick(tile.teeth, tile.teethEn),
+    duree: cmsPick(tile.duration, tile.durationEn),
+    style: cmsPick(tile.style, tile.styleEn)
   };
   Object.keys(specs).forEach((key) => {
-    if (specs[key]) tile.dataset[key] = specs[key];
+    if (specs[key]) el.dataset[key] = specs[key];
   });
 
   const media = cmsEl("div", "tile__media");
-  media.appendChild(cmsEl("span", "tile__ref", tile.dataset.ref));
+  media.appendChild(cmsEl("span", "tile__ref", el.dataset.ref));
   const img = cmsEl("img");
   img.loading = "lazy";
-  cmsSetImage(img, image, { w: 900, h: 1125 });
+  cmsSetImage(img, tile.image, { w: 900, h: 1125 });
   media.appendChild(img);
 
   const foot = cmsEl("div", "tile__foot");
-  foot.appendChild(cmsEl("span", "tile__name", tile.dataset.name));
-  const tag = cmsPick(piece.tag, piece.tagEn);
+  foot.appendChild(cmsEl("span", "tile__name", el.dataset.name));
+  const tag = cmsPick(tile.tag, tile.tagEn);
   if (tag) foot.appendChild(cmsEl("span", "tile__tag", tag));
 
-  tile.appendChild(media);
-  tile.appendChild(foot);
-  return tile;
+  el.appendChild(media);
+  el.appendChild(foot);
+  return el;
 }
 
-/** Remplace la grille de la galerie par les créations publiées. */
-function cmsHydrateGallery(pieces) {
+/** Remplace la grille par les vues écrites dans la page Galerie. */
+function cmsHydrateGallery(tiles) {
   const grid = document.querySelector(".grid-gallery");
-  if (!grid || !pieces || !pieces.length) return;
+  if (!grid || !tiles || !tiles.length) return;
 
-  const tiles = [];
-  pieces.forEach((piece) => {
-    (piece.images || []).forEach((image, index) => {
-      if (image && image.url) tiles.push(cmsBuildTile(piece, image, index));
-    });
-  });
-  if (!tiles.length) return;
+  const nodes = tiles.filter((tile) => tile && tile.image).map(cmsBuildTile);
+  if (!nodes.length) return;
 
-  grid.replaceChildren.apply(grid, tiles);
+  grid.replaceChildren.apply(grid, nodes);
 }
 
 /**

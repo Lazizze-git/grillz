@@ -15,65 +15,61 @@ Studio suivent l'ordre des sections telles qu'on les voit en ligne.
 
 | Rubrique | Contenu |
 | --- | --- |
-| **Page d'accueil** | La grande photo et son titre, les trois repères, les boutons, l'en-tête du catalogue, les quatre étapes du protocole, la photo de respiration, les deux voies, le tableau des matières, la section atelier, l'entretien et les garanties, la FAQ, l'appel à l'action final. |
+| **Page d'accueil** | La grande photo et son titre, les trois repères, les boutons, l'en-tête et les cartes du catalogue, les quatre étapes du protocole, la photo de respiration, les deux voies, le tableau des matières, la section atelier, l'entretien et les garanties, la FAQ, l'appel à l'action final. |
 | **Page Savoir-faire** | Le haut de page, l'origine et le portrait de la technicienne-dentiste, la transmission, la citation, la section « Aujourd'hui », les trois piliers, les matières et les quatre gestes. |
 | **Page Processus** | Le haut de page, les quatre grandes étapes illustrées, le tableau des informations pratiques et l'encart final. |
-| **Page Galerie** | Le haut de page, les libellés des six filtres et le mot du compteur. Les pièces affichées viennent de « Créations ». |
+| **Page Galerie** | Le haut de page, les libellés des six filtres, le mot du compteur et **toutes les vues de la grille** : photo, nom, référence, étiquette, catégories et fiche détaillée. |
 | **Page Contact** | Le haut de page, les titres des cinq étapes du formulaire, les intitulés des champs, les choix proposés, les bornes du budget, la confirmation d'envoi et la colonne de droite. |
-| **Créations — photos du site** | Les pièces : nom, référence, photos, catégories, matériau, nombre de dents, délai, style. Chaque photo devient une vue dans la galerie ; la première sert de vignette sur l'accueil. |
 | **Réglages du site** | E-mail, téléphone, adresse, Instagram, le statut « Carnet ouvert », l'image de partage, les mentions du menu et tout le pied de page — repris sur toutes les pages. |
 
 ## Où se changent les photos ?
 
-Toutes les photos du site se remplacent depuis l'espace d'édition. Chacune se
-trouve dans la rubrique de la section où elle apparaît — **sauf celles des
-réalisations**, qui appartiennent aux créations et servent à deux endroits à la
-fois.
+**Chaque page porte ses propres photos.** Une photo appartient à l'endroit où
+elle s'affiche : la remplacer ne change rien ailleurs, et rien ne peut
+disparaître d'une page parce qu'on a touché à une autre.
 
 | Photo sur le site | Où la changer |
 | --- | --- |
 | Accueil — la grande photo du haut | Page d'accueil → *Haut de page* |
-| Accueil — les cartes « Réalisations récentes » | **Créations — photos du site** : la 1re photo de chaque création. La page d'accueil, rubrique *Catalogue*, dit lesquelles sont montrées et dans quel ordre. |
+| Accueil — les cartes « Réalisations récentes » | Page d'accueil → *Catalogue* → **Réalisations affichées** |
 | Accueil — la photo pleine largeur du protocole | Page d'accueil → *Protocole* |
 | Accueil — la photo de la section atelier | Page d'accueil → *Atelier* |
-| Galerie — toutes les vues | **Créations — photos du site** : chaque photo d'une création devient une vue |
+| Galerie — toutes les vues de la grille | Page Galerie → **Les vues de la galerie** |
 | Savoir-faire — le haut de page, le portrait, « Aujourd'hui », la photo pleine largeur | Page Savoir-faire, rubrique par rubrique |
 | Savoir-faire — les quatre matières | Page Savoir-faire → *Matières* |
 | Processus — les quatre étapes | Page Processus → *Étapes* |
 | L'image des liens partagés (WhatsApp, Instagram, LinkedIn, Google) | Réglages du site → *Partage* |
 
 Le cadrage se règle en cliquant sur une photo puis sur l'outil de recadrage :
-le point choisi reste visible quelle que soit la taille d'écran.
+le point choisi reste visible quelle que soit la taille d'écran. Les photos
+sont découpées en portrait 4:5 : une image verticale d'environ 1600 × 2000
+pixels donne le meilleur résultat.
 
-### Choisir les réalisations de l'accueil
+### Ajouter une réalisation sur l'accueil
 
-Page d'accueil → rubrique **Catalogue** → **Réalisations affichées**.
+Page d'accueil → **Catalogue** → **Réalisations affichées** → *Add item*.
 
-Chaque ligne montre la création et sa photo. Glisser une ligne la déplace dans
-la page ; cliquer dessus ouvre la création, où la photo se remplace. Le
-compteur « 09 modèles référencés » suit tout seul.
+Une carte demande une photo, un nom, une référence (`MA-10`), une matière et
+un délai. Glisser une carte la déplace dans la page ; la supprimer ne touche
+qu'à l'accueil. Le compteur « 09 modèles référencés » suit tout seul.
 
-Laissée vide, la section retombe sur son ancien fonctionnement : toutes les
-créations cochées « Afficher dans le catalogue de l'accueil », dans leur ordre
-d'affichage.
+### Ajouter une vue dans la galerie
+
+Page Galerie → **Les vues de la galerie** → *Add item*.
+
+Une vue demande une photo, un nom affiché, une référence et, si on veut, une
+étiquette. Les **catégories** décident sous quels filtres elle apparaît : sans
+catégorie, elle ne se voit que sous « Tout ». La *fiche détaillée* (matériau,
+pièces, fabrication, style) est ce qui s'affiche quand on ouvre la vue en grand.
+
+Une même pièce photographiée sous trois angles fait trois vues. Rien n'oblige
+à les nommer pareil ni à les mettre côte à côte : chacune est indépendante.
 
 ### Le référencement, page par page
 
 Chaque page a une rubrique **Référencement** : le titre de l'onglet (environ
 60 caractères) et la description affichée sous le titre dans Google (environ
 155 caractères). Laissés vides, les textes inscrits dans la page sont conservés.
-
-## Ajouter une création
-
-1. **Créations (galerie)** → *Create*.
-2. Renseigner le nom, la référence (ex. `MA-10`) et déposer les photos.
-3. Pour chaque photo : écrire la description (elle est lue par Google et par les
-   lecteurs d'écran) et, s'il s'agit d'un autre angle, un nom de vue
-   (« Profil », « Revers »).
-4. Cocher les catégories : elles alimentent les filtres de la galerie.
-5. *Publish*.
-
-Le compteur « 09 modèles référencés » de l'accueil se met à jour tout seul.
 
 ## Ajouter ou retirer une entrée dans une liste
 
@@ -166,6 +162,9 @@ npm run dev            # espace d'édition en local : http://localhost:3333
 npm run deploy         # met en ligne https://maisonalliani.sanity.studio
 
 npm run prerender      # calcule les pages dans dist/, avec le contenu publié
+
+# Reprise unique des anciennes « Créations » vers les pages (déjà jouée).
+SANITY_AUTH_TOKEN=… node scripts/migrate-images.mjs --dry-run
 
 node scripts/build-seed.mjs                                  # régénère le contenu de départ
 npx sanity dataset import scripts/seed.ndjson production --replace
