@@ -130,7 +130,12 @@ export const craftPage = defineType({
 
     /* ---------- Aujourd'hui ---------- */
     defineField({ name: "todayHead", title: "En-tête", type: "sectionHead", group: "today" }),
-    defineField({ name: "todayImage", title: "Photo", type: "siteImage", group: "today" }),
+    defineField({
+      name: "todayImage",
+      title: "Photo de la section « Aujourd'hui »",
+      type: "siteImage",
+      group: "today"
+    }),
     defineField({
       name: "todayRows",
       title: "Repères",

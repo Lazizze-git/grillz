@@ -16,6 +16,13 @@ export const galleryPage = defineType({
     }
   ],
   fields: [
+    defineField({
+      name: "photosNote",
+      title: "Les photos de la galerie se changent dans « Créations »",
+      description:
+        "Chaque photo d'une création devient une vue de la grille. Ouvrez « Créations — photos du site » dans le menu de gauche : ajoutez, remplacez ou retirez une photo, et la galerie suit. Ici se règlent seulement les textes qui l'entourent.",
+      type: "note"
+    }),
     defineField({ name: "pageHead", title: "Titres du haut de page", type: "pageHead" }),
     defineField({
       name: "filters",

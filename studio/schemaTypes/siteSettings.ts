@@ -12,6 +12,7 @@ export const siteSettings = defineType({
     { name: "contact", title: "Coordonnées", default: true },
     { name: "status", title: "Disponibilité" },
     { name: "nav", title: "Menu" },
+    { name: "share", title: "Partage" },
     { name: "footer", title: "Pied de page" }
   ],
   fieldsets: [
@@ -90,6 +91,17 @@ export const siteSettings = defineType({
       type: "string",
       group: "status",
       description: "Affichée après le point médian, en haut de l'accueil. Ex. : sur rendez-vous"
+    }),
+
+    /* ---------- Partage ---------- */
+    defineField({
+      name: "ogImage",
+      title: "Image de partage",
+      type: "image",
+      group: "share",
+      options: { hotspot: true },
+      description:
+        "L'image qui accompagne un lien du site envoyé sur WhatsApp, Instagram ou LinkedIn, et affichée par Google. Format paysage, 1200 × 630 pixels conseillé. Laissée vide, l'image actuelle du site est conservée."
     }),
 
     /* ---------- Menu ---------- */

@@ -13,13 +13,24 @@
 /* Projection commune des photos : adresse, description et point de recadrage. */
 const CMS_IMG = '{alt, altEn, hotspot, "url": asset->url}';
 
+/* Une création, telle que la lisent l'accueil et la galerie. */
+const CMS_PIECE = `{
+    name, ref, tag, tagEn, material, materialEn, teeth, teethEn,
+    duration, durationEn, style, styleEn, categories, featured,
+    images[]{alt, altEn, label, labelEn, hotspot, "url": asset->url}
+  }`;
+
 const CMS_QUERY = `{
-  "settings": *[_type == "siteSettings"][0],
+  "settings": *[_type == "siteSettings"][0]{
+    ...,
+    ogImage${CMS_IMG}
+  },
   "home": *[_type == "homePage"][0]{
     ...,
     heroImage${CMS_IMG},
     atelierImage${CMS_IMG},
-    interlude{..., image${CMS_IMG}}
+    interlude{..., image${CMS_IMG}},
+    catalogPieces[]->${CMS_PIECE}
   },
   "craft": *[_type == "craftPage"][0]{
     ...,
@@ -35,11 +46,7 @@ const CMS_QUERY = `{
   },
   "gallery": *[_type == "galleryPage"][0],
   "contact": *[_type == "contactPage"][0],
-  "pieces": *[_type == "piece" && count(images) > 0] | order(order asc, name asc){
-    name, ref, tag, tagEn, material, materialEn, teeth, teethEn,
-    duration, durationEn, style, styleEn, categories, featured,
-    images[]{alt, altEn, label, labelEn, hotspot, "url": asset->url}
-  }
+  "pieces": *[_type == "piece" && count(images) > 0] | order(order asc, name asc)${CMS_PIECE}
 }`;
 
 /** Les pages du site, désignées par <body data-page>. */
@@ -121,8 +128,16 @@ function cmsHydrateHome(home, pieces) {
   }
 
   const catalog = document.querySelector(".catalog");
-  if (!catalog || !pieces || !pieces.length) return;
-  const shown = pieces.filter((p) => p.featured !== false);
+  if (!catalog) return;
+
+  /* Les créations montrées ici sont celles choisies dans la page d'accueil,
+     dans l'ordre où elles y sont rangées. Tant qu'aucune n'est désignée, le
+     catalogue reprend toutes celles qui portent la case du catalogue. */
+  const chosen = (home && home.catalogPieces ? home.catalogPieces : []).filter(Boolean);
+  const source = chosen.length ? chosen : (pieces || []).filter((p) => p.featured !== false);
+
+  /* Une création sans photo n'a pas de carte à montrer. */
+  const shown = source.filter((p) => p && p.images && p.images[0]);
   if (!shown.length) return;
   catalog.replaceChildren.apply(
     catalog,
@@ -193,6 +208,31 @@ function cmsHydrateSettings(data) {
   });
 }
 
+/**
+ * L'image qui accompagne un lien du site partagé sur les réseaux, et celle
+ * que Google associe à la maison. Elle est commune à toutes les pages.
+ */
+function cmsHydrateShare(data) {
+  const url = cmsImage(data.settings && data.settings.ogImage, { w: 1200, h: 630 });
+  if (!url) return;
+
+  document
+    .querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]')
+    .forEach((meta) => meta.setAttribute("content", url));
+
+  /* La fiche lue par Google porte la même image. */
+  const ld = document.querySelector('script[type="application/ld+json"]');
+  if (!ld) return;
+  try {
+    const fiche = JSON.parse(ld.textContent);
+    if (!fiche || !fiche.image) return;
+    fiche.image = url;
+    ld.textContent = JSON.stringify(fiche, null, 2);
+  } catch (e) {
+    /* Fiche illisible : elle garde l'image écrite dans la page. */
+  }
+}
+
 /** Titre de l'onglet et description lue par Google. */
 function cmsHydrateSeo(data) {
   const page = document.body.dataset.page;
@@ -230,6 +270,7 @@ function cmsApplyAll(data) {
   if (!data) return;
   cmsBind(data);
   cmsHydrateSeo(data);
+  cmsHydrateShare(data);
   cmsHydrateSettings(data);
   cmsRefreshRange();
   cmsHydrateHome(data.home, data.pieces);

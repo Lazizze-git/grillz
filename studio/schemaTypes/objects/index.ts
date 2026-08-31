@@ -7,6 +7,7 @@ import { flowStep } from "./flowStep";
 import { formStep } from "./formStep";
 import { interlude } from "./interlude";
 import { materialCard } from "./materialCard";
+import { note } from "./note";
 import { pageHead } from "./pageHead";
 import { pathway } from "./pathway";
 import { processStep } from "./processStep";
@@ -19,6 +20,7 @@ import { specRow } from "./specRow";
 /** Briques réutilisées par plusieurs pages. */
 export const objectTypes = [
   siteImage,
+  note,
   seoBlock,
   pageHead,
   sectionHead,

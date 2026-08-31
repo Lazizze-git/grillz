@@ -109,6 +109,23 @@ export const homePage = defineType({
     /* ---------- Catalogue ---------- */
     defineField({ name: "catalogHead", title: "En-tête", type: "sectionHead", group: "catalog" }),
     defineField({
+      name: "catalogPhotosNote",
+      title: "Les photos de cette section viennent des créations",
+      description:
+        "Chaque carte affiche la première photo de sa création. Pour changer une photo, ouvrez la création ci-dessous : la nouvelle photo apparaît ici et dans la galerie.",
+      type: "note",
+      group: "catalog"
+    }),
+    defineField({
+      name: "catalogPieces",
+      title: "Réalisations affichées",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "piece" }] }],
+      group: "catalog",
+      description:
+        "Les créations montrées sur l'accueil, dans l'ordre. Glissez une ligne pour la déplacer, cliquez dessus pour ouvrir la création et changer sa photo. Laissée vide, la section affiche automatiquement toutes les créations cochées « Afficher dans le catalogue »."
+    }),
+    defineField({
       name: "catalogNote",
       title: "Mention de droite",
       type: "string",
@@ -166,7 +183,13 @@ export const homePage = defineType({
 
     /* ---------- Atelier ---------- */
     defineField({ name: "atelierHead", title: "En-tête", type: "sectionHead", group: "atelier" }),
-    defineField({ name: "atelierImage", title: "Photo", type: "siteImage", group: "atelier" }),
+    defineField({
+      name: "atelierImage",
+      title: "Photo de la section Atelier",
+      type: "siteImage",
+      group: "atelier",
+      description: "Grande photo à gauche de la phrase forte."
+    }),
     defineField({
       name: "atelierStatement",
       title: "Phrase forte",

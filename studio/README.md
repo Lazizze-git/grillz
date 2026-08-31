@@ -20,8 +20,42 @@ Studio suivent l'ordre des sections telles qu'on les voit en ligne.
 | **Page Processus** | Le haut de page, les quatre grandes étapes illustrées, le tableau des informations pratiques et l'encart final. |
 | **Page Galerie** | Le haut de page, les libellés des six filtres et le mot du compteur. Les pièces affichées viennent de « Créations ». |
 | **Page Contact** | Le haut de page, les titres des cinq étapes du formulaire, les intitulés des champs, les choix proposés, les bornes du budget, la confirmation d'envoi et la colonne de droite. |
-| **Créations (galerie)** | Les pièces : nom, référence, photos, catégories, matériau, nombre de dents, délai, style. Chaque photo devient une vue dans la galerie ; la première sert de vignette sur l'accueil. |
-| **Réglages du site** | E-mail, téléphone, adresse, Instagram, le statut « Carnet ouvert », les mentions du menu et tout le pied de page — repris sur toutes les pages. |
+| **Créations — photos du site** | Les pièces : nom, référence, photos, catégories, matériau, nombre de dents, délai, style. Chaque photo devient une vue dans la galerie ; la première sert de vignette sur l'accueil. |
+| **Réglages du site** | E-mail, téléphone, adresse, Instagram, le statut « Carnet ouvert », l'image de partage, les mentions du menu et tout le pied de page — repris sur toutes les pages. |
+
+## Où se changent les photos ?
+
+Toutes les photos du site se remplacent depuis l'espace d'édition. Chacune se
+trouve dans la rubrique de la section où elle apparaît — **sauf celles des
+réalisations**, qui appartiennent aux créations et servent à deux endroits à la
+fois.
+
+| Photo sur le site | Où la changer |
+| --- | --- |
+| Accueil — la grande photo du haut | Page d'accueil → *Haut de page* |
+| Accueil — les cartes « Réalisations récentes » | **Créations — photos du site** : la 1re photo de chaque création. La page d'accueil, rubrique *Catalogue*, dit lesquelles sont montrées et dans quel ordre. |
+| Accueil — la photo pleine largeur du protocole | Page d'accueil → *Protocole* |
+| Accueil — la photo de la section atelier | Page d'accueil → *Atelier* |
+| Galerie — toutes les vues | **Créations — photos du site** : chaque photo d'une création devient une vue |
+| Savoir-faire — le haut de page, le portrait, « Aujourd'hui », la photo pleine largeur | Page Savoir-faire, rubrique par rubrique |
+| Savoir-faire — les quatre matières | Page Savoir-faire → *Matières* |
+| Processus — les quatre étapes | Page Processus → *Étapes* |
+| L'image des liens partagés (WhatsApp, Instagram, LinkedIn, Google) | Réglages du site → *Partage* |
+
+Le cadrage se règle en cliquant sur une photo puis sur l'outil de recadrage :
+le point choisi reste visible quelle que soit la taille d'écran.
+
+### Choisir les réalisations de l'accueil
+
+Page d'accueil → rubrique **Catalogue** → **Réalisations affichées**.
+
+Chaque ligne montre la création et sa photo. Glisser une ligne la déplace dans
+la page ; cliquer dessus ouvre la création, où la photo se remplace. Le
+compteur « 09 modèles référencés » suit tout seul.
+
+Laissée vide, la section retombe sur son ancien fonctionnement : toutes les
+créations cochées « Afficher dans le catalogue de l'accueil », dans leur ordre
+d'affichage.
 
 ### Le référencement, page par page
 
@@ -38,9 +72,6 @@ Chaque page a une rubrique **Référencement** : le titre de l'onglet (environ
    (« Profil », « Revers »).
 4. Cocher les catégories : elles alimentent les filtres de la galerie.
 5. *Publish*.
-
-Le cadrage des photos se règle en cliquant sur l'image, puis sur l'outil de
-recadrage : le point choisi reste visible quelle que soit la taille d'écran.
 
 Le compteur « 09 modèles référencés » de l'accueil se met à jour tout seul.
 
