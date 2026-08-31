@@ -234,6 +234,44 @@ foreach ([1, 2] as $i) {
     printf("  envoi %d : %-6s (attendu %-6s) %s\n", $i, $r["accepte"] ? "passe" : "bloque", $attendu ? "passe" : "bloque", $ok ? "" : "*** ECHEC ***");
 }
 
+/* --- L'anti-doublon passe avant la limite de fréquence ---
+   Un visiteur qui reclique sur un envoi qui lui semble lent renvoie le même
+   message. Si la fréquence était vérifiée d'abord, chaque renvoi identique
+   lui coûterait un envoi de son quota, et son message suivant — bien réel —
+   serait écarté en silence. Les trois derniers doivent passer. */
+echo "\nTrois envois identiques puis deux messages différents (même IP) :\n";
+
+$ipReclic = "198.51.100.42";
+$srvReclic = ["HTTP_ORIGIN" => "https://" . ANTISPAM_DOMAINE, "HTTP_HOST" => ANTISPAM_DOMAINE, "REMOTE_ADDR" => $ipReclic];
+$identique = "Bonjour, je souhaiterais un grillz pleine bouche en or jaune. Quel serait le délai ?";
+
+$scenario = [
+    ["identique 1/3", $identique, true],
+    ["identique 2/3", $identique, false],
+    ["identique 3/3", $identique, false],
+    ["nouveau message 1/2", "Finalement je préfère de l'or blanc, est-ce possible ?", true],
+    ["nouveau message 2/2", "Et pouvez-vous me dire si vous recevez le samedi matin ?", true],
+];
+
+foreach ($scenario as [$libelle, $message, $attendu]) {
+    $r = antispam_filtrer(
+        ["prenom" => "Camille", "email" => "camille.reclic@example.com", "pays" => "Suisse", "message" => $message, "jeton" => jeton(90)],
+        $srvReclic
+    );
+    $ok = $r["accepte"] === $attendu;
+    if (!$ok) {
+        $echecs++;
+    }
+    printf(
+        "  %-20s : %-6s (attendu %-6s) %s%s\n",
+        $libelle,
+        $r["accepte"] ? "passe" : "bloque",
+        $attendu ? "passe" : "bloque",
+        $r["raisons"] ? implode(", ", $r["raisons"]) : "",
+        $ok ? "" : " *** ECHEC ***"
+    );
+}
+
 echo "\n", $echecs === 0 ? "Tous les cas sont conformes.\n" : $echecs . " cas non conforme(s).\n";
 
 exit($echecs === 0 ? 0 : 1);

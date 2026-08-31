@@ -15,6 +15,12 @@ dans le HTML, que le robot ne charge pas.
 | 4 | Limite de fréquence par IP | 3 envois par heure, 10 par 24 h |
 | 5 | Anti-doublon | Le même message renvoyé dans les 24 h |
 
+**L'anti-doublon est vérifié avant la limite de fréquence.** Un visiteur qui
+reclique sur un envoi qui lui semble lent renvoie le même message : si la
+fréquence passait d'abord, chaque renvoi identique lui coûterait un envoi de
+son quota horaire, et son message suivant — bien réel — serait écarté en
+silence. `tests/antispam.php` verrouille ce scénario.
+
 Le seuil de blocage est de **7 points** (`ANTISPAM_SEUIL`). Les formules de
 spam plafonnent à 6 et la vitesse de remplissage vaut 4 : ni l'une ni l'autre
 ne bloque seule, il faut toujours un second signal. Un prospect qui donne
