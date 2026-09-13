@@ -125,6 +125,15 @@
   gap: 0.6em;
 }
 
+/* Crédit de l'agence */
+.footer__bottom .credit a {
+  color: var(--paper);
+  transition: color 0.2s ease;
+}
+.footer__bottom .credit a:hover {
+  color: var(--accent-soft);
+}
+
 /* Sélecteur de langue FR / EN */
 .lang-switch {
   display: inline-flex;

@@ -247,6 +247,7 @@
     "· heure de l'atelier": "· atelier time",
     "Maison Alliani — Mentions légales": "Maison Alliani — Legal notice",
     "Fabriqué en Suisse": "Made in Switzerland",
+    "Site par": "Site by",
     "Choix de la langue": "Language",
 
     /* Savoir-faire */
