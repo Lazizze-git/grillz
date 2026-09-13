@@ -88,6 +88,13 @@ function cmsSetImage(el, image, opts) {
      gouvernée par le CSS, ces attributs ne servent que de proportions. */
   if (opts && opts.w) el.setAttribute("width", String(opts.w));
   if (opts && opts.h) el.setAttribute("height", String(opts.h));
+  /* Photo servie entière (sans hauteur imposée) : le recadrage se fait à
+     l'affichage, centré sur le point choisi dans le Studio. */
+  if (opts && opts.w && !opts.h && image.hotspot) {
+    const x = (image.hotspot.x * 100).toFixed(1);
+    const y = (image.hotspot.y * 100).toFixed(1);
+    el.style.objectPosition = x + "% " + y + "%";
+  }
   const alt = cmsPick(image.alt, image.altEn);
   if (alt) el.alt = alt;
 }

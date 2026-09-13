@@ -53,6 +53,8 @@
     "une seule bouche.": "one mouth only.",
     "Grillz ajouré en métal précieux porté sur un sourire, photographie noir et blanc en lumière douce":
       "Openwork precious-metal grillz worn on a smile, black-and-white photograph in soft light",
+    "Portrait en capuche rayée noir et blanc, grillz en métal précieux porté sur les dents":
+      "Portrait in a black-and-white striped hood, precious-metal grillz worn on the teeth",
     "Porté": "Worn",
     "Atelier Lausanne": "Lausanne atelier",
     "Grillz et pièces dentaires de haute joaillerie, ajustés au dixième de millimètre dans notre atelier lausannois. Empreinte, façonnage à la main, pièce unique — jamais de modèle standard, jamais de stock.":

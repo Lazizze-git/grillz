@@ -56,7 +56,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 45%;
+  /* Cadré sur le sourire : les grillz restent visibles à toutes les tailles */
+  object-position: 64% 53%;
   filter: grayscale(1) contrast(1.05);
 }
 .hero__visual-ref {
