@@ -42,12 +42,19 @@
   font-style: normal;
   color: var(--ink);
 }
-/* Photo héros — un client porte la pièce, pastille technique en surimpression */
+/* Photo héros — un client porte la pièce, pastille technique en surimpression.
+   Pleine largeur. Le cadre prend le format de la photo (--hero-ratio, posé par
+   js/hero-photo.js) tant que la hauteur reste raisonnable ; au-delà, la
+   hauteur est plafonnée et la photo est recadrée sur le point choisi dans le
+   Studio. Une photo verticale donne donc une bande haute, pas un ruban.
+   Sans JS : format 4:5. Le premier écran peut déborder, c'est voulu. */
 .hero__visual {
   position: relative;
   margin-top: clamp(1.6rem, 4vw, 3rem);
-  flex: 1 1 0;
-  min-height: clamp(240px, 34vh, 460px);
+  flex: 0 0 auto;
+  width: 100%;
+  aspect-ratio: var(--hero-ratio, 0.8);
+  max-height: clamp(420px, 78vh, 900px);
   overflow: hidden;
   border-radius: var(--radius);
   background: var(--bg-panel);
@@ -56,8 +63,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Cadré sur le sourire : les grillz restent visibles à toutes les tailles */
-  object-position: 64% 53%;
+  /* Position de secours, centrée sur le visage ; le point de recadrage choisi
+     dans le Studio prend le dessus (voir cmsSetImage dans js/cms-client.js). */
+  object-position: 50% 45%;
   filter: grayscale(1) contrast(1.05);
 }
 .hero__visual-ref {

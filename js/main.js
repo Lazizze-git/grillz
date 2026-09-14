@@ -18,6 +18,7 @@
   function boot() {
     safe(window.initTopoBg, "initTopoBg");
     safe(window.initScrollReveal, "initScrollReveal");
+    safe(window.initHeroPhoto, "initHeroPhoto");
     safe(window.initNav, "initNav");
     safe(window.initGallery, "initGallery");
     safe(window.initForm, "initForm");
