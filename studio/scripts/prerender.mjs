@@ -30,6 +30,38 @@ const STATIC = ["css", "js", "assets", "envoi.php", ".htaccess", "robots.txt", "
 /* Le moteur de liaison du site, dans son ordre de chargement. */
 const ENGINE = ["js/cms-client.js", "js/cms-gallery.js", "js/cms-content.js"];
 
+/* Empreinte de cette mise en ligne, ajoutée aux adresses des feuilles de
+   style et des scripts (« css/styles.css?v=abc1234 »). Un navigateur qui
+   garde l'ancienne version en cache voit une adresse nouvelle et la
+   retélécharge : chaque mise en ligne est visible tout de suite, sans vider
+   le cache. */
+const VERSION = (process.env.GITHUB_SHA || String(Date.now())).slice(0, 10);
+
+/** Ajoute l'empreinte à une adresse locale de feuille de style ou de script. */
+function stamped(url) {
+  if (!/^(css|js)\//.test(url) || url.includes("?")) return url;
+  return url + "?v=" + VERSION;
+}
+
+/** Réécrit les adresses des fichiers locaux d'une page. */
+function stampAssets(document) {
+  document.querySelectorAll('link[rel="stylesheet"][href]').forEach((el) => {
+    el.setAttribute("href", stamped(el.getAttribute("href")));
+  });
+  document.querySelectorAll("script[src]").forEach((el) => {
+    el.setAttribute("src", stamped(el.getAttribute("src")));
+  });
+}
+
+/** Les feuilles importées par styles.css reçoivent la même empreinte. */
+function stampImports(cssPath) {
+  const css = readFileSync(cssPath, "utf8").replace(
+    /@import url\("([^"?]+\.css)"\)/g,
+    (_, file) => `@import url("${file}?v=${VERSION}")`
+  );
+  writeFileSync(cssPath, css, "utf8");
+}
+
 /**
  * Une seule requête pour toutes les pages : la réponse est mise de côté.
  * L'adresse mise en cache par Sanity est remplacée par l'adresse directe —
@@ -70,6 +102,7 @@ async function render(page) {
 
   if (!window.cmsReady) throw new Error(page + " : le moteur ne s'est pas initialisé");
   await window.cmsReady;
+  stampAssets(window.document);
 
   const out = "<!DOCTYPE html>\n" + window.document.documentElement.outerHTML + "\n";
   window.close();
@@ -122,6 +155,7 @@ for (const entry of STATIC) {
   const from = join(SITE, entry);
   if (existsSync(from)) cpSync(from, join(OUT, entry), { recursive: true });
 }
+stampImports(join(OUT, "css/styles.css"));
 
 let photos = 0;
 for (const page of PAGES) {
