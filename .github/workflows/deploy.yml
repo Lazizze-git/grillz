@@ -51,9 +51,11 @@ jobs:
         working-directory: studio
         run: npm run prerender
 
-      # Le formulaire de contact écrit à l'atelier par SMTP authentifié
-      # (fonction mail() désactivée chez Infomaniak). Les identifiants viennent
-      # des secrets du dépôt et ne sont écrits que dans le dossier envoyé.
+      # Le formulaire de contact écrit à l'atelier par SMTP authentifié, via
+      # le compte Gmail de l'atelier (mail() est désactivée chez Infomaniak).
+      # SMTP_PASSWORD contient un mot de passe d'application Gmail. Les
+      # identifiants viennent des secrets du dépôt et ne sont écrits que dans
+      # le dossier envoyé.
       - name: Identifiants d'envoi du formulaire
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
@@ -62,16 +64,16 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         run: |
           if [ -z "$SMTP_PASSWORD" ]; then
-            echo "::warning::Secret SMTP_PASSWORD absent : le formulaire de contact n'enverra rien tant que la fonction mail() n'est pas activée chez Infomaniak."
+            echo "::warning::Secret SMTP_PASSWORD absent : le formulaire de contact n'enverra rien. Ajoutez le mot de passe d'application Gmail dans les secrets du dépôt."
             exit 0
           fi
           node -e '
             const q = (s) => "\x27" + String(s).replace(/\\/g, "\\\\").replace(/\x27/g, "\\\x27") + "\x27";
             const e = process.env;
             const php = "<?php\nreturn [\n" +
-              "  \"host\" => " + q(e.SMTP_HOST || "mail.infomaniak.com") + ",\n" +
+              "  \"host\" => " + q(e.SMTP_HOST || "smtp.gmail.com") + ",\n" +
               "  \"port\" => " + (parseInt(e.SMTP_PORT, 10) || 465) + ",\n" +
-              "  \"user\" => " + q(e.SMTP_USER || "contact@maison-alliani.com") + ",\n" +
+              "  \"user\" => " + q(e.SMTP_USER || "alan.alliani2503@gmail.com") + ",\n" +
               "  \"password\" => " + q(e.SMTP_PASSWORD) + ",\n" +
               "];\n";
             require("fs").writeFileSync("dist/smtp-config.php", php, { mode: 0o600 });

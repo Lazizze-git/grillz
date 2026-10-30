@@ -167,9 +167,17 @@ function entete(string $texte): string
     return "=?UTF-8?B?" . base64_encode($texte) . "?=";
 }
 
+/* Identifiants SMTP : écrits sur le serveur au déploiement, jamais dans le dépôt. */
+$fichierSmtp = __DIR__ . "/smtp-config.php";
+$configSmtp = is_file($fichierSmtp) ? require $fichierSmtp : null;
+$parSmtp = is_array($configSmtp) && !empty($configSmtp["password"]);
+
+/* Gmail n'expédie qu'au nom du compte connecté : c'est lui qui signe l'envoi. */
+$expediteur = $parSmtp ? (string) ($configSmtp["user"] ?? DESTINATAIRE) : EXPEDITEUR;
+
 /* Reply-To sur le client : répondre depuis sa boîte suffit à ouvrir l'échange. */
 $entetes = [
-    "From: " . entete("Maison Alliani") . " <" . EXPEDITEUR . ">",
+    "From: " . entete("Maison Alliani") . " <" . $expediteur . ">",
     "Reply-To: " . entete($prenomEntete) . " <" . $email . ">",
     "MIME-Version: 1.0",
 ];
@@ -200,13 +208,13 @@ if ($pieces) {
 $sujet = entete("Nouvelle demande — " . $prenom);
 
 /**
- * Envoi par SMTP authentifié, la voie recommandée par Infomaniak : la
- * fonction mail() y est désactivée par défaut, et un message non authentifié
- * finit souvent en indésirables. Lance une exception au moindre refus.
+ * Envoi par SMTP authentifié via le compte Gmail de l'atelier : la fonction
+ * mail() est désactivée chez Infomaniak, et un message non authentifié finit
+ * souvent en indésirables. Lance une exception au moindre refus.
  */
-function smtp(array $config, string $sujet, string $corps, array $entetes): void
+function smtp(array $config, string $expediteur, string $sujet, string $corps, array $entetes): void
 {
-    $hote = (string) ($config["host"] ?? "mail.infomaniak.com");
+    $hote = (string) ($config["host"] ?? "smtp.gmail.com");
     $port = (int) ($config["port"] ?? 465);
     $prefixe = $port === 465 ? "ssl://" : "tcp://";
 
@@ -242,7 +250,7 @@ function smtp(array $config, string $sujet, string $corps, array $entetes): void
     $dire("AUTH LOGIN", 334);
     $dire(base64_encode((string) $config["user"]), 334);
     $dire(base64_encode((string) $config["password"]), 235);
-    $dire("MAIL FROM:<" . EXPEDITEUR . ">", 250);
+    $dire("MAIL FROM:<" . $expediteur . ">", 250);
     $dire("RCPT TO:<" . DESTINATAIRE . ">", 250);
     $dire("DATA", 354);
 
@@ -261,13 +269,9 @@ function smtp(array $config, string $sujet, string $corps, array $entetes): void
     fclose($flux);
 }
 
-/* Identifiants SMTP : écrits sur le serveur au déploiement, jamais dans le dépôt. */
-$fichierSmtp = __DIR__ . "/smtp-config.php";
-$configSmtp = is_file($fichierSmtp) ? require $fichierSmtp : null;
-
 try {
-    if (is_array($configSmtp) && !empty($configSmtp["password"])) {
-        smtp($configSmtp, $sujet, $corps, $entetes);
+    if ($parSmtp) {
+        smtp($configSmtp, $expediteur, $sujet, $corps, $entetes);
     } elseif (function_exists("mail")) {
         if (!mail(DESTINATAIRE, $sujet, $corps, implode("\r\n", $entetes), "-f" . EXPEDITEUR)) {
             throw new RuntimeException("mail() a refusé l'envoi.");
