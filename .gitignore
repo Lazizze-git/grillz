@@ -14,3 +14,6 @@
 # Pages calculées avant envoi sur le serveur
 dist/
 js/preview.bundle.*
+
+# Identifiants SMTP du formulaire (écrits au déploiement)
+smtp-config.php

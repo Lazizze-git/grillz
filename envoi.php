@@ -20,6 +20,10 @@ const MAX_TOTAL = 12582912;   /* 12 Mo toutes photos confondues */
 
 header("Content-Type: application/json; charset=utf-8");
 
+/* Une erreur PHP ne doit jamais s'afficher dans la réponse : le formulaire
+   attend du JSON, et le message trahirait le chemin du site sur le serveur. */
+ini_set("display_errors", "0");
+
 /** Termine la requête sur une réponse JSON. */
 function repondre(int $code, array $corps): never
 {
@@ -27,6 +31,16 @@ function repondre(int $code, array $corps): never
     echo json_encode($corps, JSON_UNESCAPED_UNICODE);
     exit;
 }
+
+/* Filet de sécurité : même une erreur fatale répond en JSON. */
+register_shutdown_function(function (): void {
+    $erreur = error_get_last();
+    if ($erreur && in_array($erreur["type"], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR], true)) {
+        error_log("envoi.php : " . $erreur["message"]);
+        if (!headers_sent()) http_response_code(500);
+        echo json_encode(["ok" => false, "error" => "Le serveur n'a pas pu envoyer le message."], JSON_UNESCAPED_UNICODE);
+    }
+});
 
 if (($_SERVER["REQUEST_METHOD"] ?? "") !== "POST") {
     repondre(405, ["ok" => false, "error" => "Méthode non autorisée."]);
@@ -184,9 +198,85 @@ if ($pieces) {
 }
 
 $sujet = entete("Nouvelle demande — " . $prenom);
-$envoye = mail(DESTINATAIRE, $sujet, $corps, implode("\r\n", $entetes), "-f" . EXPEDITEUR);
 
-if (!$envoye) {
+/**
+ * Envoi par SMTP authentifié, la voie recommandée par Infomaniak : la
+ * fonction mail() y est désactivée par défaut, et un message non authentifié
+ * finit souvent en indésirables. Lance une exception au moindre refus.
+ */
+function smtp(array $config, string $sujet, string $corps, array $entetes): void
+{
+    $hote = (string) ($config["host"] ?? "mail.infomaniak.com");
+    $port = (int) ($config["port"] ?? 465);
+    $prefixe = $port === 465 ? "ssl://" : "tcp://";
+
+    $flux = stream_socket_client($prefixe . $hote . ":" . $port, $no, $msg, 15);
+    if (!$flux) throw new RuntimeException("Connexion SMTP impossible : " . $msg);
+    stream_set_timeout($flux, 15);
+
+    /* Lit une réponse, éventuellement sur plusieurs lignes, et vérifie son code. */
+    $lire = function (int $attendu) use ($flux): void {
+        $reponse = "";
+        while (($ligne = fgets($flux, 1024)) !== false) {
+            $reponse .= $ligne;
+            if (strlen($ligne) < 4 || $ligne[3] === " ") break;
+        }
+        if ((int) substr($reponse, 0, 3) !== $attendu) {
+            throw new RuntimeException("SMTP : " . trim($reponse));
+        }
+    };
+    $dire = function (string $commande, int $attendu) use ($flux, $lire): void {
+        fwrite($flux, $commande . "\r\n");
+        $lire($attendu);
+    };
+
+    $lire(220);
+    $dire("EHLO maison-alliani.com", 250);
+    if ($port === 587) {
+        $dire("STARTTLS", 220);
+        if (!stream_socket_enable_crypto($flux, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+            throw new RuntimeException("SMTP : chiffrement refusé.");
+        }
+        $dire("EHLO maison-alliani.com", 250);
+    }
+    $dire("AUTH LOGIN", 334);
+    $dire(base64_encode((string) $config["user"]), 334);
+    $dire(base64_encode((string) $config["password"]), 235);
+    $dire("MAIL FROM:<" . EXPEDITEUR . ">", 250);
+    $dire("RCPT TO:<" . DESTINATAIRE . ">", 250);
+    $dire("DATA", 354);
+
+    /* mail() ajoute lui-même To et Subject : en SMTP, c'est à nous de le faire. */
+    $message = implode("\r\n", array_merge([
+        "Date: " . date("r"),
+        "To: <" . DESTINATAIRE . ">",
+        "Subject: " . $sujet,
+        "Message-ID: <" . bin2hex(random_bytes(12)) . "@maison-alliani.com>",
+    ], $entetes)) . "\r\n\r\n" . $corps;
+
+    /* Une ligne qui commence par un point serait lue comme la fin du message. */
+    $message = (string) preg_replace('/^\./m', "..", str_replace(["\r\n", "\n"], ["\n", "\r\n"], $message));
+    $dire($message . "\r\n.", 250);
+    $dire("QUIT", 221);
+    fclose($flux);
+}
+
+/* Identifiants SMTP : écrits sur le serveur au déploiement, jamais dans le dépôt. */
+$fichierSmtp = __DIR__ . "/smtp-config.php";
+$configSmtp = is_file($fichierSmtp) ? require $fichierSmtp : null;
+
+try {
+    if (is_array($configSmtp) && !empty($configSmtp["password"])) {
+        smtp($configSmtp, $sujet, $corps, $entetes);
+    } elseif (function_exists("mail")) {
+        if (!mail(DESTINATAIRE, $sujet, $corps, implode("\r\n", $entetes), "-f" . EXPEDITEUR)) {
+            throw new RuntimeException("mail() a refusé l'envoi.");
+        }
+    } else {
+        throw new RuntimeException("Ni SMTP configuré, ni fonction mail() disponible.");
+    }
+} catch (Throwable $e) {
+    error_log("envoi.php : " . $e->getMessage());
     repondre(500, ["ok" => false, "error" => "Le serveur n'a pas pu envoyer le message."]);
 }
 
